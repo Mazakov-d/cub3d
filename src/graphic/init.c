@@ -1,20 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dmazari <dmazari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/28 13:59:15 by mniemaz           #+#    #+#             */
-/*   Updated: 2025/07/28 15:43:50 by dmazari          ###   ########.fr       */
+/*   Created: 2025/07/28 15:32:17 by dmazari           #+#    #+#             */
+/*   Updated: 2025/07/28 15:43:41 by dmazari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
-int main(void)
+void init_graphic(t_context *context)
 {
-    t_context context;
-    init_graphic(&context);
-    return (0);
+	context->mlx.mlx = mlx_init();
+	context->mlx.win = mlx_new_window(context->mlx.mlx, WIN_SIZE_X, WIN_SIZE_Y
+			, "Dodo c'est le meilleur");
+	mlx_loop(context->mlx.mlx);
 }
