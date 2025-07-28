@@ -1,0 +1,4 @@
+*.mk
+minilibx-linux
+.obj
+*.cub
