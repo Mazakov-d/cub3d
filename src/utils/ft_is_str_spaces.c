@@ -1,26 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ends_with.c                                         :+:      :+:    :+:   */
+/*   is_str_spaces.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mniemaz <mniemaz@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/28 15:28:39 by mniemaz           #+#    #+#             */
-/*   Updated: 2025/07/28 15:28:58 by mniemaz          ###   ########.fr       */
+/*   Created: 2025/07/28 19:28:30 by mniemaz           #+#    #+#             */
+/*   Updated: 2025/07/28 19:28:49 by mniemaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
-bool	ends_with(char *str, char *suffix)
+bool	ft_is_str_spaces(char *str)
 {
-	if (!str)
-		return (false);
-	size_t str_len = ft_strlen(str);
-	size_t suffix_len = ft_strlen(suffix);
-
-	if (suffix_len > str_len)
-		return (false);
-
-	return (ft_strncmp(str + str_len - suffix_len, suffix, suffix_len) == 0);
+	while (*str)
+	{
+		if (!ft_isspace(*str))
+			return (false);
+		str++;
+	}
+	return (true);
 }

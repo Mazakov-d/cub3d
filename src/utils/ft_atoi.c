@@ -1,26 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ends_with.c                                         :+:      :+:    :+:   */
+/*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mniemaz <mniemaz@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/28 15:28:39 by mniemaz           #+#    #+#             */
-/*   Updated: 2025/07/28 15:28:58 by mniemaz          ###   ########.fr       */
+/*   Created: 2024/11/05 15:44:45 by mniemaz           #+#    #+#             */
+/*   Updated: 2025/07/28 20:42:25 by mniemaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub.h"
+#include <limits.h>
+#include <stdio.h>
 
-bool	ends_with(char *str, char *suffix)
+int	ft_atoi_color(const char *nptr, int *error)
 {
-	if (!str)
-		return (false);
-	size_t str_len = ft_strlen(str);
-	size_t suffix_len = ft_strlen(suffix);
+	int				i;
+	unsigned int	res;
 
-	if (suffix_len > str_len)
-		return (false);
-
-	return (ft_strncmp(str + str_len - suffix_len, suffix, suffix_len) == 0);
+	i = 0;
+	res = 0;
+	*error = 0;
+	while (nptr[i] >= '0' && nptr[i] <= '9')
+	{
+		res = res * 10 + nptr[i++] - '0';
+		if (res > 255)
+		{
+			*error = 1;
+			return (-1);
+		}
+	}
+	if (nptr[i] != '\0')
+	{
+		*error = 1;
+		return (-1);
+	}
+	return (res);
 }

@@ -2,5 +2,5 @@
 minilibx-linux
 .obj
 *.cub
-cub
+cub3D
 .vscode

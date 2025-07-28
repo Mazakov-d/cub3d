@@ -15,14 +15,15 @@ SRCS =\
 	ft_calloc.c ft_free_tab.c ft_isalpha.c ft_isspace.c ft_split.c\
 	ft_strchr_idx.c ft_strlen.c get_next_line.c putendl_fd.c\
 	ft_dprintf.c ft_isalnum.c ft_isdigit.c ft_memcpy.c ft_strchr.c\
-	ft_strdup.c ft_tablen.c is_char_in_str.c putstr_fd.c\
-	ft_strjoin.c ft_strndup.c ends_with.c ft_strncmp.c\
+	ft_strdup.c ft_tablen.c is_char_in_str.c putstr_fd.c rm_nl.c\
+	ft_strjoin.c ft_strndup.c ends_with.c ft_strncmp.c ft_atoi.c\
+	ft_is_str_spaces.c
 
 
 
 OBJS = $(addprefix $(OBJ_DIR)/, $(SRCS:.c=.o))
 
-NAME=cub
+NAME=cub3D
 
 .PHONY : all libs clean fclean re
 
