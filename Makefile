@@ -19,7 +19,7 @@ NAME=cub
 
 .PHONY : all libs clean fclean re
 
-all: $(NAME)
+all: libs $(NAME)
 
 $(NAME): $(OBJS)
 	$(CC) $(OBJS) -L$(MLX_DIR) -lmlx_Linux -I$(MLX_DIR) -lXext -lX11 -lm -o $(NAME)
