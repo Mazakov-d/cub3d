@@ -1,24 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ends_with.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mniemaz <mniemaz@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/28 13:59:15 by mniemaz           #+#    #+#             */
-/*   Updated: 2025/07/28 15:25:11 by mniemaz          ###   ########.fr       */
+/*   Created: 2025/07/28 15:28:39 by mniemaz           #+#    #+#             */
+/*   Updated: 2025/07/28 15:28:58 by mniemaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
-int main(int ac, char **av)
+bool ends_with(char *str, char *suffix)
 {
-    if (ac != 2)
-    {
-        ft_dprintf(STDERR_FILENO, "Usage: %s <map_file>\n", av[0]);
-        return (1);
-    }
-    parse_file(av[1]);
-    return (0);
+    size_t str_len = ft_strlen(str);
+    size_t suffix_len = ft_strlen(suffix);
+
+    if (suffix_len > str_len)
+        return false;
+
+    return ft_strncmp(str + str_len - suffix_len, suffix, suffix_len) == 0;
 }

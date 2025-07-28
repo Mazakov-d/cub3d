@@ -1,24 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_isalpha.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mniemaz <mniemaz@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/28 13:59:15 by mniemaz           #+#    #+#             */
-/*   Updated: 2025/07/28 15:25:11 by mniemaz          ###   ########.fr       */
+/*   Created: 2025/04/18 16:33:04 by nle-gued          #+#    #+#             */
+/*   Updated: 2025/06/05 17:32:28 by mniemaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub.h"
-
-int main(int ac, char **av)
+int	ft_isalpha(int c)
 {
-    if (ac != 2)
-    {
-        ft_dprintf(STDERR_FILENO, "Usage: %s <map_file>\n", av[0]);
-        return (1);
-    }
-    parse_file(av[1]);
-    return (0);
+	return ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z'));
 }

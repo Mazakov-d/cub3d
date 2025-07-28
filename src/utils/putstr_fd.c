@@ -1,24 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   putstr_fd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mniemaz <mniemaz@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/28 13:59:15 by mniemaz           #+#    #+#             */
-/*   Updated: 2025/07/28 15:25:11 by mniemaz          ###   ########.fr       */
+/*   Created: 2025/04/18 16:10:12 by nle-gued          #+#    #+#             */
+/*   Updated: 2025/07/28 14:38:20 by mniemaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
-int main(int ac, char **av)
+int	ft_putstr_fd(char *s, int fd)
 {
-    if (ac != 2)
-    {
-        ft_dprintf(STDERR_FILENO, "Usage: %s <map_file>\n", av[0]);
-        return (1);
-    }
-    parse_file(av[1]);
-    return (0);
+	if (!s)
+		return (-2);
+	return (write(fd, s, ft_strlen(s)));
 }

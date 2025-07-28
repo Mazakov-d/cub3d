@@ -1,31 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   map_parsing.c                                      :+:      :+:    :+:   */
+/*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mniemaz <mniemaz@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/28 14:00:06 by mniemaz           #+#    #+#             */
-/*   Updated: 2025/07/28 15:33:21 by mniemaz          ###   ########.fr       */
+/*   Created: 2025/04/18 16:08:59 by nle-gued          #+#    #+#             */
+/*   Updated: 2025/07/28 15:17:26 by mniemaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
-void	parse_file(char *filename)
+char	*ft_strjoin(char *s1, char *s2)
 {
-	// char **map;
-	int fd;
-	if (!filename || !ends_with(filename, ".cub"))
-	{
-		ft_dprintf(STDERR_FILENO, "%s: Expected a .cub file\n", filename);
-		return ;
-	}
+	char	*result;
+	size_t	len1;
+	size_t	len2;
 
-	fd = open(filename, O_RDONLY);
-	if (fd == -1)
-	{
-		ft_dprintf(STDERR_FILENO, "%s: %s\n", filename, strerror(errno));
-		return ;
-	}
+	if (!s1 && s2)
+		return (ft_strdup(s2));
+	if (!s2 && s1)
+		return (ft_strdup(s1));
+	if (!s1 && !s2)
+		return (NULL);
+	len1 = ft_strlen(s1);
+	len2 = ft_strlen(s2);
+	result = malloc(len1 + len2 + 1);
+	if (!result)
+		return (NULL);
+	ft_memcpy(result, s1, len1);
+	ft_memcpy(result + len1, s2, len2);
+	result[len1 + len2] = '\0';
+	return (result);
 }

@@ -1,24 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_memcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mniemaz <mniemaz@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/28 13:59:15 by mniemaz           #+#    #+#             */
-/*   Updated: 2025/07/28 15:25:11 by mniemaz          ###   ########.fr       */
+/*   Created: 2025/04/18 16:06:46 by nle-gued          #+#    #+#             */
+/*   Updated: 2025/06/05 17:33:25 by mniemaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub.h"
+#include <stddef.h>
 
-int main(int ac, char **av)
+void	*ft_memcpy(void *dest, const void *src, size_t n)
 {
-    if (ac != 2)
-    {
-        ft_dprintf(STDERR_FILENO, "Usage: %s <map_file>\n", av[0]);
-        return (1);
-    }
-    parse_file(av[1]);
-    return (0);
+	char		*d;
+	const char	*s = src;
+
+	d = dest;
+	while (n--)
+		*d++ = *s++;
+	return (dest);
 }

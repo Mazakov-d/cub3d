@@ -1,24 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strndup.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mniemaz <mniemaz@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/28 13:59:15 by mniemaz           #+#    #+#             */
-/*   Updated: 2025/07/28 15:25:11 by mniemaz          ###   ########.fr       */
+/*   Created: 2025/04/23 17:00:35 by mniemaz           #+#    #+#             */
+/*   Updated: 2025/07/28 15:17:32 by mniemaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
-int main(int ac, char **av)
+char	*ft_strndup(const char *s, size_t n)
 {
-    if (ac != 2)
-    {
-        ft_dprintf(STDERR_FILENO, "Usage: %s <map_file>\n", av[0]);
-        return (1);
-    }
-    parse_file(av[1]);
-    return (0);
+	char	*copy;
+	size_t	len;
+
+	len = ft_strlen((char *)s);
+	if (n < len)
+		len = n;
+	copy = malloc((len + 1) * sizeof(char));
+	if (!copy)
+		return (NULL);
+	ft_memcpy(copy, s, len);
+	copy[len] = '\0';
+	return (copy);
 }

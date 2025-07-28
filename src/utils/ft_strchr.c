@@ -1,24 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mniemaz <mniemaz@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/28 13:59:15 by mniemaz           #+#    #+#             */
-/*   Updated: 2025/07/28 15:25:11 by mniemaz          ###   ########.fr       */
+/*   Created: 2024/11/05 20:56:48 by nle-gued          #+#    #+#             */
+/*   Updated: 2025/06/05 17:35:41 by mniemaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub.h"
+#include <stddef.h>
 
-int main(int ac, char **av)
+char	*ft_strchr(const char *string, int c)
 {
-    if (ac != 2)
-    {
-        ft_dprintf(STDERR_FILENO, "Usage: %s <map_file>\n", av[0]);
-        return (1);
-    }
-    parse_file(av[1]);
-    return (0);
+	size_t	i;
+
+	i = 0;
+	if (!string)
+		return (NULL);
+	while (string[i])
+	{
+		if (string[i] == (char)c)
+			break ;
+		i++;
+	}
+	if (string[i] == (char)c)
+		return ((char *)string + i);
+	return (0);
 }
