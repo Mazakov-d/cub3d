@@ -1,28 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_abs.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dmazari <dmazari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/28 13:59:15 by mniemaz           #+#    #+#             */
-/*   Updated: 2025/07/29 17:27:15 by dmazari          ###   ########.fr       */
+/*   Created: 2025/07/29 17:37:35 by dmazari           #+#    #+#             */
+/*   Updated: 2025/07/29 17:38:07 by dmazari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub.h"
-
-
-int main(int ac, char **av)
+double	ft_abs(double n)
 {
-    (void)ac;
-    (void)av;
-    t_context context;
-    context.map = malloc(sizeof(char *) * 4);
-    context.map[0] = "1111";
-    context.map[1] = "10P1";
-    context.map[2] = "1111";
-    context.map[3] = NULL;
-    init_ray(&context);
-    return (0);
+	if (n < 0)
+		n = -n;
+	return (n);
 }
