@@ -6,7 +6,7 @@
 /*   By: mniemaz <mniemaz@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 13:12:09 by mniemaz           #+#    #+#             */
-/*   Updated: 2025/07/29 17:25:17 by mniemaz          ###   ########.fr       */
+/*   Updated: 2025/07/29 17:30:50 by mniemaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ typedef struct s_context
 parsing
 */
 int					parse_file(t_context *ctx, char *filename);
-
+int					check_flood_fill(t_context *ctx);
 /*
 utils
 */

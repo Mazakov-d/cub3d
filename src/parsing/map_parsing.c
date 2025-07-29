@@ -6,7 +6,7 @@
 /*   By: mniemaz <mniemaz@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 14:00:06 by mniemaz           #+#    #+#             */
-/*   Updated: 2025/07/29 17:26:49 by mniemaz          ###   ########.fr       */
+/*   Updated: 2025/07/29 17:32:00 by mniemaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,5 +77,7 @@ int	parse_file(t_context *ctx, char *filename)
 		return (EXIT_FAILURE);
 	}
 	free_lines_lst(head_file_line);
+	if (check_flood_fill(ctx) == EXIT_FAILURE)
+		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }
