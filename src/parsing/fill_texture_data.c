@@ -6,7 +6,7 @@
 /*   By: mniemaz <mniemaz@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 14:10:42 by mniemaz           #+#    #+#             */
-/*   Updated: 2025/07/29 17:05:32 by mniemaz          ###   ########.fr       */
+/*   Updated: 2025/07/29 19:55:51 by mniemaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static int	fill_color(t_color *color, char *id, char *str_colors)
 		return (printf_err("fill_color: %s\n", strerror(errno)));
 	if (!color_values[0] || !color_values[1] || !color_values[2])
 	{
-		free(color_values);
+		ft_free_tab((void **)color_values);
 		return (printf_err("Invalid color: '%s'\n", str_colors));
 	}
 	color->r = (unsigned char)ft_atoi_color(color_values[0], &error);
@@ -40,7 +40,7 @@ static int	fill_color(t_color *color, char *id, char *str_colors)
 	return (EXIT_SUCCESS);
 }
 
-bool	is_texture_data_filled(t_texture_data *tex_data)
+static bool	is_texture_data_filled(t_texture_data *tex_data)
 {
 	return (tex_data->north && tex_data->south && tex_data->east
 		&& tex_data->west && tex_data->floor && tex_data->ceiling
@@ -54,23 +54,29 @@ bool	is_texture_data_filled(t_texture_data *tex_data)
  */
 static int	fill_directions(t_texture_data *tex_data, char **lines_tab)
 {
-	char	*dirs[] = {"NO", "SO", "WE", "EA"};
-	char	**to_fill[] = {&tex_data->north, &tex_data->south, &tex_data->west,
-			&tex_data->east};
+	char	*dirs[4];
+	char	**to_fill[4];
 	int		i;
 
+	dirs[0] = "NO";
+	dirs[1] = "SO";
+	dirs[2] = "WE";
+	dirs[3] = "EA";
+	to_fill[0] = &tex_data->north;
+	to_fill[1] = &tex_data->south;
+	to_fill[2] = &tex_data->west;
+	to_fill[3] = &tex_data->east;
 	i = -1;
 	while (++i < 4)
 	{
-		if (ft_strncmp(lines_tab[0], dirs[i], 3) == 0)
-		{
-			if (!lines_tab[1])
-				return (printf_err("No texture for: %s\n", dirs[i]));
-			*to_fill[i] = ft_strdup(lines_tab[1]);
-			if (!*to_fill[i])
-				return (printf_err("fill_dirs: %s\n", strerror(errno)));
-			return (EXIT_SUCCESS);
-		}
+		if (ft_strncmp(lines_tab[0], dirs[i], 3) != 0)
+			continue ;
+		if (!lines_tab[1])
+			return (printf_err("No texture for: %s\n", dirs[i]));
+		*to_fill[i] = ft_strdup(lines_tab[1]);
+		if (!*to_fill[i])
+			return (printf_err("fill_dirs: %s\n", strerror(errno)));
+		return (EXIT_SUCCESS);
 	}
 	return (EXIT_NEUTRAL);
 }
@@ -99,16 +105,6 @@ static int	process_line_fill_texture_data(t_texture_data *tex_data,
 	return (EXIT_SUCCESS);
 }
 
-static t_line	*get_start_of_map(t_line *line)
-{
-	t_line	*curr_line;
-
-	curr_line = line;
-	while (curr_line && ft_is_str_spaces(curr_line->line))
-		curr_line = curr_line->next;
-	return (curr_line);
-}
-
 /**
  * @returns a pointer to the line of the chained list where the map starts,
  */
@@ -135,7 +131,7 @@ t_line	*fill_texture_data(t_line **head_file_line, t_texture_data *tex_data)
 		ft_free_tab((void **)lines_tab);
 		curr_line = curr_line->next;
 	}
-	curr_line = get_start_of_map(curr_line);
+	curr_line = skip_spaces(curr_line);
 	if (curr_line == NULL)
 		printf_err("No map provided\n");
 	return (curr_line);

@@ -6,7 +6,7 @@
 /*   By: mniemaz <mniemaz@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 14:12:36 by mniemaz           #+#    #+#             */
-/*   Updated: 2025/07/29 17:00:59 by mniemaz          ###   ########.fr       */
+/*   Updated: 2025/07/29 19:48:54 by mniemaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ static char	**get_filled_map(int nb_map_rows, t_line *curr_line)
  */
 int	fill_map(t_context *ctx, t_line *map_start_line)
 {
-	int nb_map_rows;
+	int	nb_map_rows;
 
 	if (check_and_count_map_rows(map_start_line, &nb_map_rows) == EXIT_FAILURE)
 		return (EXIT_FAILURE);

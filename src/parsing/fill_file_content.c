@@ -6,7 +6,7 @@
 /*   By: mniemaz <mniemaz@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 14:09:25 by mniemaz           #+#    #+#             */
-/*   Updated: 2025/07/29 17:10:06 by mniemaz          ###   ########.fr       */
+/*   Updated: 2025/07/29 19:38:43 by mniemaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,15 +36,12 @@ static void	line_add_back(t_line ***head_file_line, t_line *new_line)
  */
 int	fill_file_content(t_line ***head_file_line, int fd)
 {
-	char *str;
-	t_line *new_line;
+	char	*str;
+	t_line	*new_line;
 
 	*head_file_line = malloc(sizeof(t_line *));
 	if (!*head_file_line)
-	{
-		close(fd);
 		return (printf_err("fill_file_content: %s\n", strerror(errno)));
-	}
 	**head_file_line = NULL;
 	str = get_next_line(fd);
 	while (str)
@@ -53,7 +50,6 @@ int	fill_file_content(t_line ***head_file_line, int fd)
 		if (!new_line)
 		{
 			ft_free_tab((void **)*head_file_line);
-			close(fd);
 			free(str);
 			return (printf_err("fill_file_content: %s\n", strerror(errno)));
 		}
@@ -61,6 +57,5 @@ int	fill_file_content(t_line ***head_file_line, int fd)
 		line_add_back(head_file_line, new_line);
 		str = get_next_line(fd);
 	}
-	close(fd);
 	return (EXIT_SUCCESS);
 }
