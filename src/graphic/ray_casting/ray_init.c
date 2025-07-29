@@ -1,28 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ray_init.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dmazari <dmazari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/28 13:59:15 by mniemaz           #+#    #+#             */
-/*   Updated: 2025/07/28 17:34:40 by dmazari          ###   ########.fr       */
+/*   Created: 2025/07/29 16:55:18 by dmazari           #+#    #+#             */
+/*   Updated: 2025/07/29 17:16:24 by dmazari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
-
-int main(int ac, char **av)
+void	ray_dir_calc(t_ray *ray, int i)
 {
-    (void)ac;
-    (void)av;
-    t_context context;
-    context.map = malloc(sizeof(char *) * 4);
-    context.map[0] = "1111";
-    context.map[1] = "10P1";
-    context.map[2] = "1111";
-    context.map[3] = NULL;
-    init_graphic(&context);
-    return (0);
+	ray->camera_x = (2 * i / WIN_SIZE_X) - 1;
+	
+}
+
+void	init_ray(t_context *ctx)
+{
+	t_ray	ray;
+	int		i;
+
+	i = 0;
+	ray.player.pos_x = 1;
+	ray.player.pos_y = 2;
+	ray.player.dir_x = -1;
+	ray.player.dir_y = 0;
+	ray.plane.plane_x = 0;
+	ray.plane.plane_y = 0.66;
+	while (i < WIN_SIZE_X)
+	{
+		ray_dir_cal(&ray, i);
+	}
 }

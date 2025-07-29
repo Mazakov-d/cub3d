@@ -1,31 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   map_parsing.c                                      :+:      :+:    :+:   */
+/*   ft_strchr_idx.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mniemaz <mniemaz@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/28 14:00:06 by mniemaz           #+#    #+#             */
-/*   Updated: 2025/07/28 15:33:21 by mniemaz          ###   ########.fr       */
+/*   Created: 2025/04/23 17:02:36 by mniemaz           #+#    #+#             */
+/*   Updated: 2025/06/05 17:35:21 by mniemaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub.h"
-
-void	parse_file(char *filename)
+/**
+ * @brief returns the index of the first occurrence of c in s
+ * @details if c is not found, returns -1
+ */
+int	ft_strchr_idx(const char *s, int c)
 {
-	// char **map;
-	int fd;
-	if (!filename || !ends_with(filename, ".cub"))
-	{
-		ft_dprintf(STDERR_FILENO, "%s: Expected a .cub file\n", filename);
-		return ;
-	}
+	int	i;
 
-	fd = open(filename, O_RDONLY);
-	if (fd == -1)
-	{
-		ft_dprintf(STDERR_FILENO, "%s: %s\n", filename, strerror(errno));
-		return ;
-	}
+	i = -1;
+	while (s[++i])
+		if (*(unsigned char *)(s + i) == (char)c)
+			return (i);
+	return (-1);
 }

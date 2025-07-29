@@ -1,31 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   map_parsing.c                                      :+:      :+:    :+:   */
+/*   ft_isspace.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mniemaz <mniemaz@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/28 14:00:06 by mniemaz           #+#    #+#             */
-/*   Updated: 2025/07/28 15:33:21 by mniemaz          ###   ########.fr       */
+/*   Created: 2025/06/06 10:36:26 by mniemaz           #+#    #+#             */
+/*   Updated: 2025/06/06 11:10:32 by mniemaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub.h"
-
-void	parse_file(char *filename)
+int	ft_isspace(int c)
 {
-	// char **map;
-	int fd;
-	if (!filename || !ends_with(filename, ".cub"))
-	{
-		ft_dprintf(STDERR_FILENO, "%s: Expected a .cub file\n", filename);
-		return ;
-	}
-
-	fd = open(filename, O_RDONLY);
-	if (fd == -1)
-	{
-		ft_dprintf(STDERR_FILENO, "%s: %s\n", filename, strerror(errno));
-		return ;
-	}
+	return ((c >= 9 && c <= 13) || c == 32);
 }

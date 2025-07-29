@@ -1,28 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   free_graphic.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dmazari <dmazari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/28 13:59:15 by mniemaz           #+#    #+#             */
-/*   Updated: 2025/07/28 17:34:40 by dmazari          ###   ########.fr       */
+/*   Created: 2025/07/28 16:11:35 by dmazari           #+#    #+#             */
+/*   Updated: 2025/07/28 17:37:03 by dmazari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
-
-int main(int ac, char **av)
+void free_strs(char **strs)
 {
-    (void)ac;
-    (void)av;
-    t_context context;
-    context.map = malloc(sizeof(char *) * 4);
-    context.map[0] = "1111";
-    context.map[1] = "10P1";
-    context.map[2] = "1111";
-    context.map[3] = NULL;
-    init_graphic(&context);
-    return (0);
+	int	i;
+
+	i = 0;
+	while (strs && strs[i])
+	{
+		if (strs[i])
+			free(strs[i]);
+		i++;
+	}
+	free(strs);
+}
+
+int	free_graphic(t_context *context)
+{
+	if (context->mlx.win)
+		mlx_destroy_window(context->mlx.mlx, context->mlx.win);
+	mlx_destroy_display(context->mlx.mlx);
+	free(context->mlx.mlx);
+	exit(0);
+	return (0);
 }
