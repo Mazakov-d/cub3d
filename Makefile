@@ -18,7 +18,8 @@ SRCS =\
 	ft_strdup.c ft_tablen.c is_char_in_str.c putstr_fd.c rm_nl.c\
 	ft_strjoin.c ft_strndup.c ends_with.c ft_strncmp.c ft_atoi.c\
 	ft_is_str_spaces.c free_context.c free_lines_lst.c init_context.c\
-	fill_map.c fill_texture_data.c fill_file_content.c\
+	fill_map.c fill_texture_data.c fill_file_content.c ft_strsdup.c\
+	check_flood_fill.c
 
 OBJS = $(addprefix $(OBJ_DIR)/, $(SRCS:.c=.o))
 

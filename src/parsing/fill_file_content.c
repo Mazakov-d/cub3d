@@ -6,7 +6,7 @@
 /*   By: mniemaz <mniemaz@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 14:09:25 by mniemaz           #+#    #+#             */
-/*   Updated: 2025/07/29 15:06:28 by mniemaz          ###   ########.fr       */
+/*   Updated: 2025/07/29 17:10:06 by mniemaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,10 @@ static void	line_add_back(t_line ***head_file_line, t_line *new_line)
 	last->next = new_line;
 }
 
+/**
+ * @brief Reads the file line by line and fills the linked list with each line.
+ * @returns EXIT_SUCCESS on success, EXIT_FAILURE on error.
+ */
 int	fill_file_content(t_line ***head_file_line, int fd)
 {
 	char *str;

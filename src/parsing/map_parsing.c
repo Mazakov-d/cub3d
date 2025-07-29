@@ -6,7 +6,7 @@
 /*   By: mniemaz <mniemaz@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 14:00:06 by mniemaz           #+#    #+#             */
-/*   Updated: 2025/07/29 16:59:46 by mniemaz          ###   ########.fr       */
+/*   Updated: 2025/07/29 17:11:51 by mniemaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,9 @@ void	print_texture_data(t_texture_data *tex_data)
 		tex_data->ceiling->g, tex_data->ceiling->b);
 }
 
+/**
+ * @brief Checks if the file ends with ".cub" and opens it
+ */
 static int	check_and_open_file(int *fd, char *filename)
 {
 	if (!ends_with(filename, ".cub"))
@@ -62,8 +65,7 @@ int	parse_file(t_context *ctx, char *filename)
 		return (EXIT_FAILURE);
 	if (fill_file_content(&head_file_line, fd) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
-	map_start_line = fill_texture_data(head_file_line,
-			&ctx->texture_data);
+	map_start_line = fill_texture_data(head_file_line, &ctx->texture_data);
 	if (!map_start_line)
 	{
 		free_lines_lst(head_file_line);
@@ -75,6 +77,5 @@ int	parse_file(t_context *ctx, char *filename)
 		return (EXIT_FAILURE);
 	}
 	free_lines_lst(head_file_line);
-	printf("Map success !\n");
 	return (EXIT_SUCCESS);
 }

@@ -6,7 +6,7 @@
 /*   By: mniemaz <mniemaz@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 13:12:09 by mniemaz           #+#    #+#             */
-/*   Updated: 2025/07/29 16:12:50 by mniemaz          ###   ########.fr       */
+/*   Updated: 2025/07/29 17:14:40 by mniemaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,5 +110,6 @@ t_line				*fill_texture_data(t_line **head_file_line,
 						t_texture_data *tex_data);
 int					fill_map(t_context *ctx, t_line *end_texture_data_line);
 size_t				ft_tablen(void **tab);
+char				**ft_strsdup(char **src);
 
 #endif
