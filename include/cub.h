@@ -6,13 +6,14 @@
 /*   By: mniemaz <mniemaz@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 13:12:09 by mniemaz           #+#    #+#             */
-/*   Updated: 2025/07/29 17:14:40 by mniemaz          ###   ########.fr       */
+/*   Updated: 2025/07/29 17:25:17 by mniemaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB_H
 # define CUB_H
 
+# include "ray_casting.h"
 # include <errno.h>
 # include <fcntl.h>
 # include <math.h>
@@ -24,13 +25,15 @@
 # include <string.h>
 # include <unistd.h>
 
-# define WIN_SIZE_X 1500
-# define WIN_SIZE_Y 1000
+# define WIN_SIZE_X 1920
+# define WIN_SIZE_Y 1080
 # define BUFFER_SIZE 1024
 # define COLOR_INIT_VAL 256
 # define MAP_CHARS "NSEW01 "
 # define USER_CHARS "NSEW"
 # define EXIT_NEUTRAL 2
+# define M_PI 3.14159265358979323846
+# define FOV 60
 
 typedef struct s_color
 {
@@ -80,10 +83,14 @@ typedef struct s_context
 	t_mlx			mlx;
 }					t_context;
 
-// parsing
+/*
+parsing
+*/
 int					parse_file(t_context *ctx, char *filename);
 
-// utils
+/*
+utils
+*/
 int					ft_strlen(char *str);
 int					printf_err(const char *fmt, ...);
 int					is_char_in_str(char c, char *str);
@@ -111,5 +118,16 @@ t_line				*fill_texture_data(t_line **head_file_line,
 int					fill_map(t_context *ctx, t_line *end_texture_data_line);
 size_t				ft_tablen(void **tab);
 char				**ft_strsdup(char **src);
+
+/*
+graphic
+init.c
+*/
+void				init_graphic(t_context *context);
+
+/*
+free_graphic.c
+*/
+int					free_graphic(t_context *context);
 
 #endif
