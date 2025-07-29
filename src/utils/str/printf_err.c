@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_dprintf.c                                       :+:      :+:    :+:   */
+/*   printf_err.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mniemaz <mniemaz@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 10:00:00 by mniemaz           #+#    #+#             */
-/*   Updated: 2025/07/28 15:12:23 by mniemaz          ###   ########.fr       */
+/*   Updated: 2025/07/29 16:48:30 by mniemaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,21 @@ static int	handle_int(char *buf, int pos, const char **fmt, va_list args)
 	return (pos);
 }
 
-int	ft_dprintf(int fd, const char *fmt, ...)
+static int	handle_char(char *buf, int pos, const char **fmt, va_list args)
+{
+	char	c;
+
+	*fmt += 2;
+	c = (char)va_arg(args, int);
+	if (pos < 1023)
+		buf[pos++] = c;
+	return (pos);
+}
+
+/**
+ * @returns always EXIT_FAILURE
+ */
+int	printf_err(const char *fmt, ...)
 {
 	char	buf[1024];
 	int		pos;
@@ -92,14 +106,16 @@ int	ft_dprintf(int fd, const char *fmt, ...)
 	{
 		if (*fmt == '%' && *(fmt + 1) == 's')
 			pos = handle_string(buf, pos, &fmt, args);
-		if (*fmt == '%' && *(fmt + 1) == 'd')
+		else if (*fmt == '%' && *(fmt + 1) == 'd')
 			pos = handle_int(buf, pos, &fmt, args);
+		else if (*fmt == '%' && *(fmt + 1) == 'c')
+			pos = handle_char(buf, pos, &fmt, args);
 		else
 			buf[pos++] = *fmt++;
 	}
 	va_end(args);
 	buf[pos] = '\0';
-	if (write(fd, buf, pos) < 0)
-		return (-1);
-	return (pos);
+	if (write(STDERR_FILENO, buf, pos) < 0)
+		return (EXIT_FAILURE);
+	return (EXIT_FAILURE);
 }

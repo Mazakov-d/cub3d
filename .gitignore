@@ -4,3 +4,4 @@ minilibx-linux
 *.cub
 cub3D
 .vscode
+malloc_protection_checker

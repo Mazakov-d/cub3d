@@ -6,7 +6,7 @@ MLX_DIR=minilibx-linux
 CC=cc
 CFLAGS=-Wall -Wextra -Werror -g3 -I$(INC_DIR) -I$(MLX_DIR)
 
-vpath %.c $(SRC_DIR) $(SRC_DIR)/parsing $(SRC_DIR)/utils
+vpath %.c $(SRC_DIR) $(SRC_DIR)/parsing $(SRC_DIR)/utils $(SRC_DIR)/utils/frees $(SRC_DIR)/utils/str $(SRC_DIR)/utils/inits 
 vpath %.h $(INC_DIR)
 vpath %.o $(OBJ_DIR)
 
@@ -14,18 +14,17 @@ SRCS =\
 	main.c map_parsing.c\
 	ft_calloc.c ft_free_tab.c ft_isalpha.c ft_isspace.c ft_split.c\
 	ft_strchr_idx.c ft_strlen.c get_next_line.c putendl_fd.c\
-	ft_dprintf.c ft_isalnum.c ft_isdigit.c ft_memcpy.c ft_strchr.c\
+	printf_err.c ft_isalnum.c ft_isdigit.c ft_memcpy.c ft_strchr.c\
 	ft_strdup.c ft_tablen.c is_char_in_str.c putstr_fd.c rm_nl.c\
 	ft_strjoin.c ft_strndup.c ends_with.c ft_strncmp.c ft_atoi.c\
-	ft_is_str_spaces.c
-
-
+	ft_is_str_spaces.c free_context.c free_lines_lst.c init_context.c\
+	fill_map.c fill_texture_data.c fill_file_content.c\
 
 OBJS = $(addprefix $(OBJ_DIR)/, $(SRCS:.c=.o))
 
 NAME=cub3D
 
-.PHONY : all libs clean fclean re
+.PHONY : all libs clean fclean re debug
 
 all: libs $(NAME)
 

@@ -6,7 +6,7 @@
 /*   By: mniemaz <mniemaz@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 13:12:09 by mniemaz           #+#    #+#             */
-/*   Updated: 2025/07/28 20:43:27 by mniemaz          ###   ########.fr       */
+/*   Updated: 2025/07/29 16:12:50 by mniemaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,9 @@
 # define WIN_SIZE_Y 1000
 # define BUFFER_SIZE 1024
 # define COLOR_INIT_VAL 256
-# define VALIDE_MAP_CHARS "01NSEW "
+# define MAP_CHARS "NSEW01 "
+# define USER_CHARS "NSEW"
+# define EXIT_NEUTRAL 2
 
 typedef struct s_color
 {
@@ -49,7 +51,7 @@ typedef struct s_mlx
 	void			*win;
 }					t_mlx;
 
-typedef struct s_graphic_data
+typedef struct s_texture_data
 {
 	char			*north;
 	char			*south;
@@ -57,7 +59,7 @@ typedef struct s_graphic_data
 	char			*west;
 	t_color			*floor;
 	t_color			*ceiling;
-}					t_graphic_data;
+}					t_texture_data;
 
 typedef struct s_line
 {
@@ -74,16 +76,16 @@ typedef struct s_parsing_data
 typedef struct s_context
 {
 	char			**map;
-	t_graphic_data	graphic_data;
+	t_texture_data	texture_data;
 	t_mlx			mlx;
 }					t_context;
 
 // parsing
-void				parse_file(t_context *ctx, char *filename);
+int					parse_file(t_context *ctx, char *filename);
 
 // utils
 int					ft_strlen(char *str);
-int					ft_dprintf(int fd, const char *fmt, ...);
+int					printf_err(const char *fmt, ...);
 int					is_char_in_str(char c, char *str);
 char				*ft_strndup(const char *s, size_t n);
 char				*ft_strdup(char *s1);
@@ -98,5 +100,15 @@ int					ft_atoi_color(const char *nptr, int *error);
 char				*rm_nl(char *str);
 int					ft_isspace(int c);
 bool				ft_is_str_spaces(char *str);
+void				ft_free_tab(void **tab);
+void				free_context(t_context *ctx);
+void				free_lines_lst(t_line **head_lst);
+int					init_context(t_context *ctx);
+void				*ft_calloc(size_t nmemb, size_t size);
+int					fill_file_content(t_line ***head_file_line, int fd);
+t_line				*fill_texture_data(t_line **head_file_line,
+						t_texture_data *tex_data);
+int					fill_map(t_context *ctx, t_line *end_texture_data_line);
+size_t				ft_tablen(void **tab);
 
 #endif

@@ -1,40 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_calloc.c                                        :+:      :+:    :+:   */
+/*   ft_free_tab.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mniemaz <mniemaz@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/18 16:36:46 by nle-gued          #+#    #+#             */
-/*   Updated: 2025/06/05 17:31:29 by mniemaz          ###   ########.fr       */
+/*   Created: 2025/04/18 16:37:26 by nle-gued          #+#    #+#             */
+/*   Updated: 2025/07/29 10:27:22 by mniemaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 
-static void	ft_bzero(void *s, size_t n)
+void	ft_free_tab(void **tab)
 {
-	unsigned char	*u_s;
-	size_t			i;
+	int	i;
 
-	u_s = s;
+	if (!tab)
+		return ;
 	i = 0;
-	while (i < n)
+	while (tab[i])
 	{
-		u_s[i] = 0;
+		free(tab[i]);
 		i++;
 	}
-}
-
-void	*ft_calloc(size_t nmemb, size_t size)
-{
-	void	*mem;
-
-	if (size != 0 && nmemb > __SIZE_MAX__ / size)
-		return (NULL);
-	mem = malloc(nmemb * size);
-	if (!mem)
-		return (NULL);
-	ft_bzero(mem, nmemb * size);
-	return (mem);
+	free(tab);
 }

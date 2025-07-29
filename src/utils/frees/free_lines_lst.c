@@ -1,29 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   free_lines_lst.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mniemaz <mniemaz@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/28 13:59:15 by mniemaz           #+#    #+#             */
-/*   Updated: 2025/07/29 15:06:02 by mniemaz          ###   ########.fr       */
+/*   Created: 2025/07/29 10:47:36 by mniemaz           #+#    #+#             */
+/*   Updated: 2025/07/29 10:49:09 by mniemaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
-int main(int ac, char **av)
+void free_lines_lst(t_line **head)
 {
-    t_context ctx;
-    if (ac != 2)
-        return (printf_err("Usage: %s <map_file>\n", av[0]));
-    if (init_context(&ctx) == EXIT_FAILURE)
-        return (EXIT_FAILURE);
-    if (parse_file(&ctx, av[1]) == EXIT_SUCCESS)
+    t_line *prev;
+    t_line *curr;
+    if (!head || !*head)
+        return;
+    curr = *head;
+    while (curr)
     {
-        // le code
+        prev = curr;
+        curr = curr->next;
+        free(prev->line);
+        free(prev);
     }
-
-    free_context(&ctx);
-    return (0);
+    free(head);
 }
