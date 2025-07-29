@@ -6,12 +6,12 @@ MLX_DIR=minilibx-linux
 CC=cc
 CFLAGS=-Wall -Wextra -Werror -g3 -I$(INC_DIR) -I$(MLX_DIR)
 
-vpath %.c $(SRC_DIR) $(SRC_DIR)/parsing $(SRC_DIR)/utils $(SRC_DIR)/graphic $(SRC_DIR)/utils/frees $(SRC_DIR)/utils/str $(SRC_DIR)/utils/inits 
+vpath %.c $(SRC_DIR) $(SRC_DIR)/parsing $(SRC_DIR)/utils $(SRC_DIR)/graphic $(SRC_DIR)/utils/frees $(SRC_DIR)/utils/str $(SRC_DIR)/utils/inits  $(SRC_DIR)/graphic/ray_casting
 vpath %.h $(INC_DIR)
 vpath %.o $(OBJ_DIR)
 
 SRCS =\
-	main.c map_parsing.c init.c free_graphic.c\
+	main.c map_parsing.c init.c free_graphic.c ray_init.c\
 	ft_calloc.c ft_free_tab.c ft_isalpha.c ft_isspace.c ft_split.c\
 	ft_strchr_idx.c ft_strlen.c get_next_line.c putendl_fd.c\
 	printf_err.c ft_isalnum.c ft_isdigit.c ft_memcpy.c ft_strchr.c\

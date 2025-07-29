@@ -6,7 +6,7 @@
 /*   By: mniemaz <mniemaz@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 13:12:09 by mniemaz           #+#    #+#             */
-/*   Updated: 2025/07/29 17:30:50 by mniemaz          ###   ########.fr       */
+/*   Updated: 2025/07/29 17:42:26 by mniemaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,9 @@
 # include <stdlib.h>
 # include <string.h>
 # include <unistd.h>
+# include <stdio.h>
+# include "ray_casting.h"
+
 
 # define WIN_SIZE_X 1920
 # define WIN_SIZE_Y 1080
@@ -32,8 +35,7 @@
 # define MAP_CHARS "NSEW01 "
 # define USER_CHARS "NSEW"
 # define EXIT_NEUTRAL 2
-# define M_PI 3.14159265358979323846
-# define FOV 60
+
 
 typedef struct s_color
 {
@@ -124,6 +126,12 @@ graphic
 init.c
 */
 void				init_graphic(t_context *context);
+
+/*
+ray_init.c
+*/
+void	init_ray(t_context *ctx);
+
 
 /*
 free_graphic.c
