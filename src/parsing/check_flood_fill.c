@@ -6,7 +6,7 @@
 /*   By: mniemaz <mniemaz@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 17:12:42 by mniemaz           #+#    #+#             */
-/*   Updated: 2025/07/30 14:38:17 by mniemaz          ###   ########.fr       */
+/*   Updated: 2025/07/30 16:17:56 by mniemaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,8 @@ int	check_flood_fill(t_context *ctx)
 	if (!map)
 		return (printf_err("check_flood_fill: %s\n", strerror(errno)));
 	set_user_pos(map, &row, &col);
+	ctx->player.pos_x = col + 0.5;
+	ctx->player.pos_y = row + 0.5;
 	process_flood_fill(map, row, col);
 	if (!is_map_valid(map))
 	{

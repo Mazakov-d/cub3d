@@ -6,7 +6,7 @@
 /*   By: mniemaz <mniemaz@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 13:12:09 by mniemaz           #+#    #+#             */
-/*   Updated: 2025/07/30 14:40:47 by mniemaz          ###   ########.fr       */
+/*   Updated: 2025/07/30 16:30:14 by mniemaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 # include <unistd.h>
 
 # define WIN_SIZE_X 1920
-# define WIN_SIZE_Y 1080
+# define WIN_SIZE_Y 1000
 # define BUFFER_SIZE 1024
 # define COLOR_INIT_VAL 256
 # define MAP_CHARS "NSEW01 "
@@ -75,11 +75,19 @@ typedef struct s_parsing_data
 	int				fd;
 }					t_parsing_data;
 
+typedef struct s_player
+{
+	double			pos_x;
+	double			pos_y;
+	t_vector		p_vec;
+}					t_player;
+
 typedef struct s_context
 {
 	char			**map;
 	t_texture_data	texture_data;
 	t_mlx			mlx;
+	t_player		player;
 }					t_context;
 
 /**
@@ -88,6 +96,11 @@ typedef struct s_context
 int					parse_file(t_context *ctx, char *filename);
 int					check_flood_fill(t_context *ctx);
 t_line				*skip_spaces(t_line *line);
+
+/**
+ * 2Dtests
+ */
+void				display_2d_map(t_context *ctx);
 
 /**
  * utils
@@ -133,8 +146,18 @@ void				init_graphic(t_context *context);
 void				init_ray(t_context *ctx);
 
 /**
+ * ray_man.c
+ */
+void				ray_man(t_context *ctx, t_vector dir, double square_x, double square_y);
+
+/**
  * free_graphic.c
  */
 int					free_graphic(t_context *context);
+
+/**
+ * vector/ft_vector.c
+ */
+void				init_vector(t_vector *v, double x, double y);
 
 #endif

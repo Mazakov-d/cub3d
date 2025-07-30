@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmazari <dmazari@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mniemaz <mniemaz@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 15:32:17 by dmazari           #+#    #+#             */
-/*   Updated: 2025/07/30 13:54:03 by dmazari          ###   ########.fr       */
+/*   Updated: 2025/07/30 15:10:44 by mniemaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ void	init_graphic(t_context *context)
 			"Dodo c'est le meilleur");
 	mlx_key_hook(context->mlx.win, key_hook, context);
 	mlx_hook(context->mlx.win, 17, 0L, free_graphic, (void *)context);
+	display_2d_map(context);
 	mlx_loop(context->mlx.mlx);
 }
 
@@ -39,7 +40,7 @@ void	init_graphic(t_context *context)
 // 	float	pos_x = 2.5f;
 // 	float	pos_y = 1.5f;
 // 	// (void)ctx;
-	
+
 // 	// float touch_point_x;
 // 	// float touch_point_y;
 // 	while (ctx->map[(int)floor(pos_y)][(int)floor(pos_x)] != '1')
