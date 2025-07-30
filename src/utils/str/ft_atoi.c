@@ -6,7 +6,7 @@
 /*   By: mniemaz <mniemaz@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 15:44:45 by mniemaz           #+#    #+#             */
-/*   Updated: 2025/07/28 20:42:25 by mniemaz          ###   ########.fr       */
+/*   Updated: 2025/07/30 09:38:27 by mniemaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ int	ft_atoi_color(const char *nptr, int *error)
 
 	i = 0;
 	res = 0;
-	*error = 0;
 	while (nptr[i] >= '0' && nptr[i] <= '9')
 	{
 		res = res * 10 + nptr[i++] - '0';

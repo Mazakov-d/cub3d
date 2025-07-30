@@ -6,7 +6,7 @@
 /*   By: mniemaz <mniemaz@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 14:10:42 by mniemaz           #+#    #+#             */
-/*   Updated: 2025/07/29 19:55:51 by mniemaz          ###   ########.fr       */
+/*   Updated: 2025/07/30 09:41:46 by mniemaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,23 +18,25 @@
 static int	fill_color(t_color *color, char *id, char *str_colors)
 {
 	char	**color_values;
-	int		error;
+	int		color_error;
 
 	if (!str_colors)
 		return (printf_err("Missing color for %s\n", id));
 	color_values = ft_split(str_colors, ",");
 	if (!color_values)
 		return (printf_err("fill_color: %s\n", strerror(errno)));
-	if (!color_values[0] || !color_values[1] || !color_values[2])
+	if (!color_values[0] || !color_values[1] || !color_values[2]
+		|| ft_tablen((void **)color_values) != 3)
 	{
 		ft_free_tab((void **)color_values);
 		return (printf_err("Invalid color: '%s'\n", str_colors));
 	}
-	color->r = (unsigned char)ft_atoi_color(color_values[0], &error);
-	color->g = (unsigned char)ft_atoi_color(color_values[1], &error);
-	color->b = (unsigned char)ft_atoi_color(color_values[2], &error);
+	color_error = 0;
+	color->r = (unsigned char)ft_atoi_color(color_values[0], &color_error);
+	color->g = (unsigned char)ft_atoi_color(color_values[1], &color_error);
+	color->b = (unsigned char)ft_atoi_color(color_values[2], &color_error);
 	ft_free_tab((void **)color_values);
-	if (error)
+	if (color_error)
 		return (printf_err("Invalid color: '%s'\n", str_colors));
 	color->rgba = (color->r << 16) | (color->g << 8) | color->b;
 	return (EXIT_SUCCESS);

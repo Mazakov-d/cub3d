@@ -6,7 +6,7 @@
 /*   By: mniemaz <mniemaz@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 13:12:09 by mniemaz           #+#    #+#             */
-/*   Updated: 2025/07/29 19:56:24 by mniemaz          ###   ########.fr       */
+/*   Updated: 2025/07/30 14:40:47 by mniemaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,15 +82,16 @@ typedef struct s_context
 	t_mlx			mlx;
 }					t_context;
 
-/*
-parsing
-*/
+/**
+ * parsing
+ */
 int					parse_file(t_context *ctx, char *filename);
 int					check_flood_fill(t_context *ctx);
 t_line				*skip_spaces(t_line *line);
-/*
-utils
-*/
+
+/**
+ * utils
+ */
 int					ft_strlen(char *str);
 int					printf_err(const char *fmt, ...);
 int					is_char_in_str(char c, char *str);
@@ -118,21 +119,22 @@ t_line				*fill_texture_data(t_line **head_file_line,
 int					fill_map(t_context *ctx, t_line *end_texture_data_line);
 size_t				ft_tablen(void **tab);
 char				**ft_strsdup(char **src);
+void				print_map_color(char **map, int row, int col);
 
-/*
-graphic
-init.c
-*/
+/**
+ * graphic
+ * init.c
+ */
 void				init_graphic(t_context *context);
 
-/*
-ray_init.c
-*/
+/**
+ * ray_init.c
+ */
 void				init_ray(t_context *ctx);
 
-/*
-free_graphic.c
-*/
+/**
+ * free_graphic.c
+ */
 int					free_graphic(t_context *context);
 
 #endif
