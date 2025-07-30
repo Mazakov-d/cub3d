@@ -6,15 +6,16 @@
 /*   By: dmazari <dmazari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 16:05:17 by dmazari           #+#    #+#             */
-/*   Updated: 2025/07/29 17:40:01 by dmazari          ###   ########.fr       */
+/*   Updated: 2025/07/30 13:52:04 by dmazari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef RAY_CASTING_H
 # define RAY_CASTING_H
 
-# define M_PI 3.14159265358979323846
-# define FOV 80
+# define PI 3.14159265358979323846
+# define FOV 60
+# define FOV_RAD (FOV * (PI / 180))
 
 typedef struct s_plane {
 	double	plane_lenght;
@@ -30,6 +31,12 @@ typedef struct s_player {
 	int		map_x;
 	int		map_y;
 }	t_player;
+
+typedef struct s_vector {
+	double	x_i;
+	double	y_i;
+	double	length;
+}	t_vector;
 
 typedef struct s_ray {
 	t_plane		plane;

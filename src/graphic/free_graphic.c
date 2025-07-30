@@ -6,7 +6,7 @@
 /*   By: dmazari <dmazari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 16:11:35 by dmazari           #+#    #+#             */
-/*   Updated: 2025/07/28 17:37:03 by dmazari          ###   ########.fr       */
+/*   Updated: 2025/07/30 13:56:13 by dmazari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ int	free_graphic(t_context *context)
 		mlx_destroy_window(context->mlx.mlx, context->mlx.win);
 	mlx_destroy_display(context->mlx.mlx);
 	free(context->mlx.mlx);
+	free_context(context);
 	exit(0);
 	return (0);
 }

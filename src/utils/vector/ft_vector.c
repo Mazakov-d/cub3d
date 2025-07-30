@@ -1,29 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_vector.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dmazari <dmazari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/28 13:59:15 by mniemaz           #+#    #+#             */
-/*   Updated: 2025/07/30 13:54:20 by dmazari          ###   ########.fr       */
+/*   Created: 2025/07/30 12:47:06 by dmazari           #+#    #+#             */
+/*   Updated: 2025/07/30 13:47:49 by dmazari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
-int	main(int ac, char **av)
+void	init_vector(t_vector *v, double x, double y)
 {
-	t_context ctx;
-	if (ac != 2)
-		return (printf_err("Usage: %s <map_file>\n", av[0]));
-	if (init_context(&ctx) == EXIT_FAILURE)
-		return (EXIT_FAILURE);
-	if (parse_file(&ctx, av[1]) == EXIT_SUCCESS)
-	{
-		printf("Map OK\n");
-	}
-	init_graphic(&ctx);
-	free_context(&ctx);
-	return (0);
+	v->x_i = x;
+	v->y_i = y;
+	v->length = sqrt((v->x_i * v->x_i) + (v->y_i * v->y_i));
 }
