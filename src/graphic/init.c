@@ -6,31 +6,31 @@
 /*   By: dmazari <dmazari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 15:32:17 by dmazari           #+#    #+#             */
-/*   Updated: 2025/07/29 16:56:25 by dmazari          ###   ########.fr       */
+/*   Updated: 2025/07/30 13:54:03 by dmazari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 #include <stdio.h>
 
-// // int	key_hook(int keycode, t_context *context)
-// // {
-// // 	(void)context;
-// // 	printf("keycode: %d\n", keycode);
-// // 	if (keycode == 65307)
-// // 		free_graphic(context);
-// // 	return (0);
-// // }
+int	key_hook(int keycode, t_context *context)
+{
+	(void)context;
+	printf("keycode: %d\n", keycode);
+	if (keycode == 65307)
+		free_graphic(context);
+	return (0);
+}
 
-// // void	init_graphic(t_context *context)
-// // {
-// // 	context->mlx.mlx = mlx_init();
-// // 	context->mlx.win = mlx_new_window(context->mlx.mlx, WIN_SIZE_X, WIN_SIZE_Y,
-// // 			"Dodo c'est le meilleur");
-// // 	mlx_key_hook(context->mlx.win, key_hook, context);
-// // 	mlx_hook(context->mlx.win, 17, 0L, free_graphic, (void *)context);
-// // 	mlx_loop(context->mlx.mlx);
-// // }
+void	init_graphic(t_context *context)
+{
+	context->mlx.mlx = mlx_init();
+	context->mlx.win = mlx_new_window(context->mlx.mlx, WIN_SIZE_X, WIN_SIZE_Y,
+			"Dodo c'est le meilleur");
+	mlx_key_hook(context->mlx.win, key_hook, context);
+	mlx_hook(context->mlx.win, 17, 0L, free_graphic, (void *)context);
+	mlx_loop(context->mlx.mlx);
+}
 
 // void init_graphic(t_context *ctx)
 // {
