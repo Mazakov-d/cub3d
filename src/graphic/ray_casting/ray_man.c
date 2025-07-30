@@ -6,7 +6,7 @@
 /*   By: mniemaz <mniemaz@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 18:39:07 by mniemaz           #+#    #+#             */
-/*   Updated: 2025/07/30 16:52:49 by mniemaz          ###   ########.fr       */
+/*   Updated: 2025/07/30 17:32:15 by mniemaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,27 +17,29 @@
  */
 void	ray_man(t_context *ctx, t_vector dir, double square_x, double square_y)
 {
-	t_vector	v;
+	t_vector	step;
 	double		x;
 	double		y;
 	double		x_map;
 	double		y_map;
+	double m;
+
+	m = dir.y_i / dir.x_i;
 
 	x = ctx->player.pos_x;
 	y = ctx->player.pos_y;
 	x_map = x / square_x;
 	y_map = y / square_y;
 	printf("x,y %f,%f\n", x, y);
-	if (dir.x_i == 0)
-		init_vector(&v, dir.x_i * 0.1, (dir.y_i * 0.1));
-	else
-		init_vector(&v, 0.1 * dir.x_i,(dir.y_i * 0.1));
-	while (ctx->map[(int)floor(y_map -1)][(int)floor(x_map -1)] != '1')
+	init_vector(&step, 1, (dir.y_i * m));
+	int limit = 0;
+	while (limit < 1500)
 	{
 		mlx_pixel_put(ctx->mlx.mlx, ctx->mlx.win, x, y, 0xffffff);
-		x += v.x_i;
-		y += v.y_i;
-		x_map += v.x_i;
-		y_map += v.y_i;
+		x += step.x_i;
+		y += step.y_i;
+		x_map += step.x_i;
+		y_map += step.y_i;
+		limit++;
 	}
 }
