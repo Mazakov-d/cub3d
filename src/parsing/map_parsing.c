@@ -6,7 +6,7 @@
 /*   By: mniemaz <mniemaz@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 14:00:06 by mniemaz           #+#    #+#             */
-/*   Updated: 2025/07/29 19:56:14 by mniemaz          ###   ########.fr       */
+/*   Updated: 2025/07/30 16:25:06 by mniemaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,19 @@ static int	return_free_line_on_err(t_line ***head_file_line)
 	return (EXIT_FAILURE);
 }
 
+static void	init_player_dir(t_context *ctx)
+{
+	if (ctx->map[(int)(ctx->player.pos_y)][(int)(ctx->player.pos_x)] == 'E')
+		init_vector(&ctx->player.p_vec, 1, 0);
+	else if (ctx->map[(int)(ctx->player.pos_y)][(int)(ctx->player.pos_x)] == 'W')
+		init_vector(&ctx->player.p_vec, -1, 0);
+	else if (ctx->map[(int)(ctx->player.pos_y)][(int)(ctx->player.pos_x)] == 'N')
+		init_vector(&ctx->player.p_vec, 0, -1);
+	else if (ctx->map[(int)(ctx->player.pos_y)][(int)(ctx->player.pos_x)] == 'S')
+		init_vector(&ctx->player.p_vec, 0, 1);
+	ctx->map[(int)(ctx->player.pos_y)][(int)(ctx->player.pos_x)] = '0';
+}
+
 int	parse_file(t_context *ctx, char *filename)
 {
 	int		fd;
@@ -69,5 +82,6 @@ int	parse_file(t_context *ctx, char *filename)
 	free_lines_lst(head_file_line);
 	if (check_flood_fill(ctx) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
+	init_player_dir(ctx);
 	return (EXIT_SUCCESS);
 }

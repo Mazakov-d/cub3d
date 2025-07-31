@@ -6,7 +6,7 @@
 /*   By: mniemaz <mniemaz@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 17:12:42 by mniemaz           #+#    #+#             */
-/*   Updated: 2025/07/29 19:33:27 by mniemaz          ###   ########.fr       */
+/*   Updated: 2025/07/30 16:17:56 by mniemaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,11 @@ bool	is_map_valid(char **map)
 					USER_CHARS))
 			{
 				if (are_side_chars_valid(map, row, col) == false)
+				{
+					printf_err("User can get outside of the map here: \n");
+					print_map_color(map, row, col);
 					return (false);
+				}
 			}
 		}
 	}
@@ -107,10 +111,11 @@ int	check_flood_fill(t_context *ctx)
 	if (!map)
 		return (printf_err("check_flood_fill: %s\n", strerror(errno)));
 	set_user_pos(map, &row, &col);
+	ctx->player.pos_x = col + 0.5;
+	ctx->player.pos_y = row + 0.5;
 	process_flood_fill(map, row, col);
 	if (!is_map_valid(map))
 	{
-		printf_err("Map is not valid after flood fill.\n");
 		ft_free_tab((void **)map);
 		return (EXIT_FAILURE);
 	}

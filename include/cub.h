@@ -6,7 +6,7 @@
 /*   By: miloniemaz <mniemaz@student.42lyon.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 13:12:09 by mniemaz           #+#    #+#             */
-/*   Updated: 2025/07/31 00:21:58 by miloniemaz       ###   ########.fr       */
+/*   Updated: 2025/07/31 00:37:08 by miloniemaz       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,22 +75,36 @@ typedef struct s_parsing_data
 	int				fd;
 }					t_parsing_data;
 
+typedef struct s_player
+{
+	double			pos_x;
+	double			pos_y;
+	t_vector		p_vec;
+}					t_player;
+
 typedef struct s_context
 {
 	char			**map;
 	t_texture_data	texture_data;
 	t_mlx			mlx;
+	t_player		player;
 }					t_context;
 
-/*
-parsing
-*/
+/**
+ * parsing
+ */
 int					parse_file(t_context *ctx, char *filename);
 int					check_flood_fill(t_context *ctx);
 t_line				*skip_spaces(t_line *line);
-/*
-utils
-*/
+
+/**
+ * 2Dtests
+ */
+void				display_2d_map(t_context *ctx);
+
+/**
+ * utils
+ */
 int					ft_strlen(char *str);
 int					printf_err(const char *fmt, ...);
 int					is_char_in_str(char c, char *str);
@@ -118,21 +132,32 @@ t_line				*fill_texture_data(t_line **head_file_line,
 int					fill_map(t_context *ctx, t_line *end_texture_data_line);
 size_t				ft_tablen(void **tab);
 char				**ft_strsdup(char **src);
+void				print_map_color(char **map, int row, int col);
 
-/*
-graphic
-init.c
-*/
+/**
+ * graphic
+ * init.c
+ */
 void				init_graphic(t_context *context);
 
-/*
-ray_init.c
-*/
+/**
+ * ray_init.c
+ */
 void				init_ray(t_context *ctx);
 
-/*
-free_graphic.c
-*/
+/**
+ * ray_man.c
+ */
+void				ray_man(t_context *ctx, t_vector dir, double square_x, double square_y);
+
+/**
+ * free_graphic.c
+ */
 int					free_graphic(t_context *context);
+
+/**
+ * vector/ft_vector.c
+ */
+void				init_vector(t_vector *v, double x, double y);
 
 #endif
