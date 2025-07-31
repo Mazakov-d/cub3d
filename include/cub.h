@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mniemaz <mniemaz@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: miloniemaz <mniemaz@student.42lyon.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 13:12:09 by mniemaz           #+#    #+#             */
-/*   Updated: 2025/07/29 19:56:24 by mniemaz          ###   ########.fr       */
+/*   Updated: 2025/07/31 00:21:58 by miloniemaz       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@
 # include <string.h>
 # include <unistd.h>
 
-# define WIN_SIZE_X 1920
-# define WIN_SIZE_Y 1080
+# define WIN_SIZE_X 500
+# define WIN_SIZE_Y 500
 # define BUFFER_SIZE 1024
 # define COLOR_INIT_VAL 256
 # define MAP_CHARS "NSEW01 "

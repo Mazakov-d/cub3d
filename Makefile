@@ -30,7 +30,7 @@ NAME=cub3D
 all: libs $(NAME)
 
 $(NAME): $(OBJS)
-	$(CC) $(OBJS) -L$(MLX_DIR) -lmlx_Linux -I$(MLX_DIR) -lXext -lX11 -lm -o $(NAME)
+	$(CC) $(OBJS) -L$(MLX_DIR) -I$(MLX_DIR) -lmlx -lm -framework OpenGL -framework AppKit -o $(NAME)
 
 libs:
 	@$(MAKE) -C $(MLX_DIR)
