@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   maths.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: miloniemaz <mniemaz@student.42lyon.fr>     +#+  +:+       +#+        */
+/*   By: mniemaz <mniemaz@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 18:39:07 by mniemaz           #+#    #+#             */
-/*   Updated: 2025/07/31 11:39:20 by miloniemaz       ###   ########.fr       */
+/*   Updated: 2025/08/04 14:10:19 by mniemaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,6 @@ bool is_facing_wall(char **map, t_pos pos, t_vector dir)
 {
     if (is_rounded(pos.x) && dir.x_i > 0)
     {
-        printf("pos [%d,%d]\n", (int)floor(pos.y), (int)floor(pos.x));
         if (map[(int)floor(pos.y)][(int)pos.x]
             && map[(int)floor(pos.y)][(int)pos.x] == '1')
         return (true);

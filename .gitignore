@@ -5,5 +5,6 @@ minilibx-linux
 cub3D
 .vscode
 malloc_protection_checker
+*.txt
 *test*
 a.out
