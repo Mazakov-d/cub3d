@@ -6,7 +6,7 @@
 /*   By: mniemaz <mniemaz@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 13:12:09 by mniemaz           #+#    #+#             */
-/*   Updated: 2025/07/30 16:30:14 by mniemaz          ###   ########.fr       */
+/*   Updated: 2025/08/04 14:06:52 by mniemaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include "ray_casting.h"
 # include <errno.h>
 # include <fcntl.h>
+# include <float.h>
 # include <math.h>
 # include <mlx.h>
 # include <stdarg.h>
@@ -25,8 +26,8 @@
 # include <string.h>
 # include <unistd.h>
 
-# define WIN_SIZE_X 1920
-# define WIN_SIZE_Y 1000
+# define WIN_SIZE_X 500
+# define WIN_SIZE_Y 500
 # define BUFFER_SIZE 1024
 # define COLOR_INIT_VAL 256
 # define MAP_CHARS "NSEW01 "
@@ -75,10 +76,21 @@ typedef struct s_parsing_data
 	int				fd;
 }					t_parsing_data;
 
+typedef struct s_pos
+{
+	double			x;
+	double			y;
+}					t_pos;
+
+typedef struct s_int_pos
+{
+	int				x;
+	int				y;
+}					t_int_pos;
+
 typedef struct s_player
 {
-	double			pos_x;
-	double			pos_y;
+	t_pos			pos;
 	t_vector		p_vec;
 }					t_player;
 
@@ -103,7 +115,7 @@ t_line				*skip_spaces(t_line *line);
 void				display_2d_map(t_context *ctx);
 
 /**
- * utils
+ * utils/str
  */
 int					ft_strlen(char *str);
 int					printf_err(const char *fmt, ...);
@@ -135,6 +147,15 @@ char				**ft_strsdup(char **src);
 void				print_map_color(char **map, int row, int col);
 
 /**
+ * utils/ft_int_abs.c
+ */
+int					ft_int_abs(int n);
+
+
+
+double				ft_double_abs(double n);
+
+/**
  * graphic
  * init.c
  */
@@ -148,7 +169,8 @@ void				init_ray(t_context *ctx);
 /**
  * ray_man.c
  */
-void				ray_man(t_context *ctx, t_vector dir, double square_x, double square_y);
+void				ray_man(t_context *ctx, t_vector dir, double square_x,
+						double square_y);
 
 /**
  * free_graphic.c
@@ -159,5 +181,15 @@ int					free_graphic(t_context *context);
  * vector/ft_vector.c
  */
 void				init_vector(t_vector *v, double x, double y);
+
+/**
+ * maths
+ */
+t_pos				get_intersection_pos(t_pos p, t_vector dir);
+void				bresenham_line(t_context *ctx, t_pos from, t_pos to,
+						int square_x, int square_y, int color);
+void				print_square(t_context *ctx, t_int_pos pos, int size,
+						int color);
+t_pos				get_pos_wall_toward(t_context *ctx, t_vector dir);
 
 #endif

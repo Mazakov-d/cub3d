@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_flood_fill.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mniemaz <mniemaz@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: miloniemaz <mniemaz@student.42lyon.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 17:12:42 by mniemaz           #+#    #+#             */
-/*   Updated: 2025/07/30 16:17:56 by mniemaz          ###   ########.fr       */
+/*   Updated: 2025/07/31 11:15:48 by miloniemaz       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ static bool	are_side_chars_valid(char **map, int row, int col)
 {
 	if (col == 0 || col == (ft_strlen(map[row]) - 1))
 		return (false);
-	if (!(map[row + 1] && ft_strlen(map[row + 1]) > col))
+	if ((!map[row + 1] || ft_strlen(map[row + 1]) <= col))
 		return (false);
 	if ((row == 0 || ft_strlen(map[row - 1]) <= col))
 		return (false);
@@ -111,8 +111,8 @@ int	check_flood_fill(t_context *ctx)
 	if (!map)
 		return (printf_err("check_flood_fill: %s\n", strerror(errno)));
 	set_user_pos(map, &row, &col);
-	ctx->player.pos_x = col + 0.5;
-	ctx->player.pos_y = row + 0.5;
+	ctx->player.pos.x = col + 0.5;
+	ctx->player.pos.y = row + 0.5;
 	process_flood_fill(map, row, col);
 	if (!is_map_valid(map))
 	{

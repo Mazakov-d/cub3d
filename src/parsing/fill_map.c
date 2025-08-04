@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fill_map.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mniemaz <mniemaz@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: miloniemaz <mniemaz@student.42lyon.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 14:12:36 by mniemaz           #+#    #+#             */
-/*   Updated: 2025/07/29 19:48:54 by mniemaz          ###   ########.fr       */
+/*   Updated: 2025/08/01 05:11:38 by miloniemaz       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,7 @@ static bool	is_map_line_valid(char *line, bool *user_found)
 		{
 			if (*user_found)
 			{
-				printf_err("Second user '%c' found in map line: '%s'\n",
-					line[i], line);
+				printf_err("Second user '%c' found in map line: '%s'\n", line[i], line);
 				return (false);
 			}
 			*user_found = true;
