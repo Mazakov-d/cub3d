@@ -6,7 +6,7 @@
 /*   By: dmazari <dmazari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/30 14:48:23 by mniemaz           #+#    #+#             */
-/*   Updated: 2025/08/04 18:17:00 by dmazari          ###   ########.fr       */
+/*   Updated: 2025/08/04 18:32:13 by dmazari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,16 +70,15 @@ double	get_fov_angle(t_context *ctx)
 	else if (ctx->player.p_vec.x_i == 0.0f)
 	{
 		if (ctx->player.p_vec.y_i > 0.0f)
-			angle = PI / 2;
-		else
-			angle = -PI / 2;
+			angle = PI * 0.5;
+		angle = -PI * 0.5;
 	}
 	return (angle);
 }
 
 void	draw_rays(t_context *ctx, int square_x, int square_y)
 {
-	t_pos		facing_wall;
+	// t_pos		facing_wall;
 	t_pos		right_ray_wall;
 	t_pos		left_ray_wall;
 	t_vector	right_ray;
@@ -93,10 +92,13 @@ void	draw_rays(t_context *ctx, int square_x, int square_y)
 	t_vector	ray;
 
 	angle = get_fov_angle(ctx);
-	right_fov = angle + FOV_RAD * 0.5;
-	left_fov = angle - FOV_RAD * 0.5;
+	double right_fov = angle + FOV_RAD * 0.5;
+	double left_fov = angle - FOV_RAD * 0.5;
 
-	/* Draw center ray */
+	
+
+
+	
 	facing_wall = get_pos_wall_toward(ctx, ctx->player.p_vec);
 	bresenham_line(ctx, ctx->player.pos, facing_wall, square_x, square_y, 0xFFFFFF);
 	
@@ -105,18 +107,20 @@ void	draw_rays(t_context *ctx, int square_x, int square_y)
 	right_ray_wall = get_pos_wall_toward(ctx, right_ray);
 	bresenham_line(ctx, ctx->player.pos, right_ray_wall, square_x, square_y, 0xFFFF00);
 
-	/* Draw left FOV boundary - FIXED: was using left_fov instead of sin(left_fov) */
-	init_vector(&left_ray, cos(left_fov), sin(left_fov));
+
+	init_vector(&left_ray, cos(left_fov), left_fov);
 	left_ray_wall = get_pos_wall_toward(ctx, left_ray);
 	bresenham_line(ctx, ctx->player.pos, left_ray_wall, square_x, square_y, 0x00FFFF);
 
-	/* Draw intermediate rays */
-	i = 1;
-	nb_rays = 4;
-	diff_angles = right_fov - left_fov;
+
+	int i = 1;
+	int nb_rays = 4;
+	double diff_angles = right_fov - left_fov;
+	t_vector ray;
 	while (i < nb_rays)
 	{
-		double add = i * (diff_angles / nb_rays);
+		printf("printing ray\n");
+		double add = i * (diff_angles / (nb_rays));
 		init_vector(&ray, cos(left_fov + add), sin(left_fov + add));
 		t_pos ray_wall = get_pos_wall_toward(ctx, ray);
 		bresenham_line(ctx, ctx->player.pos, ray_wall, square_x, square_y, 0x00FF00);
