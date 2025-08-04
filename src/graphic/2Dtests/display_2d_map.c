@@ -25,9 +25,9 @@ void	print_square(t_context *ctx, int x, int y, int square_x, int square_y,
 		while (j < square_y)
 		{
 			if (c == '1')
-				mlx_pixel_put(ctx->mlx.mlx, ctx->mlx.win, x + i, y + j, 0xff00ff);
+				mlx_pixel_put(ctx->mlx.mlx, ctx->mlx.win, x + i, y + j, 0x444444);
 			if (c == '0')
-				mlx_pixel_put(ctx->mlx.mlx, ctx->mlx.win, x + i, y + j, 0x00ff);
+				mlx_pixel_put(ctx->mlx.mlx, ctx->mlx.win, x + i, y + j, 0xbbbbbb);
             j++;
 		}
 		i++;
@@ -65,12 +65,12 @@ void	display_2d_map(t_context *ctx)
 		col = 0;
 		while (map[row][col])
 		{
-			print_square(ctx, square_x * col, square_y * row, square_x, square_y, map[row][col]);
+			print_square(ctx, square_x * col, square_y * row, square_x - 1, square_y - 1, map[row][col]);
             col++;
 		}
 		row++;
 	}
     ctx->player.pos_x *= square_x;
     ctx->player.pos_y *= square_y;
-    ray_man(ctx, ctx->player.p_vec, square_x, square_y);
+    // ray_man(ctx, ctx->player.p_vec, square_x, square_y);
 }

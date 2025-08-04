@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mniemaz <mniemaz@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: dmazari <dmazari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 13:12:09 by mniemaz           #+#    #+#             */
-/*   Updated: 2025/07/30 16:30:14 by mniemaz          ###   ########.fr       */
+/*   Updated: 2025/08/04 10:04:24 by dmazari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,12 @@
 # define USER_CHARS "NSEW"
 # define OUR_USER_CHAR 'P'
 # define EXIT_NEUTRAL 2
+# define W 119
+# define A 97
+# define S 115
+# define D 100
+# define LEFT_ARROW 65361
+# define RIGHT_ARROW 65363
 
 typedef struct s_color
 {
