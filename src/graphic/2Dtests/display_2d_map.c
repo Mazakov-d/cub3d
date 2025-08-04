@@ -74,15 +74,15 @@ double	get_fov_angle(t_context *ctx)
 	else if (ctx->player.p_vec.x_i == 0.0f)
 	{
 		if (ctx->player.p_vec.y_i > 0.0f)
-			angle = PI / 2;
-		angle = -PI / 2;
+			angle = PI * 0.5;
+		angle = -PI * 0.5;
 	}
 	return (angle);
 }
 
 void	draw_rays(t_context *ctx, int square_x, int square_y)
 {
-	t_pos		facing_wall;
+	// t_pos		facing_wall;
 	t_pos		right_ray_wall;
 	t_pos		left_ray_wall;
 	t_vector	right_ray;
@@ -98,15 +98,15 @@ void	draw_rays(t_context *ctx, int square_x, int square_y)
 
 
 	
-	facing_wall = get_pos_wall_toward(ctx, ctx->player.p_vec);
-	bresenham_line(ctx, ctx->player.pos, facing_wall, square_x, square_y, 0xFFFFFF);
+	// facing_wall = get_pos_wall_toward(ctx, ctx->player.p_vec);
+	// bresenham_line(ctx, ctx->player.pos, facing_wall, square_x, square_y, 0xFFFFFF);
 	
 	init_vector(&right_ray, cos(right_fov), sin(right_fov));
 	right_ray_wall = get_pos_wall_toward(ctx, right_ray);
 	bresenham_line(ctx, ctx->player.pos, right_ray_wall, square_x, square_y, 0xFFFF00);
 
 
-	init_vector(&left_ray, cos(left_fov), left_fov);
+	init_vector(&left_ray, cos(left_fov), sin(left_fov));
 	left_ray_wall = get_pos_wall_toward(ctx, left_ray);
 	bresenham_line(ctx, ctx->player.pos, left_ray_wall, square_x, square_y, 0x00FFFF);
 
@@ -114,11 +114,17 @@ void	draw_rays(t_context *ctx, int square_x, int square_y)
 	int i = 1;
 	int nb_rays = 4;
 	double diff_angles = right_fov - left_fov;
+	double step = diff_angles / (nb_rays - 1);
+	printf("step: %f\n", step);
+	printf("diff_angles: %f\n", right_fov - left_fov);
 	t_vector ray;
-	while (i < nb_rays)
+	while (i < nb_rays - 1)
 	{
+
 		printf("printing ray\n");
-		double add = i * (diff_angles / (nb_rays));
+		double add = (i) * step;
+
+
 		init_vector(&ray, cos(left_fov + add), sin(left_fov + add));
 		t_pos ray_wall = get_pos_wall_toward(ctx, ray);
 		bresenham_line(ctx, ctx->player.pos, ray_wall, square_x, square_y, 0x00FF00);
