@@ -6,7 +6,7 @@
 /*   By: dmazari <dmazari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 11:33:45 by dmazari           #+#    #+#             */
-/*   Updated: 2025/08/04 14:13:17 by dmazari          ###   ########.fr       */
+/*   Updated: 2025/08/04 15:56:14 by dmazari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,21 +19,21 @@ void	go_forward_backward(t_player *player, char **map, char flag)
 
 	if (flag == 'W')
 	{
-		j = player->pos_x + (player->p_vec.x_i * SPEED);
-		i = player->pos_y + (player->p_vec.y_i * SPEED);
+		j = player->pos.x + (player->p_vec.x_i * SPEED);
+		i = player->pos.y + (player->p_vec.y_i * SPEED);
 		if (map[(int)i][(int)j] == '1')
 			return ;
-		player->pos_x += player->p_vec.x_i * SPEED;
-		player->pos_y += player->p_vec.y_i * SPEED;
+		player->pos.x += player->p_vec.x_i * SPEED;
+		player->pos.y += player->p_vec.y_i * SPEED;
 	}
 	else
 	{
-		j = player->pos_x - (player->p_vec.x_i * SPEED);
-		i = player->pos_y - (player->p_vec.y_i * SPEED);
+		j = player->pos.x - (player->p_vec.x_i * SPEED);
+		i = player->pos.y - (player->p_vec.y_i * SPEED);
 		if (map[(int)i][(int)j] == '1')
 			return ;
-		player->pos_x -= player->p_vec.x_i * SPEED;
-		player->pos_y -= player->p_vec.y_i * SPEED;
+		player->pos.x -= player->p_vec.x_i * SPEED;
+		player->pos.y -= player->p_vec.y_i * SPEED;
 	}
 }
 
@@ -44,30 +44,56 @@ void	go_left_right(t_player *player, char **map, char flag)
 
 	if (flag == 'A')
 	{
-		j = player->pos_x - cos((player->p_vec.x_i * SPEED));
-		i = player->pos_y + sin((player->p_vec.y_i * SPEED));
+		j = player->pos.x + ((player->p_vec.y_i * SPEED));
+		i = player->pos.y - ((player->p_vec.x_i * SPEED));
 		if (map[(int)i][(int)j] == '1')
 			return ;
-		player->pos_x -= player->p_vec.x_i * SPEED;
-		player->pos_y += player->p_vec.y_i * SPEED;
+		player->pos.x += player->p_vec.y_i * SPEED;
+		player->pos.y -= player->p_vec.x_i * SPEED;
 	}
 	else
 	{
-		j = player->pos_x + sin((player->p_vec.x_i * SPEED));
-		i = player->pos_y - cos((player->p_vec.y_i * SPEED));
+		j = player->pos.x - ((player->p_vec.y_i * SPEED));
+		i = player->pos.y + ((player->p_vec.x_i * SPEED));
 		if (map[(int)i][(int)j] == '1')
 			return ;
-		player->pos_x += player->p_vec.x_i * SPEED;
-		player->pos_y -= player->p_vec.y_i * SPEED;
+		player->pos.x -= player->p_vec.y_i * SPEED;
+		player->pos.y += player->p_vec.x_i * SPEED;
 	}
 }
 
-void	turn_right(void)
+void turn_right(t_context *ctx)
 {
-	return ;
+	double	old_x;
+
+	old_x = ctx->player.p_vec.x_i;
+	ctx->player.p_vec.x_i = ctx->player.p_vec.x_i * cos(TURN_SPEED)
+		- ctx->player.p_vec.y_i * sin(TURN_SPEED);
+	ctx->player.p_vec.y_i = old_x * sin(TURN_SPEED)
+		+ ctx->player.p_vec.y_i * cos(TURN_SPEED);
+	ctx->player.p_vec.length = sqrt(ctx->player.p_vec.x_i * ctx->player.p_vec.x_i
+			+ ctx->player.p_vec.y_i * ctx->player.p_vec.y_i);
+	// if (ctx->player.p_vec.length != 0)
+	// {
+	// 	ctx->player.p_vec.x_i /= ctx->player.p_vec.length;
+	// 	ctx->player.p_vec.y_i /= ctx->player.p_vec.length;
+	// }
 }
 
-void	turn_left(void)
+void turn_left(t_context *ctx)
 {
-	return ;
+	double	old_x;
+
+	old_x = ctx->player.p_vec.x_i;
+	ctx->player.p_vec.x_i = ctx->player.p_vec.x_i * cos(-TURN_SPEED)
+		- ctx->player.p_vec.y_i * sin(-TURN_SPEED);
+	ctx->player.p_vec.y_i = old_x * sin(-TURN_SPEED)
+		+ ctx->player.p_vec.y_i * cos(-TURN_SPEED);
+	ctx->player.p_vec.length = sqrt(ctx->player.p_vec.x_i * ctx->player.p_vec.x_i
+			+ ctx->player.p_vec.y_i * ctx->player.p_vec.y_i);
+	// if (ctx->player.p_vec.length != 0)
+	// {
+	// 	ctx->player.p_vec.x_i /= ctx->player.p_vec.length;
+	// 	ctx->player.p_vec.y_i /= ctx->player.p_vec.length;
+	// }
 }

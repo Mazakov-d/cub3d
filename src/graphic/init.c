@@ -6,31 +6,64 @@
 /*   By: dmazari <dmazari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 15:32:17 by dmazari           #+#    #+#             */
-/*   Updated: 2025/08/04 13:22:21 by dmazari          ###   ########.fr       */
+/*   Updated: 2025/08/04 15:22:10 by dmazari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 #include <stdio.h>
 
-int	key_hook(int keycode, t_context *context)
+int	key_hook_press(int keycode, t_context *context)
 {
 	if (keycode == ESC)
 		free_graphic(context);
 	else if (keycode == W)
-		go_forward_backward(&context->player, context->map, 'W');
+		context->mlx.keys.w_bool = true;
 	else if (keycode == A)
-		go_left_right(&context->player, context->map, 'A');
+		context->mlx.keys.a_bool = true;
 	else if (keycode == S)
-		go_forward_backward(&context->player, context->map, 'S');
+		context->mlx.keys.s_bool = true;
 	else if (keycode == D)
-		go_left_right(&context->player, context->map, 'D');
+		context->mlx.keys.d_bool = true;
 	else if (keycode == LEFT_ARROW)
-		turn_left();
+		context->mlx.keys.left_arrow_bool = true;
 	else if (keycode == RIGHT_ARROW)
-		turn_right();
-	printf("pos_x: %f, pos_y: %f\n", context->player.pos_x, context->player.pos_y);
-	// display_2d_map(context);
+		context->mlx.keys.right_arrow_bool = true;
+	return (0);
+}
+
+int	key_release(int keycode, t_context *context)
+{
+	if (keycode == W)
+		context->mlx.keys.w_bool = false;
+	else if (keycode == A)
+		context->mlx.keys.a_bool = false;
+	else if (keycode == S)
+		context->mlx.keys.s_bool = false;
+	else if (keycode == D)
+		context->mlx.keys.d_bool = false;
+	else if (keycode == LEFT_ARROW)
+		context->mlx.keys.left_arrow_bool = false;
+	else if (keycode == RIGHT_ARROW)
+		context->mlx.keys.right_arrow_bool = false;
+	return (0);
+}
+
+int move_player(t_context *ctx)
+{
+	display_2d_map(ctx);	
+	if (ctx->mlx.keys.w_bool)
+		go_forward_backward(&ctx->player, ctx->map, 'W');
+	else if (ctx->mlx.keys.s_bool)
+		go_forward_backward(&ctx->player, ctx->map, 'S');
+	else if (ctx->mlx.keys.a_bool)
+		go_left_right(&ctx->player, ctx->map, 'A');
+	else if (ctx->mlx.keys.d_bool)
+		go_left_right(&ctx->player, ctx->map, 'D');
+	if (ctx->mlx.keys.left_arrow_bool)
+		turn_left(ctx);
+	if (ctx->mlx.keys.right_arrow_bool)
+		turn_right(ctx);
 	return (0);
 }
 
@@ -39,11 +72,19 @@ void	init_graphic(t_context *context)
 	context->mlx.mlx = mlx_init();
 	context->mlx.win = mlx_new_window(context->mlx.mlx, WIN_SIZE_X, WIN_SIZE_Y,
 			"Dodo c'est le meilleur");
-	mlx_key_hook(context->mlx.win, key_hook, context);
+	mlx_hook(context->mlx.win, 2, 1L<<0, key_hook_press, context);
+	mlx_hook(context->mlx.win, 3, 1L<<1, key_release, context);
 	mlx_hook(context->mlx.win, 17, 0L, free_graphic, (void *)context);
 	display_2d_map(context);
+	mlx_loop_hook(context->mlx.mlx, move_player, context);
 	mlx_loop(context->mlx.mlx);
 }
+
+// press = bool a true
+// relache = bool a false
+// mlx_loop_hook si bool = true alors fait action
+// 1 bool par action
+
 
 // void init_graphic(t_context *ctx)
 // {
