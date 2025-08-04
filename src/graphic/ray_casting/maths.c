@@ -6,7 +6,7 @@
 /*   By: mniemaz <mniemaz@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 18:39:07 by mniemaz           #+#    #+#             */
-/*   Updated: 2025/08/04 18:32:16 by mniemaz          ###   ########.fr       */
+/*   Updated: 2025/08/04 18:38:21 by mniemaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,8 +137,7 @@ bool	is_stuck_on_wall(char **map, t_pos pos, t_vector dir)
 	}
 	if (is_almost_rounded(pos.y) && dir.y_i < 0)
 	{
-		if (pos.y == 0.0f || ft_strlen(map[(int)pos.y
-				- 1]) <= (int)floor(pos.x))
+		if ((int)pos.y == 0 || ft_strlen(map[(int)pos.y - 1]) <= (int)floor(pos.x))
 			return (true);
 		if (map[(int)pos.y - 1][(int)floor(pos.x)] == '1')
 			return (true);

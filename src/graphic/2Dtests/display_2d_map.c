@@ -6,7 +6,7 @@
 /*   By: mniemaz <mniemaz@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/30 14:48:23 by mniemaz           #+#    #+#             */
-/*   Updated: 2025/08/04 18:34:30 by mniemaz          ###   ########.fr       */
+/*   Updated: 2025/08/04 18:35:46 by mniemaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,14 +86,10 @@ void	draw_rays(t_context *ctx, int square_x, int square_y)
 	double		angle;
 	double		right_fov;
 	double		left_fov;
-	int			i;
-	int			nb_rays;
-	double		diff_angles;
-	t_vector	ray;
 
 	angle = get_fov_angle(ctx);
-	double right_fov = angle + FOV_RAD * 0.5;
-	double left_fov = angle - FOV_RAD * 0.5;
+	right_fov = angle + FOV_RAD * 0.5;
+	left_fov = angle - FOV_RAD * 0.5;
 
 	
 
