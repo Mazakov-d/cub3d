@@ -68,18 +68,13 @@ void	draw_rays(t_context *ctx, int square_x, int square_y)
 	float		angle;
 
 	facing_wall = get_pos_wall_toward(ctx, ctx->player.p_vec);
-	printf("Facing wall at: (%f, %f)\n", facing_wall.x, facing_wall.y);
 	bresenham_line(ctx, ctx->player.pos, facing_wall, square_x, square_y,
 		0xFFFFFF);
 	if (ctx->player.p_vec.x_i > 0.0)
 	{
-		printf("vx: %f, vy: %f\n", ctx->player.p_vec.x_i,
-			ctx->player.p_vec.y_i);
 		angle = atan(ctx->player.p_vec.y_i / ctx->player.p_vec.x_i) + FOV_RAD
 			* 0.5;
-		printf("angle: %f\n", angle);
 		init_vector(&right_ray, cos(angle), sin(angle));
-		printf("Right ray: (%f, %f)\n", right_ray.x_i, right_ray.y_i);
 		right_ray_wall = get_pos_wall_toward(ctx, right_ray);
 		bresenham_line(ctx, ctx->player.pos, right_ray_wall, square_x, square_y,
 			0xFF0000);
