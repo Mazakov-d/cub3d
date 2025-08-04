@@ -3,35 +3,93 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mniemaz <mniemaz@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: dmazari <dmazari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 15:32:17 by dmazari           #+#    #+#             */
-/*   Updated: 2025/07/30 15:10:44 by mniemaz          ###   ########.fr       */
+/*   Updated: 2025/08/04 18:05:39 by dmazari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 #include <stdio.h>
 
-int	key_hook(int keycode, t_context *context)
+int	key_hook_press(int keycode, t_context *context)
 {
-	(void)context;
-	printf("keycode: %d\n", keycode);
-	if (keycode == 65307)
+	if (keycode == ESC)
 		free_graphic(context);
+	else if (keycode == W)
+		context->mlx.keys.w_bool = true;
+	else if (keycode == A)
+		context->mlx.keys.a_bool = true;
+	else if (keycode == S)
+		context->mlx.keys.s_bool = true;
+	else if (keycode == D)
+		context->mlx.keys.d_bool = true;
+	else if (keycode == LEFT_ARROW)
+		context->mlx.keys.left_arrow_bool = true;
+	else if (keycode == RIGHT_ARROW)
+		context->mlx.keys.right_arrow_bool = true;
 	return (0);
 }
 
-void	init_graphic(t_context *context)
+int	key_release(int keycode, t_context *context)
 {
-	context->mlx.mlx = mlx_init();
-	context->mlx.win = mlx_new_window(context->mlx.mlx, WIN_SIZE_X, WIN_SIZE_Y,
-			"Dodo c'est le meilleur");
-	mlx_key_hook(context->mlx.win, key_hook, context);
-	mlx_hook(context->mlx.win, 17, 0L, free_graphic, (void *)context);
-	display_2d_map(context);
-	mlx_loop(context->mlx.mlx);
+	if (keycode == W)
+		context->mlx.keys.w_bool = false;
+	else if (keycode == A)
+		context->mlx.keys.a_bool = false;
+	else if (keycode == S)
+		context->mlx.keys.s_bool = false;
+	else if (keycode == D)
+		context->mlx.keys.d_bool = false;
+	else if (keycode == LEFT_ARROW)
+		context->mlx.keys.left_arrow_bool = false;
+	else if (keycode == RIGHT_ARROW)
+		context->mlx.keys.right_arrow_bool = false;
+	return (0);
 }
+
+int move_player(t_context *ctx)
+{
+	if (ctx->mlx.keys.w_bool)
+		go_forward_backward(&ctx->player, ctx->map, 'W');
+	else if (ctx->mlx.keys.s_bool)
+		go_forward_backward(&ctx->player, ctx->map, 'S');
+	else if (ctx->mlx.keys.a_bool)
+		go_left_right(&ctx->player, ctx->map, 'A');
+	else if (ctx->mlx.keys.d_bool)
+		go_left_right(&ctx->player, ctx->map, 'D');
+	if (ctx->mlx.keys.left_arrow_bool)
+		turn_left(ctx);
+	if (ctx->mlx.keys.right_arrow_bool)
+		turn_right(ctx);
+	display_2d_map(ctx);
+	mlx_put_image_to_window(ctx->mlx.mlx, ctx->mlx.win, ctx->mlx.img.img_ptr, 0, 0);
+	return (0);
+}
+
+void	init_graphic(t_context *ctx)
+{
+	ctx->mlx.mlx = mlx_init();
+	ctx->mlx.win = mlx_new_window(ctx->mlx.mlx, WIN_SIZE_X, WIN_SIZE_Y,
+			"Dodo c'est le meilleur");
+	ctx->mlx.img.img_ptr = mlx_new_image(ctx->mlx.mlx, WIN_SIZE_X, WIN_SIZE_Y);
+	ctx->mlx.img.data = mlx_get_data_addr(ctx->mlx.img.img_ptr, 
+		&ctx->mlx.img.bpp, &ctx->mlx.img.line_len, &ctx->mlx.img.endian);
+	mlx_hook(ctx->mlx.win, 2, 1L<<0, key_hook_press, ctx);
+	mlx_hook(ctx->mlx.win, 3, 1L<<1, key_release, ctx);
+	mlx_hook(ctx->mlx.win, 17, 0L, free_graphic, (void *)ctx);
+	display_2d_map(ctx);
+	mlx_put_image_to_window(ctx->mlx.mlx, ctx->mlx.win, ctx->mlx.img.img_ptr, 0, 0);
+	mlx_loop_hook(ctx->mlx.mlx, move_player, ctx);
+	mlx_loop(ctx->mlx.mlx);
+}
+
+// press = bool a true
+// relache = bool a false
+// mlx_loop_hook si bool = true alors fait action
+// 1 bool par action
+
 
 // void init_graphic(t_context *ctx)
 // {

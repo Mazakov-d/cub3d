@@ -97,9 +97,9 @@ void bresenham_line(t_context *ctx, t_pos from, t_pos to, int square_x, int squa
     i = 0;
     while (1)
     {
-        // my_mlx_pixel_put(&ctx->mlx.img, cur, rgb_to_int(calc_color(ctx,
+        // my_put_pixel(&ctx->mlx.img, cur, rgb_to_int(calc_color(ctx,
         //     from, i, 0xFFFFFF)));
-        mlx_pixel_put(ctx->mlx.mlx, ctx->mlx.win, (int)cur.x, (int)cur.y, color);
+        put_pixel(ctx, (int)cur.x, (int)cur.y, color);
         
         if ((int)cur.x == to_pxl.x && (int)cur.y == to_pxl.y)
             break ;

@@ -24,7 +24,8 @@ SRCS =\
 	ft_is_str_spaces.c free_context.c free_lines_lst.c init_context.c\
 	fill_map.c fill_texture_data.c fill_file_content.c ft_strsdup.c\
 	check_flood_fill.c print_map_color.c display_2d_map.c ft_vector.c\
-	ray_man.c ft_int_abs.c ft_double_abs.c bresenham.c maths.c
+	ray_man.c ft_int_abs.c ft_double_abs.c bresenham.c maths.c movement.c\
+	graphic_functions.c
 
 OBJS = $(addprefix $(OBJ_DIR)/, $(SRCS:.c=.o))
 

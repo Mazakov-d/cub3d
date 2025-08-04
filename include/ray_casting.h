@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray_casting.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mniemaz <mniemaz@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: dmazari <dmazari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 16:05:17 by dmazari           #+#    #+#             */
-/*   Updated: 2025/07/30 15:25:43 by mniemaz          ###   ########.fr       */
+/*   Updated: 2025/08/04 18:29:19 by dmazari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@
 typedef struct s_vector {
 	double	x_i;
 	double	y_i;
-	double	length;
 }	t_vector;
 
 typedef struct s_ray {

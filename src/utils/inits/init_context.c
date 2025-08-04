@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_context.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mniemaz <mniemaz@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: dmazari <dmazari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 11:23:43 by mniemaz           #+#    #+#             */
-/*   Updated: 2025/07/29 15:10:57 by mniemaz          ###   ########.fr       */
+/*   Updated: 2025/08/04 15:07:49 by dmazari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,12 @@ static int	init_texture_data(t_texture_data *tex_data)
 int	init_context(t_context *ctx)
 {
     ctx->map = NULL;
+	ctx->mlx.keys.w_bool = false;
+	ctx->mlx.keys.a_bool = false;
+	ctx->mlx.keys.s_bool = false;
+	ctx->mlx.keys.d_bool = false;
+	ctx->mlx.keys.left_arrow_bool = false;
+	ctx->mlx.keys.right_arrow_bool = false;
     if (init_texture_data(&ctx->texture_data) == EXIT_FAILURE)
     {
         printf_err("init_context: Failed to initialize texture data\n");

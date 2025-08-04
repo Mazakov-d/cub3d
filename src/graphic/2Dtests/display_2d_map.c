@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   display_2d_map.c                                      :+:      :+:    :+:   */
+/*   display_2d_map.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mniemaz <mniemaz@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/30 14:48:23 by mniemaz           #+#    #+#             */
-/*   Updated: 2025/07/30 14:48:54 by mniemaz          ###   ########.fr       */
+/*   Updated: 2025/08/04 18:34:30 by mniemaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,11 @@ void	print_rect(t_context *ctx, int x, int y, int square_x, int square_y,
 		while (j < square_y)
 		{
 			if (c == '1')
-				mlx_pixel_put(ctx->mlx.mlx, ctx->mlx.win, x + i, y + j,
-					0x440000);
-			if (c == '0')
-				mlx_pixel_put(ctx->mlx.mlx, ctx->mlx.win, x + i, y + j,
-					0x004400);
-			if (c == 'X')
-				mlx_pixel_put(ctx->mlx.mlx, ctx->mlx.win, x + i, y + j,
-					0x000044);
+				put_pixel(ctx, x + i, y + j, 0x440000);
+			else if (c == '0')
+				put_pixel(ctx, x + i, y + j, 0x004400);
+			else if (c == 'X')
+				put_pixel(ctx, x + i, y + j, 0x000044);
 			j++;
 		}
 		i++;
@@ -50,18 +47,17 @@ void	print_square(t_context *ctx, t_int_pos pos, int size, int color)
 		j = 0;
 		while (j < size)
 		{
-			mlx_pixel_put(ctx->mlx.mlx, ctx->mlx.win, pos.x + i, pos.y + j,
-				color);
+			put_pixel(ctx, pos.x + i, pos.y + j, color);
 			j++;
 		}
 		i++;
 	}
 }
 
-/**
- * @returns the angle of forward vec and x absis
- * still need to remove or add FOV / 2
- */
+/*
+** @returns the angle of forward vec and x absis
+** still need to remove or add FOV / 2
+*/
 double	get_fov_angle(t_context *ctx)
 {
 	double	angle;
@@ -88,7 +84,12 @@ void	draw_rays(t_context *ctx, int square_x, int square_y)
 	t_vector	right_ray;
 	t_vector	left_ray;
 	double		angle;
-
+	double		right_fov;
+	double		left_fov;
+	int			i;
+	int			nb_rays;
+	double		diff_angles;
+	t_vector	ray;
 
 	angle = get_fov_angle(ctx);
 	double right_fov = angle + FOV_RAD * 0.5;
@@ -101,6 +102,7 @@ void	draw_rays(t_context *ctx, int square_x, int square_y)
 	// facing_wall = get_pos_wall_toward(ctx, ctx->player.p_vec);
 	// bresenham_line(ctx, ctx->player.pos, facing_wall, square_x, square_y, 0xFFFFFF);
 	
+	/* Draw right FOV boundary */
 	init_vector(&right_ray, cos(right_fov), sin(right_fov));
 	right_ray_wall = get_pos_wall_toward(ctx, right_ray);
 	bresenham_line(ctx, ctx->player.pos, right_ray_wall, square_x, square_y, 0xFFFF00);
@@ -115,13 +117,10 @@ void	draw_rays(t_context *ctx, int square_x, int square_y)
 	int nb_rays = 4;
 	double diff_angles = right_fov - left_fov;
 	double step = diff_angles / (nb_rays - 1);
-	printf("step: %f\n", step);
-	printf("diff_angles: %f\n", right_fov - left_fov);
 	t_vector ray;
 	while (i < nb_rays - 1)
 	{
 
-		printf("printing ray\n");
 		double add = (i) * step;
 
 
@@ -130,8 +129,6 @@ void	draw_rays(t_context *ctx, int square_x, int square_y)
 		bresenham_line(ctx, ctx->player.pos, ray_wall, square_x, square_y, 0x00FF00);
 		i++;
 	}
-
-
 }
 
 void	display_2d_map(t_context *ctx)
@@ -145,8 +142,8 @@ void	display_2d_map(t_context *ctx)
 	int		row;
 	int		col;
 
+	// clear_image_fast(ctx);
 	map = ctx->map;
-	// int square_size;
 	i = 0;
 	largest_line = 0;
 	while (ctx->map[i])
@@ -170,10 +167,5 @@ void	display_2d_map(t_context *ctx)
 		}
 		row++;
 	}
-	// ctx->player.pos.x *= square_x;
-	// ctx->player.pos.y *= square_y;
-	// t_vector dir;
-	// init_vector(&dir, 1, 1);
-	// ray_man(ctx, dir, square_x, square_y);
 	draw_rays(ctx, square_x, square_y);
 }
