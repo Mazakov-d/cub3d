@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ray_man.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: miloniemaz <mniemaz@student.42lyon.fr>     +#+  +:+       +#+        */
+/*   By: mniemaz <mniemaz@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 18:39:07 by mniemaz           #+#    #+#             */
-/*   Updated: 2025/07/31 09:33:08 by miloniemaz       ###   ########.fr       */
+/*   Updated: 2025/08/04 11:30:12 by mniemaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
+
+
 
 /**
  * @brief Process one step of Bresenham algorithm for vector direction

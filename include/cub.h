@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: miloniemaz <mniemaz@student.42lyon.fr>     +#+  +:+       +#+        */
+/*   By: mniemaz <mniemaz@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 13:12:09 by mniemaz           #+#    #+#             */
-/*   Updated: 2025/07/31 10:33:31 by miloniemaz       ###   ########.fr       */
+/*   Updated: 2025/08/04 14:06:52 by mniemaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include "ray_casting.h"
 # include <errno.h>
 # include <fcntl.h>
+# include <float.h>
 # include <math.h>
 # include <mlx.h>
 # include <stdarg.h>
@@ -24,8 +25,6 @@
 # include <stdlib.h>
 # include <string.h>
 # include <unistd.h>
-# include <float.h>
-
 
 # define WIN_SIZE_X 500
 # define WIN_SIZE_Y 500
@@ -152,6 +151,10 @@ void				print_map_color(char **map, int row, int col);
  */
 int					ft_int_abs(int n);
 
+
+
+double				ft_double_abs(double n);
+
 /**
  * graphic
  * init.c
@@ -166,7 +169,8 @@ void				init_ray(t_context *ctx);
 /**
  * ray_man.c
  */
-void				ray_man(t_context *ctx, t_vector dir, double square_x, double square_y);
+void				ray_man(t_context *ctx, t_vector dir, double square_x,
+						double square_y);
 
 /**
  * free_graphic.c
@@ -178,13 +182,14 @@ int					free_graphic(t_context *context);
  */
 void				init_vector(t_vector *v, double x, double y);
 
-
 /**
  * maths
  */
 t_pos				get_intersection_pos(t_pos p, t_vector dir);
-void				bresenham_line(t_context *ctx, t_pos from, t_pos to, int square_x, int square_y);
-void				print_square(t_context *ctx, t_int_pos pos, int size, int color);
-t_pos   			get_pos_wall_toward(t_context *ctx, t_vector dir);
+void				bresenham_line(t_context *ctx, t_pos from, t_pos to,
+						int square_x, int square_y, int color);
+void				print_square(t_context *ctx, t_int_pos pos, int size,
+						int color);
+t_pos				get_pos_wall_toward(t_context *ctx, t_vector dir);
 
 #endif

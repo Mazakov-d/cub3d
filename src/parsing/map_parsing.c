@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_parsing.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: miloniemaz <mniemaz@student.42lyon.fr>     +#+  +:+       +#+        */
+/*   By: mniemaz <mniemaz@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 14:00:06 by mniemaz           #+#    #+#             */
-/*   Updated: 2025/08/01 05:25:02 by miloniemaz       ###   ########.fr       */
+/*   Updated: 2025/08/04 14:06:32 by mniemaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ static void	init_player_dir(t_context *ctx)
 	else if (ctx->map[(int)(ctx->player.pos.y)][(int)(ctx->player.pos.x)] == 'W')
 		init_vector(&ctx->player.p_vec, -1, 0);
 	else if (ctx->map[(int)(ctx->player.pos.y)][(int)(ctx->player.pos.x)] == 'N')
-		init_vector(&ctx->player.p_vec, 0, -1);
+		init_vector(&ctx->player.p_vec, 1, 0.3);
 	else if (ctx->map[(int)(ctx->player.pos.y)][(int)(ctx->player.pos.x)] == 'S')
 		init_vector(&ctx->player.p_vec, 0, 1);
 	ctx->map[(int)(ctx->player.pos.y)][(int)(ctx->player.pos.x)] = '0';
