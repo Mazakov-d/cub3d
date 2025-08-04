@@ -3,43 +3,93 @@
 /*                                                        :::      ::::::::   */
 /*   ray_man.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mniemaz <mniemaz@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: miloniemaz <mniemaz@student.42lyon.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 18:39:07 by mniemaz           #+#    #+#             */
-/*   Updated: 2025/07/30 17:32:15 by mniemaz          ###   ########.fr       */
+/*   Updated: 2025/07/31 09:33:08 by miloniemaz       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
 /**
- * @brief Draw a line between two cells of the map
+ * @brief Process one step of Bresenham algorithm for vector direction
  */
-void	ray_man(t_context *ctx, t_vector dir, double square_x, double square_y)
+static void bresenham_step_vector(int *x, int *y, t_vector dir, int error_x, int error_y, int *err)
 {
-	t_vector	step;
-	double		x;
-	double		y;
-	double		x_map;
-	double		y_map;
-	double m;
+    int temp_err;
 
-	m = dir.y_i / dir.x_i;
+    temp_err = 2 * (*err);
+    if (temp_err > -error_y)
+    {
+        *err -= error_y;
+        if (dir.x_i >= 0)
+            (*x)++;
+        else
+            (*x)--;
+    }
+    if (temp_err < error_x)
+    {
+        *err += error_x;
+        if (dir.y_i >= 0)
+            (*y)++;
+        else
+            (*y)--;
+    }
+}
 
-	x = ctx->player.pos_x;
-	y = ctx->player.pos_y;
-	x_map = x / square_x;
-	y_map = y / square_y;
-	printf("x,y %f,%f\n", x, y);
-	init_vector(&step, 1, (dir.y_i * m));
-	int limit = 0;
-	while (limit < 1500)
-	{
-		mlx_pixel_put(ctx->mlx.mlx, ctx->mlx.win, x, y, 0xffffff);
-		x += step.x_i;
-		y += step.y_i;
-		x_map += step.x_i;
-		y_map += step.y_i;
-		limit++;
-	}
+/**
+ * @brief Initialize Bresenham values for vector direction
+ */
+static void init_bresenham_vector(t_vector dir, int *error_x, int *error_y, int *err, double length)
+{
+    double norm = sqrt(dir.x_i * dir.x_i + dir.y_i * dir.y_i);
+    if (norm == 0)
+    {
+        *error_x = 0;
+        *error_y = 0;
+        *err = 0;
+        return;
+    }
+    *error_x = ft_int_abs((int)(dir.x_i / norm * length));
+    *error_y = ft_int_abs((int)(dir.y_i / norm * length));
+    *err = *error_x - *error_y;
+}
+
+/**
+ * @brief Draw a ray from player position in given direction for 1500 pixels
+ */
+void ray_man(t_context *ctx, t_vector dir, double square_x, double square_y)
+{
+	(void) ctx;
+	(void) dir;
+    int x, y;
+    int error_x, error_y;
+    int err;
+    int pixels_drawn;
+    int color;
+    const int MAX_PIXELS = 100;
+	(void) square_x; // square_x not used in this function
+	(void) square_y; // square_y not used in this function
+
+    // Point de départ : position du joueur
+    x = (int)ctx->player.pos.x;
+    y = (int)ctx->player.pos.y;
+
+    // Initialiser les valeurs pour Bresenham avec le vecteur directionnel
+    init_bresenham_vector(dir, &error_x, &error_y, &err, 1000.0);
+
+    color = 0xFFFFFF; // Rouge par défaut
+
+    pixels_drawn = 0;
+    while (pixels_drawn < MAX_PIXELS)
+    {
+        // Vérifier les limites de l'écran (adapter selon votre structure)
+		mlx_pixel_put(ctx->mlx.img, ctx->mlx.win, x, y, color);
+
+        // Faire un pas dans la direction du vecteur
+        bresenham_step_vector(&x, &y, dir, error_x, error_y, &err);
+
+        pixels_drawn++;
+    }
 }

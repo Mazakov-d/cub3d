@@ -6,7 +6,7 @@
 /*   By: miloniemaz <mniemaz@student.42lyon.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 13:12:09 by mniemaz           #+#    #+#             */
-/*   Updated: 2025/07/31 00:37:08 by miloniemaz       ###   ########.fr       */
+/*   Updated: 2025/07/31 10:33:31 by miloniemaz       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@
 # include <stdlib.h>
 # include <string.h>
 # include <unistd.h>
+# include <float.h>
+
 
 # define WIN_SIZE_X 500
 # define WIN_SIZE_Y 500
@@ -75,10 +77,21 @@ typedef struct s_parsing_data
 	int				fd;
 }					t_parsing_data;
 
+typedef struct s_pos
+{
+	double			x;
+	double			y;
+}					t_pos;
+
+typedef struct s_int_pos
+{
+	int				x;
+	int				y;
+}					t_int_pos;
+
 typedef struct s_player
 {
-	double			pos_x;
-	double			pos_y;
+	t_pos			pos;
 	t_vector		p_vec;
 }					t_player;
 
@@ -103,7 +116,7 @@ t_line				*skip_spaces(t_line *line);
 void				display_2d_map(t_context *ctx);
 
 /**
- * utils
+ * utils/str
  */
 int					ft_strlen(char *str);
 int					printf_err(const char *fmt, ...);
@@ -135,6 +148,11 @@ char				**ft_strsdup(char **src);
 void				print_map_color(char **map, int row, int col);
 
 /**
+ * utils/ft_int_abs.c
+ */
+int					ft_int_abs(int n);
+
+/**
  * graphic
  * init.c
  */
@@ -159,5 +177,14 @@ int					free_graphic(t_context *context);
  * vector/ft_vector.c
  */
 void				init_vector(t_vector *v, double x, double y);
+
+
+/**
+ * maths
+ */
+t_pos				get_intersection_pos(t_pos p, t_vector dir);
+void				bresenham_line(t_context *ctx, t_pos from, t_pos to, int square_x, int square_y);
+void				print_square(t_context *ctx, t_int_pos pos, int size, int color);
+t_pos   			get_pos_wall_toward(t_context *ctx, t_vector dir);
 
 #endif

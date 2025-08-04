@@ -3,21 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   printf_err.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mniemaz <mniemaz@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: miloniemaz <mniemaz@student.42lyon.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 10:00:00 by mniemaz           #+#    #+#             */
-/*   Updated: 2025/07/29 16:48:30 by mniemaz          ###   ########.fr       */
+/*   Updated: 2025/08/01 05:00:32 by miloniemaz       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
-static int	handle_string(char *buf, int pos, const char **fmt, va_list args)
+static int	handle_string(char *buf, int pos, const char **fmt, va_list *args)
 {
 	char	*s;
 
 	*fmt += 2;
-	s = va_arg(args, char *);
+	s = va_arg(*args, char *);
 	if (!s)
 		s = "(null)";
 	while (*s && pos < 1023)
@@ -68,24 +68,24 @@ static int	copy_num(char *buf, int pos, int max, int num)
 	return (pos);
 }
 
-static int	handle_int(char *buf, int pos, const char **fmt, va_list args)
+static int	handle_int(char *buf, int pos, const char **fmt, va_list *args)
 {
 	int	num;
 
 	*fmt += 2;
-	num = va_arg(args, int);
+	num = va_arg(*args, int);
 	pos = copy_num(buf, pos, 1023, num);
 	return (pos);
 }
 
-static int	handle_char(char *buf, int pos, const char **fmt, va_list args)
+static int	handle_char(char *buf, int pos, const char **fmt, va_list *args)
 {
-	char	c;
+	int	c;
 
 	*fmt += 2;
-	c = (char)va_arg(args, int);
+	c = va_arg(*args, int);
 	if (pos < 1023)
-		buf[pos++] = c;
+		buf[pos++] = (char)c;
 	return (pos);
 }
 
@@ -104,12 +104,12 @@ int	printf_err(const char *fmt, ...)
 	pos += 6;
 	while (*fmt && pos < 1023)
 	{
-		if (*fmt == '%' && *(fmt + 1) == 's')
-			pos = handle_string(buf, pos, &fmt, args);
+		if (*fmt == '%' && *(fmt + 1) == 'c')
+			pos = handle_char(buf, pos, &fmt, &args);
+		else if (*fmt == '%' && *(fmt + 1) == 's')
+			pos = handle_string(buf, pos, &fmt, &args);
 		else if (*fmt == '%' && *(fmt + 1) == 'd')
-			pos = handle_int(buf, pos, &fmt, args);
-		else if (*fmt == '%' && *(fmt + 1) == 'c')
-			pos = handle_char(buf, pos, &fmt, args);
+			pos = handle_int(buf, pos, &fmt, &args);
 		else
 			buf[pos++] = *fmt++;
 	}
