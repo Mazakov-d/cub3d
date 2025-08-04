@@ -58,6 +58,28 @@ void	print_square(t_context *ctx, t_int_pos pos, int size, int color)
 	}
 }
 
+/**
+ * @returns the angle of forward vec and x absis
+ * still need to remove or add FOV / 2
+ */
+double	get_fov_angle(t_context *ctx)
+{
+	double	angle;
+
+	angle = 0;
+	if (ctx->player.p_vec.x_i > 0.0f)
+		angle = atan(ctx->player.p_vec.y_i / ctx->player.p_vec.x_i);
+	else if (ctx->player.p_vec.x_i < 0.0f)
+		angle = atan(ctx->player.p_vec.y_i / ctx->player.p_vec.x_i) + PI;
+	else if (ctx->player.p_vec.x_i == 0.0f)
+	{
+		if (ctx->player.p_vec.y_i > 0.0f)
+			angle = PI / 2;
+		angle = -PI / 2;
+	}
+	return (angle);
+}
+
 void	draw_rays(t_context *ctx, int square_x, int square_y)
 {
 	t_pos		facing_wall;
@@ -65,26 +87,45 @@ void	draw_rays(t_context *ctx, int square_x, int square_y)
 	t_pos		left_ray_wall;
 	t_vector	right_ray;
 	t_vector	left_ray;
-	float		angle;
+	double		angle;
 
+
+	angle = get_fov_angle(ctx);
+	double right_fov = angle + FOV_RAD * 0.5;
+	double left_fov = angle - FOV_RAD * 0.5;
+
+	
+
+
+	
 	facing_wall = get_pos_wall_toward(ctx, ctx->player.p_vec);
-	bresenham_line(ctx, ctx->player.pos, facing_wall, square_x, square_y,
-		0xFFFFFF);
-	if (ctx->player.p_vec.x_i > 0.0)
+	bresenham_line(ctx, ctx->player.pos, facing_wall, square_x, square_y, 0xFFFFFF);
+	
+	init_vector(&right_ray, cos(right_fov), sin(right_fov));
+	right_ray_wall = get_pos_wall_toward(ctx, right_ray);
+	bresenham_line(ctx, ctx->player.pos, right_ray_wall, square_x, square_y, 0xFFFF00);
+
+
+	init_vector(&left_ray, cos(left_fov), left_fov);
+	left_ray_wall = get_pos_wall_toward(ctx, left_ray);
+	bresenham_line(ctx, ctx->player.pos, left_ray_wall, square_x, square_y, 0x00FFFF);
+
+
+	int i = 1;
+	int nb_rays = 4;
+	double diff_angles = right_fov - left_fov;
+	t_vector ray;
+	while (i < nb_rays)
 	{
-		angle = atan(ctx->player.p_vec.y_i / ctx->player.p_vec.x_i) + FOV_RAD
-			* 0.5;
-		init_vector(&right_ray, cos(angle), sin(angle));
-		right_ray_wall = get_pos_wall_toward(ctx, right_ray);
-		bresenham_line(ctx, ctx->player.pos, right_ray_wall, square_x, square_y,
-			0xFF0000);
-		angle = tanh(ctx->player.p_vec.y_i / ctx->player.p_vec.x_i) - FOV_RAD
-			* 0.5;
-		init_vector(&left_ray, cos(angle), sin(angle));
-		left_ray_wall = get_pos_wall_toward(ctx, left_ray);
-		bresenham_line(ctx, ctx->player.pos, left_ray_wall, square_x, square_y,
-			0x0000FF);
+		printf("printing ray\n");
+		double add = i * (diff_angles / (nb_rays));
+		init_vector(&ray, cos(left_fov + add), sin(left_fov + add));
+		t_pos ray_wall = get_pos_wall_toward(ctx, ray);
+		bresenham_line(ctx, ctx->player.pos, ray_wall, square_x, square_y, 0x00FF00);
+		i++;
 	}
+
+
 }
 
 void	display_2d_map(t_context *ctx)
