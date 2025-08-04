@@ -6,7 +6,7 @@
 /*   By: mniemaz <mniemaz@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 18:39:07 by mniemaz           #+#    #+#             */
-/*   Updated: 2025/08/04 14:10:19 by mniemaz          ###   ########.fr       */
+/*   Updated: 2025/08/04 15:08:57 by mniemaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,21 +75,13 @@ t_pos   get_intersection_pos(t_pos p, t_vector dir)
 
     // edge cases
     if (dir.x_i < 0 && is_rounded(p.x))
-    {
         p.x -= 0.0001;
-    }
     if (dir.y_i < 0 && is_rounded(p.y))
-    {
         p.y -= 0.0001;
-    }
     if (dir.x_i > 0 && is_rounded(p.x))
-    {
         p.x += 0.0001;
-    }
     if (dir.y_i > 0 && is_rounded(p.y))
-    {
         p.y += 0.0001;
-    }
     int floor_p_x = floor(p.x);
     int floor_p_y = floor(p.y);
 
@@ -106,10 +98,11 @@ t_pos   get_intersection_pos(t_pos p, t_vector dir)
 
 /**
  * todo what if both are rounded (corner)
- * @returns true if pos is facing a wall (or a non allocated) in the direction of dir
- * 
+ * @returns true if pos is stuck on a wall (or a non allocated) in the direction of dir
+ * "stuck on a wall" means it is at the edge of a square, and the next square in the
+ * direction of dir is a wall (or not allocated)
  */
-bool is_facing_wall(char **map, t_pos pos, t_vector dir)
+bool is_stuck_on_wall(char **map, t_pos pos, t_vector dir)
 {
     if (is_rounded(pos.x) && dir.x_i > 0)
     {
@@ -150,7 +143,7 @@ t_pos   get_pos_wall_toward(t_context *ctx, t_vector dir)
 
     inters = ctx->player.pos;
 
-    while (!is_facing_wall(ctx->map, inters, dir))
+    while (!is_stuck_on_wall(ctx->map, inters, dir))
     {
         inters = get_intersection_pos(inters, dir);
     }
