@@ -6,7 +6,7 @@
 /*   By: dmazari <dmazari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 15:32:17 by dmazari           #+#    #+#             */
-/*   Updated: 2025/08/04 15:22:10 by dmazari          ###   ########.fr       */
+/*   Updated: 2025/08/04 17:59:27 by dmazari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int	key_release(int keycode, t_context *context)
 
 int move_player(t_context *ctx)
 {
-	display_2d_map(ctx);	
+	mlx_clear_window(ctx->mlx.mlx, ctx->mlx.win);
 	if (ctx->mlx.keys.w_bool)
 		go_forward_backward(&ctx->player, ctx->map, 'W');
 	else if (ctx->mlx.keys.s_bool)
@@ -65,19 +65,25 @@ int move_player(t_context *ctx)
 	if (ctx->mlx.keys.right_arrow_bool)
 		turn_right(ctx);
 	return (0);
+	display_2d_map(ctx);
+	mlx_put_image_to_window(ctx->mlx.mlx, ctx->mlx.win, ctx->mlx.img.img_ptr, 0, 0);
 }
 
-void	init_graphic(t_context *context)
+void	init_graphic(t_context *ctx)
 {
-	context->mlx.mlx = mlx_init();
-	context->mlx.win = mlx_new_window(context->mlx.mlx, WIN_SIZE_X, WIN_SIZE_Y,
+	ctx->mlx.mlx = mlx_init();
+	ctx->mlx.win = mlx_new_window(ctx->mlx.mlx, WIN_SIZE_X, WIN_SIZE_Y,
 			"Dodo c'est le meilleur");
-	mlx_hook(context->mlx.win, 2, 1L<<0, key_hook_press, context);
-	mlx_hook(context->mlx.win, 3, 1L<<1, key_release, context);
-	mlx_hook(context->mlx.win, 17, 0L, free_graphic, (void *)context);
-	display_2d_map(context);
-	mlx_loop_hook(context->mlx.mlx, move_player, context);
-	mlx_loop(context->mlx.mlx);
+	ctx->mlx.img.img_ptr = mlx_new_image(ctx->mlx.mlx, WIN_SIZE_X, WIN_SIZE_Y);
+	ctx->mlx.img.data = mlx_get_data_addr(ctx->mlx.img.img_ptr, 
+		&ctx->mlx.img.bpp, &ctx->mlx.img.line_len, &ctx->mlx.img.endian);
+	mlx_hook(ctx->mlx.win, 2, 1L<<0, key_hook_press, ctx);
+	mlx_hook(ctx->mlx.win, 3, 1L<<1, key_release, ctx);
+	mlx_hook(ctx->mlx.win, 17, 0L, free_graphic, (void *)ctx);
+	display_2d_map(ctx);
+	mlx_put_image_to_window(ctx->mlx.mlx, ctx->mlx.win, ctx->mlx.img.img_ptr, 0, 0);
+	mlx_loop_hook(ctx->mlx.mlx, move_player, ctx);
+	mlx_loop(ctx->mlx.mlx);
 }
 
 // press = bool a true

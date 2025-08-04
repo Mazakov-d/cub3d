@@ -6,7 +6,7 @@
 /*   By: dmazari <dmazari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 18:39:07 by mniemaz           #+#    #+#             */
-/*   Updated: 2025/08/04 14:19:01 by dmazari          ###   ########.fr       */
+/*   Updated: 2025/08/04 17:31:04 by dmazari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ void ray_man(t_context *ctx, t_vector dir, double square_x, double square_y)
     while (pixels_drawn < MAX_PIXELS)
     {
         // Vérifier les limites de l'écran (adapter selon votre structure)
-		mlx_pixel_put(ctx->mlx.img, ctx->mlx.win, x, y, color);
+		put_pixel(ctx, x, y, color);
 
         // Faire un pas dans la direction du vecteur
         bresenham_step_vector(&x, &y, dir, error_x, error_y, &err);
