@@ -6,7 +6,7 @@
 /*   By: dmazari <dmazari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/30 14:48:23 by mniemaz           #+#    #+#             */
-/*   Updated: 2025/08/04 17:53:19 by dmazari          ###   ########.fr       */
+/*   Updated: 2025/08/04 18:17:00 by dmazari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,7 +135,7 @@ void	display_2d_map(t_context *ctx)
 	int		row;
 	int		col;
 
-	clear_image_fast(ctx);
+	// clear_image_fast(ctx);
 	map = ctx->map;
 	i = 0;
 	largest_line = 0;

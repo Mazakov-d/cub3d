@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   maths.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mniemaz <mniemaz@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: dmazari <dmazari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 18:39:07 by mniemaz           #+#    #+#             */
-/*   Updated: 2025/08/04 15:08:57 by mniemaz          ###   ########.fr       */
+/*   Updated: 2025/08/04 18:23:15 by dmazari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,8 @@
  */
 int is_rounded(double x)
 {
-    double int_part;
-    double frac_part = modf(x, &int_part);
-    return (frac_part == 0.0);
+    return (fabs(x - round(x)) < 0.0001);
+
 }
 
 double ft_min(double a, double b)

@@ -6,7 +6,7 @@
 /*   By: dmazari <dmazari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 11:33:45 by dmazari           #+#    #+#             */
-/*   Updated: 2025/08/04 15:56:14 by dmazari          ###   ########.fr       */
+/*   Updated: 2025/08/04 18:29:11 by dmazari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,13 +71,6 @@ void turn_right(t_context *ctx)
 		- ctx->player.p_vec.y_i * sin(TURN_SPEED);
 	ctx->player.p_vec.y_i = old_x * sin(TURN_SPEED)
 		+ ctx->player.p_vec.y_i * cos(TURN_SPEED);
-	ctx->player.p_vec.length = sqrt(ctx->player.p_vec.x_i * ctx->player.p_vec.x_i
-			+ ctx->player.p_vec.y_i * ctx->player.p_vec.y_i);
-	// if (ctx->player.p_vec.length != 0)
-	// {
-	// 	ctx->player.p_vec.x_i /= ctx->player.p_vec.length;
-	// 	ctx->player.p_vec.y_i /= ctx->player.p_vec.length;
-	// }
 }
 
 void turn_left(t_context *ctx)
@@ -89,11 +82,4 @@ void turn_left(t_context *ctx)
 		- ctx->player.p_vec.y_i * sin(-TURN_SPEED);
 	ctx->player.p_vec.y_i = old_x * sin(-TURN_SPEED)
 		+ ctx->player.p_vec.y_i * cos(-TURN_SPEED);
-	ctx->player.p_vec.length = sqrt(ctx->player.p_vec.x_i * ctx->player.p_vec.x_i
-			+ ctx->player.p_vec.y_i * ctx->player.p_vec.y_i);
-	// if (ctx->player.p_vec.length != 0)
-	// {
-	// 	ctx->player.p_vec.x_i /= ctx->player.p_vec.length;
-	// 	ctx->player.p_vec.y_i /= ctx->player.p_vec.length;
-	// }
 }

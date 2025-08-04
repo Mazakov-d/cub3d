@@ -6,7 +6,7 @@
 /*   By: dmazari <dmazari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/30 12:47:06 by dmazari           #+#    #+#             */
-/*   Updated: 2025/07/30 13:47:49 by dmazari          ###   ########.fr       */
+/*   Updated: 2025/08/04 18:30:05 by dmazari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,5 +16,4 @@ void	init_vector(t_vector *v, double x, double y)
 {
 	v->x_i = x;
 	v->y_i = y;
-	v->length = sqrt((v->x_i * v->x_i) + (v->y_i * v->y_i));
 }
