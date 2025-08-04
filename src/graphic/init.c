@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mniemaz <mniemaz@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: dmazari <dmazari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 15:32:17 by dmazari           #+#    #+#             */
-/*   Updated: 2025/07/30 15:10:44 by mniemaz          ###   ########.fr       */
+/*   Updated: 2025/08/04 13:22:21 by dmazari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,22 @@
 
 int	key_hook(int keycode, t_context *context)
 {
-	(void)context;
-	printf("keycode: %d\n", keycode);
-	if (keycode == 65307)
+	if (keycode == ESC)
 		free_graphic(context);
+	else if (keycode == W)
+		go_forward_backward(&context->player, context->map, 'W');
+	else if (keycode == A)
+		go_left_right(&context->player, context->map, 'A');
+	else if (keycode == S)
+		go_forward_backward(&context->player, context->map, 'S');
+	else if (keycode == D)
+		go_left_right(&context->player, context->map, 'D');
+	else if (keycode == LEFT_ARROW)
+		turn_left();
+	else if (keycode == RIGHT_ARROW)
+		turn_right();
+	printf("pos_x: %f, pos_y: %f\n", context->player.pos_x, context->player.pos_y);
+	// display_2d_map(context);
 	return (0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: dmazari <dmazari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 13:12:09 by mniemaz           #+#    #+#             */
-/*   Updated: 2025/08/04 10:04:24 by dmazari          ###   ########.fr       */
+/*   Updated: 2025/08/04 13:18:51 by dmazari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@
 # define D 100
 # define LEFT_ARROW 65361
 # define RIGHT_ARROW 65363
+# define ESC 65307
+# define SPEED 0.1
 
 typedef struct s_color
 {
@@ -160,6 +162,14 @@ void				ray_man(t_context *ctx, t_vector dir, double square_x, double square_y);
  * free_graphic.c
  */
 int					free_graphic(t_context *context);
+
+/**
+ * movement.c
+ */
+void				go_forward_backward(t_player *player, char **map, char flag);
+void				go_left_right(t_player *player, char **map, char flag);
+void				turn_left(void);
+void				turn_right(void);
 
 /**
  * vector/ft_vector.c

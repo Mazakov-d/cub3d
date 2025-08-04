@@ -70,7 +70,7 @@ void	display_2d_map(t_context *ctx)
 		}
 		row++;
 	}
-    ctx->player.pos_x *= square_x;
-    ctx->player.pos_y *= square_y;
+    // ctx->player.pos_x *= square_x;
+    // ctx->player.pos_y *= square_y;
     // ray_man(ctx, ctx->player.p_vec, square_x, square_y);
 }
