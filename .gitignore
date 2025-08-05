@@ -1,10 +1,10 @@
 *.mk
 minilibx-linux
 .obj
-*.cub
+# *.cub
 cub3D
 .vscode
 malloc_protection_checker
 *.txt
-*test*
+# *test*
 a.out
