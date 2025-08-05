@@ -6,7 +6,7 @@
 /*   By: mniemaz <mniemaz@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 15:32:17 by dmazari           #+#    #+#             */
-/*   Updated: 2025/08/05 15:59:46 by mniemaz          ###   ########.fr       */
+/*   Updated: 2025/08/05 16:02:45 by mniemaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	init_graphic(t_context *ctx)
 			"Cub3D");
 	if (!ctx->mlx->win_ptr)
 		free_graphic(ctx);
-	// init_texture(ctx);
+	init_texture(ctx);
 	ctx->mlx->img.img_ptr = mlx_new_image(ctx->mlx->mlx_ptr, WIN_SIZE_X, WIN_SIZE_Y);
 	if (!ctx->mlx->img.img_ptr)
 		free_graphic(ctx);
