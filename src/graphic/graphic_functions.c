@@ -6,34 +6,46 @@
 /*   By: dmazari <dmazari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 17:08:30 by dmazari           #+#    #+#             */
-/*   Updated: 2025/08/05 18:36:03 by dmazari          ###   ########.fr       */
+/*   Updated: 2025/08/05 19:35:15 by dmazari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
-int	get_pixel_color_img(t_img *img, int i, int length, t_point impact_point)
+int	get_pixel_data(t_img img, int y_wall, int length, t_point_dir impact)
 {
+	double	fract_part;
+	double	ratio;
+	int		x_img;
+	int		y_img;
+	int		offset;
+	char	*pixel;
 	int		color;
-	double	nearest_int;
-	double	distance;
-	int		pos_x;
 
-	pos_x = ;
-	if (impact_point.dir == NO || impact_point == SO)
-	{
-		nearest_int = round(impact_point.x);
-		distance = fabs(impact_point.x - nearest_int);
-		
-		printf("distance %f\n", distance);
-	}
+	ratio = y_wall / (double)length;
+	if (impact.dir == SO || impact.dir == NO)
+		fract_part = fabs(impact.pos.x - round(impact.pos.x));
 	else
-	{
-		nearest_int = round(impact_point.y);
-		distance = fabs(impact_point.y - nearest_int);
-		printf("distance %f\n", distance);
-	}
-	return (0xffffff);
+		fract_part = fabs(impact.pos.y - round(impact.pos.y));
+	x_img = fract_part * img.width;
+	y_img = ratio * img.height;
+	offset = y_img * img.line_len + x_img * (img.bpp / 8);
+	// printf("offset: %d\n", offset);
+	pixel = img.data + offset;
+	color = *(int*)pixel;
+	return (color);
+}
+
+int	get_pixel_color_img(t_context *ctx, t_point_dir impact, int length, int y_wall)
+{
+	if (impact.dir == NO)
+		return (get_pixel_data(ctx->texture_data.north, y_wall, length, impact));
+	else if (impact.dir == SO)
+		return (get_pixel_data(ctx->texture_data.south, y_wall, length, impact));
+	else if (impact.dir == WE)
+		return (get_pixel_data(ctx->texture_data.west, y_wall, length, impact));
+	else
+		return (get_pixel_data(ctx->texture_data.east, y_wall, length, impact));
 }
 
 void	put_pixel(t_context *ctx, int x, int y, int color)

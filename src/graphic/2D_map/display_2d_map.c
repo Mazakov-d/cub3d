@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   display_2d_map.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmazari <dmazari@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mniemaz <mniemaz@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/30 14:48:23 by mniemaz           #+#    #+#             */
-/*   Updated: 2025/08/05 16:50:24 by dmazari          ###   ########.fr       */
+/*   Updated: 2025/08/05 18:29:06 by mniemaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	draw_rays(t_context *ctx, int square_x, int square_y)
 	double		step;
 	t_vector	ray;
 	double		curr_angle;
-	t_point		ray_wall;
+	t_point_dir	ray_wall;
 
 	set_left_right_angles(ctx);
 	nb_rays = WIN_SIZE_X;
@@ -53,7 +53,7 @@ void	draw_rays(t_context *ctx, int square_x, int square_y)
 		curr_angle -= step;
 		init_vector(&ray, cos(curr_angle), sin(curr_angle));
 		ray_wall = get_pos_wall_toward(ctx, ray);
-		bresenham_line(ctx, ctx->player.pos, ray_wall, square_x, square_y, 0x00FF00);
+		bresenham_line(ctx, ctx->player.pos, ray_wall.pos, square_x, square_y, 0x00FF00);
 	}
 }
 

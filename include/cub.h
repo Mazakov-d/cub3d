@@ -6,7 +6,7 @@
 /*   By: dmazari <dmazari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 13:12:09 by mniemaz           #+#    #+#             */
-/*   Updated: 2025/08/05 18:16:31 by dmazari          ###   ########.fr       */
+/*   Updated: 2025/08/05 19:21:45 by dmazari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,15 +46,36 @@
 # define SPEED 0.05
 # define TURN_SPEED 0.05
 
+typedef enum e_cardinal_dir
+{
+	NO,
+	SO,
+	EA,
+	WE,
+	NONE
+}					t_cardinal_dir;
+
+typedef struct s_point
+{
+	double			x;
+	double			y;
+}					t_point;
+
+typedef struct s_point_dir
+{
+	t_point			pos;
+	t_cardinal_dir	dir;
+}					t_point_dir;
+
 typedef struct s_key_bool
 {
-	bool	w_bool;
-	bool	a_bool;
-	bool	s_bool;
-	bool	d_bool;
-	bool	left_arrow_bool;
-	bool	right_arrow_bool;
-}	t_key_bool;
+	bool			w_bool;
+	bool			a_bool;
+	bool			s_bool;
+	bool			d_bool;
+	bool			left_arrow_bool;
+	bool			right_arrow_bool;
+}					t_key_bool;
 
 typedef struct s_color
 {
@@ -66,15 +87,15 @@ typedef struct s_color
 
 typedef struct s_img
 {
-	char	*img_name;
-	void	*img_ptr;
-	char	*data;
-	int		width;
-	int		height;
-	int		bpp;
-	int		line_len;
-	int		endian;
-}	t_img;
+	char			*img_name;
+	void			*img_ptr;
+	char			*data;
+	int				width;
+	int				height;
+	int				bpp;
+	int				line_len;
+	int				endian;
+}					t_img;
 
 typedef struct s_mlx
 {
@@ -103,12 +124,6 @@ typedef struct s_line
 	char			*line;
 	struct s_line	*next;
 }					t_line;
-
-typedef struct s_pos
-{
-	double			x;
-	double			y;
-}					t_point;
 
 typedef struct s_int_pos
 {
@@ -178,35 +193,35 @@ void				print_map_color(char **map, int row, int col);
 
 /**
  * utils/ft_int_abs.c
-*/
+ */
 int					ft_int_abs(int n);
 double				ft_double_abs(double n);
 
 /**
  * graphic
  * init.c
-*/
+ */
 void				init_graphic(t_context *context);
 
 /**
  * ray_init.c
-*/
+ */
 void				init_ray(t_context *ctx);
 
 /**
  * ray_man.c
-*/
+ */
 void				ray_man(t_context *ctx, t_vector dir, double square_x,
 						double square_y);
 
 /**
  * free_graphic.c
-*/
+ */
 int					free_graphic(t_context *context);
 
 /**
  * movements
-*/
+ */
 void				go_forward(t_player *player, char **map);
 void				go_backward(t_player *player, char **map);
 void				go_left(t_player *player, char **map);
@@ -215,26 +230,24 @@ void				turn_left(t_context *ctx);
 void				turn_right(t_context *ctx);
 int					key_hook_press(int keycode, t_context *context);
 int					key_release(int keycode, t_context *context);
-int 				move_player(t_context *ctx);
-
+int					move_player(t_context *ctx);
 
 /**
  * vector/ft_vector.c
-*/
+ */
 void				init_vector(t_vector *v, double x, double y);
 double				get_distance(t_point a, t_point b);
 
 /**
  * maths
-*/
+ */
 t_point				get_intersection_pos(t_point p, t_vector dir);
 void				bresenham_line(t_context *ctx, t_point from, t_point to,
 						int square_x, int square_y, int color);
 void				print_square(t_context *ctx, t_int_pos pos, int size,
 						int color);
-t_point				get_pos_wall_toward(t_context *ctx, t_vector dir);
+t_point_dir			get_pos_wall_toward(t_context *ctx, t_vector dir);
 bool				is_almost_rounded(double n);
-
 
 /**
  * graphic_function.c
@@ -242,13 +255,12 @@ bool				is_almost_rounded(double n);
 void				put_pixel(t_context *ctx, int x, int y, int color);
 void				clear_image(t_context *ctx);
 void				clear_image_fast(t_context *ctx);
-int					get_pixel_color_img(t_img *img, int x, t_point impact_point);
+int					get_pixel_color_img(t_context *ctx, t_point_dir impact, int length, int y_wall);
 
 /**
  * perspective.c
  */
 void				vertical_render(t_context *ctx);
 void				set_left_right_angles(t_context *ctx);
-
 
 #endif
