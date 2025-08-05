@@ -3,30 +3,35 @@
 /*                                                        :::      ::::::::   */
 /*   perspective.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmazari <dmazari@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mniemaz <mniemaz@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 16:34:30 by dmazari           #+#    #+#             */
-/*   Updated: 2025/08/05 17:17:55 by dmazari          ###   ########.fr       */
+/*   Updated: 2025/08/05 18:36:58 by mniemaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
-void	draw_vertical_ray(double distance, t_context *ctx, int x)
+void	draw_vertical_ray(t_point_dir impact, t_context *ctx, int x)
 {
-	int	length;
-	int	i;
+	int		length;
+	int		i;
+	double	impact_distance;
 
 	i = 0;
-	length = 1 / distance * WIN_SIZE_Y * 0.5;
+	impact_distance = get_distance(ctx->player.pos, impact.pos);
+	if (impact_distance == 0.0f)
+		length = WIN_SIZE_Y;
+	else
+		length = 1 / impact_distance * WIN_SIZE_Y;
 	while (i < WIN_SIZE_Y)
 	{
 		if (i < (WIN_SIZE_Y - length) / 2)
 			put_pixel(ctx, x, i, 0x87CEEB);
 		else if (i > (WIN_SIZE_Y - length) / 2 + length)
-			put_pixel(ctx, x, i,  0x8B4513);
+			put_pixel(ctx, x, i, 0x8B4513);
 		else
-			put_pixel(ctx, x, i,  0x228B22);
+			put_pixel(ctx, x, i, 0x228B22);
 		i++;
 	}
 }
@@ -59,19 +64,18 @@ void	vertical_render(t_context *ctx)
 	double		step;
 	t_vector	ray;
 	double		curr_angle;
-	t_point		impact_point;
-	double		impact_distance;
+	t_point_dir	impact;
 
 	set_left_right_angles(ctx);
 	nb_rays = WIN_SIZE_X;
-	step = (ctx->player.right_fov_angle - ctx->player.left_fov_angle) / (nb_rays - 1);
+	step = (ctx->player.right_fov_angle - ctx->player.left_fov_angle) / (nb_rays
+			- 1);
 	curr_angle = ctx->player.right_fov_angle;
 	while (--nb_rays > -1)
 	{
 		curr_angle -= step;
 		init_vector(&ray, cos(curr_angle), sin(curr_angle));
-		impact_point = get_pos_wall_toward(ctx, ray);
-		impact_distance = get_distance(ctx->player.pos, impact_point);
-		draw_vertical_ray(impact_distance, ctx, nb_rays);
+		impact = get_pos_wall_toward(ctx, ray);
+		draw_vertical_ray(impact, ctx, nb_rays);
 	}
 }
