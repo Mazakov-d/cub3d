@@ -6,7 +6,7 @@
 /*   By: dmazari <dmazari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 15:32:17 by dmazari           #+#    #+#             */
-/*   Updated: 2025/08/05 15:45:38 by dmazari          ###   ########.fr       */
+/*   Updated: 2025/08/05 15:58:38 by dmazari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,13 @@ int	open_image(t_img *img, t_mlx *mlx)
 		printf_err("Can't open the file: '%s'\n", img->img_name);
 		return (EXIT_FAILURE);
 	}
-	img->data = mlx_get_data_addr(&img->img_ptr, &img->bpp,
+	img->data = mlx_get_data_addr(img->img_ptr, &img->bpp,
 			&img->line_len, &img->endian);
-	// mlx_destroy_image(mlx->mlx_ptr, img->img_ptr);
+	mlx_destroy_image(mlx->mlx_ptr, img->img_ptr);
+	img->img_ptr = NULL;
 	if (!img->data)
 	{
-		printf_err("Can't get data address from '%s'\n", img->img_name);
+		printf_err("%s: %s\n", img->img_name, strerror(errno));
 		return (EXIT_FAILURE);
 	}
 	free(img->img_name);
