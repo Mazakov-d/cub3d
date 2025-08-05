@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   display_2d_map.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mniemaz <mniemaz@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: dmazari <dmazari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/30 14:48:23 by mniemaz           #+#    #+#             */
-/*   Updated: 2025/08/05 15:48:29 by mniemaz          ###   ########.fr       */
+/*   Updated: 2025/08/05 16:50:24 by dmazari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,29 +34,6 @@ void	print_rect(t_context *ctx, int x, int y, int square_x, int square_y,
 		}
 		i++;
 	}
-}
-
-/**
- * Sets the left and right angles of the player's FOV based on the
- * player's vector direction
- */
-void	set_left_right_angles(t_context *ctx)
-{
-	double	angle;
-
-	angle = 0;
-	if (ctx->player.p_vec.x_i > 0.0f)
-		angle = atan(ctx->player.p_vec.y_i / ctx->player.p_vec.x_i);
-	else if (ctx->player.p_vec.x_i < 0.0f)
-		angle = atan(ctx->player.p_vec.y_i / ctx->player.p_vec.x_i) + PI;
-	else if (ctx->player.p_vec.x_i == 0.0f)
-	{
-		if (ctx->player.p_vec.y_i > 0.0f)
-			angle = PI * 0.5;
-		angle = -PI * 0.5;
-	}
-	ctx->player.right_fov_angle = angle + FOV_RAD * 0.5;
-	ctx->player.left_fov_angle = angle - FOV_RAD * 0.5;
 }
 
 void	draw_rays(t_context *ctx, int square_x, int square_y)
@@ -105,8 +82,8 @@ void calc_square_size(t_context *ctx, int *square_x, int *square_y)
 	while (ctx->map[++i])
 		if (ft_strlen(ctx->map[i]) > largest_line)
 			largest_line = ft_strlen(ctx->map[i]);
-	*square_x = WIN_SIZE_X / largest_line;
-	*square_y = WIN_SIZE_Y / i;
+	*square_x = MINI_MAP_X/ largest_line;
+	*square_y = MINI_MAP_Y / i;
 }
 
 

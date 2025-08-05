@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mniemaz <mniemaz@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: dmazari <dmazari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 13:12:09 by mniemaz           #+#    #+#             */
-/*   Updated: 2025/08/05 15:35:22 by mniemaz          ###   ########.fr       */
+/*   Updated: 2025/08/05 17:19:34 by dmazari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,10 @@
 # include <string.h>
 # include <unistd.h>
 
-# define MINI_MAP_X 150
-# define MINI_MAP_Y 100
-# define WIN_SIZE_X 1000
-# define WIN_SIZE_Y 800
+# define WIN_SIZE_X 1920
+# define WIN_SIZE_Y 1080
+# define MINI_MAP_X WIN_SIZE_X * 0.1
+# define MINI_MAP_Y WIN_SIZE_Y * 0.1
 # define BUFFER_SIZE 1024
 # define COLOR_INIT_VAL 256
 # define MAP_CHARS "NSEW01 "
@@ -240,5 +240,12 @@ t_point				get_pos_wall_toward(t_context *ctx, t_vector dir);
 void				put_pixel(t_context *ctx, int x, int y, int color);
 void				clear_image(t_context *ctx);
 void				clear_image_fast(t_context *ctx);
+
+/**
+ * perspective.c
+ */
+void				vertical_render(t_context *ctx);
+void				set_left_right_angles(t_context *ctx);
+
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: dmazari <dmazari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 14:22:49 by dmazari           #+#    #+#             */
-/*   Updated: 2025/08/05 14:48:54 by dmazari          ###   ########.fr       */
+/*   Updated: 2025/08/05 16:50:36 by dmazari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ int move_player(t_context *ctx)
 		turn_left(ctx);
 	if (ctx->mlx->keys.right_arrow_bool)
 		turn_right(ctx);
+	vertical_render(ctx);
 	display_2d_map(ctx);
 	mlx_put_image_to_window(ctx->mlx->mlx_ptr, ctx->mlx->win_ptr, ctx->mlx->img.img_ptr, 0, 0);
 	return (0);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_graphic.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mniemaz <mniemaz@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: dmazari <dmazari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 15:32:17 by dmazari           #+#    #+#             */
-/*   Updated: 2025/08/05 16:02:45 by mniemaz          ###   ########.fr       */
+/*   Updated: 2025/08/05 16:50:42 by dmazari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ void	init_graphic(t_context *ctx)
 	mlx_hook(ctx->mlx->win_ptr, 3, 1L<<1, key_release, ctx);
 	mlx_hook(ctx->mlx->win_ptr, 17, 0L, free_graphic, (void *)ctx);
 	display_2d_map(ctx);
+	vertical_render(ctx);
 	mlx_put_image_to_window(ctx->mlx->mlx_ptr, ctx->mlx->win_ptr, ctx->mlx->img.img_ptr, 0, 0);
 	mlx_loop_hook(ctx->mlx->mlx_ptr, move_player, ctx);
 	mlx_loop(ctx->mlx->mlx_ptr);
