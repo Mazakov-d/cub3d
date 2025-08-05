@@ -9,13 +9,13 @@ CFLAGS=-Wall -Wextra -Werror -g3 -I$(INC_DIR) -I$(MLX_DIR)
 vpath %.c $(SRC_DIR) $(SRC_DIR)/parsing $(SRC_DIR)/utils\
 		$(SRC_DIR)/graphic $(SRC_DIR)/utils/frees\
 		$(SRC_DIR)/utils/str $(SRC_DIR)/utils/inits\
-		$(SRC_DIR)/graphic/ray_casting $(SRC_DIR)/graphic/2Dtests\
+		$(SRC_DIR)/graphic/ray_casting $(SRC_DIR)/graphic/2D_map\
 		$(SRC_DIR)/utils/vector $(SRC_DIR)/graphic/movements
 vpath %.h $(INC_DIR)
 vpath %.o $(OBJ_DIR)
 
 SRCS =\
-	main.c map_parsing.c init.c free_graphic.c ray_init.c\
+	main.c map_parsing.c init_graphic.c free_graphic.c\
 	ft_calloc.c ft_free_tab.c ft_isalpha.c ft_isspace.c ft_split.c\
 	ft_strchr_idx.c ft_strlen.c get_next_line.c putendl_fd.c\
 	printf_err.c ft_isalnum.c ft_isdigit.c ft_memcpy.c ft_strchr.c\
@@ -26,6 +26,7 @@ SRCS =\
 	check_flood_fill.c print_map_color.c display_2d_map.c ft_vector.c\
 	ft_int_abs.c ft_double_abs.c bresenham.c maths.c go_left.c go_right.c\
 	graphic_functions.c go_forward.c go_backward.c turn_left.c turn_right.c\
+	movements_handling.c
 
 OBJS = $(addprefix $(OBJ_DIR)/, $(SRCS:.c=.o))
 

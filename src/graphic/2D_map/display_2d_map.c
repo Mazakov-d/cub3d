@@ -6,7 +6,7 @@
 /*   By: dmazari <dmazari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/30 14:48:23 by mniemaz           #+#    #+#             */
-/*   Updated: 2025/08/05 13:42:33 by dmazari          ###   ########.fr       */
+/*   Updated: 2025/08/05 14:12:50 by dmazari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,25 +35,6 @@ void	print_rect(t_context *ctx, int x, int y, int square_x, int square_y,
 		i++;
 	}
 }
-
-void	print_square(t_context *ctx, t_int_pos pos, int size, int color)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	while (i < size)
-	{
-		j = 0;
-		while (j < size)
-		{
-			put_pixel(ctx, pos.x + i, pos.y + j, color);
-			j++;
-		}
-		i++;
-	}
-}
-
 /*
 ** @returns the angle of forward vec and x absis
 ** still need to remove or add FOV / 2
@@ -113,8 +94,8 @@ void	draw_rays(t_context *ctx, int square_x, int square_y)
 
 
 		init_vector(&ray, cos(left_fov + add), sin(left_fov + add));
-		t_point ray_wall = get_pos_wall_toward(ctx, ray);
-		bresenham_line(ctx, ctx->player.pos, ray_wall, square_x, square_y, 0x00FF00);
+		t_point wall_point = get_pos_wall_toward(ctx, ray);
+		bresenham_line(ctx, ctx->player.pos, wall_point, square_x, square_y, 0x00FF00);
 		i++;
 	}
 }
@@ -140,8 +121,8 @@ void	display_2d_map(t_context *ctx)
 		i++;
 	}
 	nb_rows = i;
-	square_x = MINI_MAP_X / largest_line;
-	square_y = MINI_MAP_Y / nb_rows;
+	square_x = WIN_SIZE_X / largest_line;
+	square_y = WIN_SIZE_Y / nb_rows;
 	row = 0;
 	while (map[row])
 	{

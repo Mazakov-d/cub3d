@@ -6,7 +6,7 @@
 /*   By: dmazari <dmazari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 13:12:09 by mniemaz           #+#    #+#             */
-/*   Updated: 2025/08/05 13:42:33 by dmazari          ###   ########.fr       */
+/*   Updated: 2025/08/05 14:48:20 by dmazari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,13 +61,16 @@ typedef struct s_color
 	unsigned char	r;
 	unsigned char	g;
 	unsigned char	b;
-	unsigned long	rgba;
+	unsigned long	hexa;
 }					t_color;
 
 typedef struct s_img
 {
+	char	*img_name;
 	void	*img_ptr;
 	char	*data;
+	int		width;
+	int		height;
 	int		bpp;
 	int		line_len;
 	int		endian;
@@ -81,16 +84,16 @@ typedef struct s_mlx
 	int				bits_per_pixel;
 	int				line_length;
 	int				endian;
-	void			*mlx;
-	void			*win;
+	void			*mlx_ptr;
+	void			*win_ptr;
 }					t_mlx;
 
 typedef struct s_texture_data
 {
-	char			*north;
-	char			*south;
-	char			*east;
-	char			*west;
+	t_img			north;
+	t_img			south;
+	t_img			east;
+	t_img			west;
 	t_color			*floor;
 	t_color			*ceiling;
 }					t_texture_data;
@@ -129,7 +132,7 @@ typedef struct s_context
 {
 	char			**map;
 	t_texture_data	texture_data;
-	t_mlx			mlx;
+	t_mlx			*mlx;
 	t_player		player;
 }					t_context;
 
@@ -214,11 +217,16 @@ void				go_left(t_player *player, char **map);
 void				go_right(t_player *player, char **map);
 void				turn_left(t_context *ctx);
 void				turn_right(t_context *ctx);
+int					key_hook_press(int keycode, t_context *context);
+int					key_release(int keycode, t_context *context);
+int 				move_player(t_context *ctx);
+
 
 /**
  * vector/ft_vector.c
 */
 void				init_vector(t_vector *v, double x, double y);
+double				get_distance(t_point a, t_point b);
 
 /**
  * maths

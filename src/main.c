@@ -6,7 +6,7 @@
 /*   By: dmazari <dmazari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 13:59:15 by mniemaz           #+#    #+#             */
-/*   Updated: 2025/08/05 13:49:47 by dmazari          ###   ########.fr       */
+/*   Updated: 2025/08/05 14:38:40 by dmazari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,7 @@ int	main(int ac, char **av)
 	if (init_context(&ctx) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
 	if (parse_file(&ctx, av[1]) == EXIT_SUCCESS)
-	{
-		printf("Map OK\n");
 		init_graphic(&ctx);
-	}
 	free_context(&ctx);
 	return (0);
 }
