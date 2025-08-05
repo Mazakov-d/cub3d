@@ -1,29 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   go_forward.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dmazari <dmazari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/28 13:59:15 by mniemaz           #+#    #+#             */
-/*   Updated: 2025/08/05 13:49:47 by dmazari          ###   ########.fr       */
+/*   Created: 2025/08/05 13:32:28 by dmazari           #+#    #+#             */
+/*   Updated: 2025/08/05 13:35:41 by dmazari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
-int	main(int ac, char **av)
+void	go_forward(t_player *player, char **map)
 {
-	t_context ctx;
-	if (ac != 2)
-		return (printf_err("Usage: %s <map_file>\n", av[0]));
-	if (init_context(&ctx) == EXIT_FAILURE)
-		return (EXIT_FAILURE);
-	if (parse_file(&ctx, av[1]) == EXIT_SUCCESS)
-	{
-		printf("Map OK\n");
-		init_graphic(&ctx);
-	}
-	free_context(&ctx);
-	return (0);
+	float	i;
+	float	j;
+
+	j = player->pos.x + (player->p_vec.x_i * SPEED);
+	i = player->pos.y + (player->p_vec.y_i * SPEED);
+	if (map[(int)i][(int)j] == '1')
+		return ;
+	player->pos.x += player->p_vec.x_i * SPEED;
+	player->pos.y += player->p_vec.y_i * SPEED;
 }

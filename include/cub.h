@@ -6,7 +6,7 @@
 /*   By: dmazari <dmazari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 13:12:09 by mniemaz           #+#    #+#             */
-/*   Updated: 2025/08/04 17:49:02 by dmazari          ###   ########.fr       */
+/*   Updated: 2025/08/05 13:42:33 by dmazari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@
 # include <string.h>
 # include <unistd.h>
 
+# define MINI_MAP_X 150
+# define MINI_MAP_Y 100
 # define WIN_SIZE_X 1000
 # define WIN_SIZE_Y 800
 # define BUFFER_SIZE 1024
@@ -109,7 +111,7 @@ typedef struct s_pos
 {
 	double			x;
 	double			y;
-}					t_pos;
+}					t_point;
 
 typedef struct s_int_pos
 {
@@ -119,7 +121,7 @@ typedef struct s_int_pos
 
 typedef struct s_player
 {
-	t_pos			pos;
+	t_point			pos;
 	t_vector		p_vec;
 }					t_player;
 
@@ -204,10 +206,12 @@ void				ray_man(t_context *ctx, t_vector dir, double square_x,
 int					free_graphic(t_context *context);
 
 /**
- * movement.c
+ * movements
 */
-void				go_forward_backward(t_player *player, char **map, char flag);
-void				go_left_right(t_player *player, char **map, char flag);
+void				go_forward(t_player *player, char **map);
+void				go_backward(t_player *player, char **map);
+void				go_left(t_player *player, char **map);
+void				go_right(t_player *player, char **map);
 void				turn_left(t_context *ctx);
 void				turn_right(t_context *ctx);
 
@@ -219,12 +223,12 @@ void				init_vector(t_vector *v, double x, double y);
 /**
  * maths
 */
-t_pos				get_intersection_pos(t_pos p, t_vector dir);
-void				bresenham_line(t_context *ctx, t_pos from, t_pos to,
+t_point				get_intersection_pos(t_point p, t_vector dir);
+void				bresenham_line(t_context *ctx, t_point from, t_point to,
 						int square_x, int square_y, int color);
 void				print_square(t_context *ctx, t_int_pos pos, int size,
 						int color);
-t_pos				get_pos_wall_toward(t_context *ctx, t_vector dir);
+t_point				get_pos_wall_toward(t_context *ctx, t_vector dir);
 
 /**
  * graphic_function.c

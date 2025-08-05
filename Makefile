@@ -10,7 +10,7 @@ vpath %.c $(SRC_DIR) $(SRC_DIR)/parsing $(SRC_DIR)/utils\
 		$(SRC_DIR)/graphic $(SRC_DIR)/utils/frees\
 		$(SRC_DIR)/utils/str $(SRC_DIR)/utils/inits\
 		$(SRC_DIR)/graphic/ray_casting $(SRC_DIR)/graphic/2Dtests\
-		$(SRC_DIR)/utils/vector
+		$(SRC_DIR)/utils/vector $(SRC_DIR)/graphic/movements
 vpath %.h $(INC_DIR)
 vpath %.o $(OBJ_DIR)
 
@@ -24,8 +24,8 @@ SRCS =\
 	ft_is_str_spaces.c free_context.c free_lines_lst.c init_context.c\
 	fill_map.c fill_texture_data.c fill_file_content.c ft_strsdup.c\
 	check_flood_fill.c print_map_color.c display_2d_map.c ft_vector.c\
-	ray_man.c ft_int_abs.c ft_double_abs.c bresenham.c maths.c movement.c\
-	graphic_functions.c
+	ft_int_abs.c ft_double_abs.c bresenham.c maths.c go_left.c go_right.c\
+	graphic_functions.c go_forward.c go_backward.c turn_left.c turn_right.c\
 
 OBJS = $(addprefix $(OBJ_DIR)/, $(SRCS:.c=.o))
 
