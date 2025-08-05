@@ -6,7 +6,7 @@
 /*   By: dmazari <dmazari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 15:32:17 by dmazari           #+#    #+#             */
-/*   Updated: 2025/08/05 16:50:42 by dmazari          ###   ########.fr       */
+/*   Updated: 2025/08/05 19:37:27 by dmazari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ int	open_image(t_img *img, t_mlx *mlx)
 	}
 	img->data = mlx_get_data_addr(img->img_ptr, &img->bpp,
 			&img->line_len, &img->endian);
-	mlx_destroy_image(mlx->mlx_ptr, img->img_ptr);
-	img->img_ptr = NULL;
+	// mlx_destroy_image(mlx->mlx_ptr, img->img_ptr);
+	// img->img_ptr = NULL;
 	if (!img->data)
 	{
 		printf_err("%s: %s\n", img->img_name, strerror(errno));

@@ -6,7 +6,7 @@
 /*   By: dmazari <dmazari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 17:08:30 by dmazari           #+#    #+#             */
-/*   Updated: 2025/08/05 19:35:15 by dmazari          ###   ########.fr       */
+/*   Updated: 2025/08/05 19:44:03 by dmazari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	get_pixel_data(t_img img, int y_wall, int length, t_point_dir impact)
 	// printf("offset: %d\n", offset);
 	pixel = img.data + offset;
 	color = *(int*)pixel;
-	return (color);
+	return (color); 
 }
 
 int	get_pixel_color_img(t_context *ctx, t_point_dir impact, int length, int y_wall)
