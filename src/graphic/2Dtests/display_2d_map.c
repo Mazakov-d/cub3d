@@ -6,7 +6,7 @@
 /*   By: mniemaz <mniemaz@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/30 14:48:23 by mniemaz           #+#    #+#             */
-/*   Updated: 2025/08/04 18:35:46 by mniemaz          ###   ########.fr       */
+/*   Updated: 2025/08/05 15:31:21 by mniemaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,11 +54,11 @@ void	print_square(t_context *ctx, t_int_pos pos, int size, int color)
 	}
 }
 
-/*
-** @returns the angle of forward vec and x absis
-** still need to remove or add FOV / 2
-*/
-double	get_fov_angle(t_context *ctx)
+/**
+ * Sets the left and right angles of the player's FOV based on the
+ * player's vector direction
+ */
+void	set_left_right_angles(t_context *ctx)
 {
 	double	angle;
 
@@ -73,95 +73,68 @@ double	get_fov_angle(t_context *ctx)
 			angle = PI * 0.5;
 		angle = -PI * 0.5;
 	}
-	return (angle);
+	ctx->player.right_fov_angle = angle + FOV_RAD * 0.5;
+	ctx->player.left_fov_angle = angle - FOV_RAD * 0.5;
 }
 
 void	draw_rays(t_context *ctx, int square_x, int square_y)
 {
-	// t_pos		facing_wall;
-	t_pos		right_ray_wall;
-	t_pos		left_ray_wall;
-	t_vector	right_ray;
-	t_vector	left_ray;
-	double		angle;
-	double		right_fov;
-	double		left_fov;
+	int			nb_rays;
+	double		step;
+	t_vector	ray;
+	double		curr_angle;
+	t_pos		ray_wall;
 
-	angle = get_fov_angle(ctx);
-	right_fov = angle + FOV_RAD * 0.5;
-	left_fov = angle - FOV_RAD * 0.5;
-
-	
-
-
-	
-	// facing_wall = get_pos_wall_toward(ctx, ctx->player.p_vec);
-	// bresenham_line(ctx, ctx->player.pos, facing_wall, square_x, square_y, 0xFFFFFF);
-	
-	/* Draw right FOV boundary */
-	init_vector(&right_ray, cos(right_fov), sin(right_fov));
-	right_ray_wall = get_pos_wall_toward(ctx, right_ray);
-	bresenham_line(ctx, ctx->player.pos, right_ray_wall, square_x, square_y, 0xFFFF00);
-
-
-	init_vector(&left_ray, cos(left_fov), sin(left_fov));
-	left_ray_wall = get_pos_wall_toward(ctx, left_ray);
-	bresenham_line(ctx, ctx->player.pos, left_ray_wall, square_x, square_y, 0x00FFFF);
-
-
-	int i = 1;
-	int nb_rays = 4;
-	double diff_angles = right_fov - left_fov;
-	double step = diff_angles / (nb_rays - 1);
-	t_vector ray;
-	while (i < nb_rays - 1)
+	set_left_right_angles(ctx);
+	nb_rays = WIN_SIZE_X;
+	step = (ctx->player.right_fov_angle - ctx->player.left_fov_angle) / (nb_rays - 1);
+	while (--nb_rays > -1)
 	{
-
-		double add = (i) * step;
-
-
-		init_vector(&ray, cos(left_fov + add), sin(left_fov + add));
-		t_pos ray_wall = get_pos_wall_toward(ctx, ray);
-		bresenham_line(ctx, ctx->player.pos, ray_wall, square_x, square_y, 0x00FF00);
-		i++;
+		curr_angle = ctx->player.left_fov_angle + nb_rays * step;
+		init_vector(&ray, cos(curr_angle), sin(curr_angle));
+		ray_wall = get_pos_wall_toward(ctx, ray);
+		bresenham_line(ctx, ctx->player.pos, ray_wall, square_x, square_y,
+			0x00FF00);
 	}
 }
 
-void	display_2d_map(t_context *ctx)
+void draw_map_squares(t_context *ctx, int square_x, int square_y)
 {
-	int		largest_line;
-	int		nb_rows;
-	int		i;
-	int		square_x;
-	int		square_y;
-	char	**map;
-	int		row;
-	int		col;
+	int row;
+	int col;
 
-	// clear_image_fast(ctx);
-	map = ctx->map;
+	row = -1;
+	while (ctx->map[++row])
+	{
+		col = -1;
+		while (ctx->map[row][++col])
+			print_rect(ctx, square_x * col, square_y * row, square_x, square_y,
+				ctx->map[row][col]);
+	}
+}
+
+void calc_square_size(t_context *ctx, int *square_x, int *square_y)
+{
+	int	largest_line;
+	int	i;
+
 	i = 0;
 	largest_line = 0;
-	while (ctx->map[i])
-	{
+	while (ctx->map[++i])
 		if (ft_strlen(ctx->map[i]) > largest_line)
 			largest_line = ft_strlen(ctx->map[i]);
-		i++;
-	}
-	nb_rows = i;
-	square_x = WIN_SIZE_X / largest_line;
-	square_y = WIN_SIZE_Y / nb_rows;
-	row = 0;
-	while (map[row])
-	{
-		col = 0;
-		while (map[row][col])
-		{
-			print_rect(ctx, square_x * col, square_y * row, square_x, square_y,
-				map[row][col]);
-			col++;
-		}
-		row++;
-	}
+	*square_x = WIN_SIZE_X / largest_line;
+	*square_y = WIN_SIZE_Y / i;
+}
+
+
+void	display_2d_map(t_context *ctx)
+{
+	int	square_x;
+	int	square_y;
+
+	calc_square_size(ctx, &square_x, &square_y);
+	draw_map_squares(ctx, square_x, square_y);
+	
 	draw_rays(ctx, square_x, square_y);
 }

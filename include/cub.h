@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmazari <dmazari@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mniemaz <mniemaz@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 13:12:09 by mniemaz           #+#    #+#             */
-/*   Updated: 2025/08/04 17:49:02 by dmazari          ###   ########.fr       */
+/*   Updated: 2025/08/05 14:53:34 by mniemaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,12 +99,6 @@ typedef struct s_line
 	struct s_line	*next;
 }					t_line;
 
-typedef struct s_parsing_data
-{
-	t_line	**file_content;
-	int		fd;
-}			t_parsing_data;
-
 typedef struct s_pos
 {
 	double			x;
@@ -121,6 +115,8 @@ typedef struct s_player
 {
 	t_pos			pos;
 	t_vector		p_vec;
+	double			left_fov_angle;
+	double			right_fov_angle;
 }					t_player;
 
 typedef struct s_context
