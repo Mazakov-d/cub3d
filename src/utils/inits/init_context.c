@@ -6,7 +6,7 @@
 /*   By: dmazari <dmazari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 11:23:43 by mniemaz           #+#    #+#             */
-/*   Updated: 2025/08/05 15:25:45 by dmazari          ###   ########.fr       */
+/*   Updated: 2025/08/05 15:52:55 by dmazari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,14 @@ static int	init_texture_data(t_texture_data *tex_data)
 	tex_data->south.img_name = NULL;
 	tex_data->east.img_name = NULL;
 	tex_data->west.img_name = NULL;
+	tex_data->north.data = NULL;
+	tex_data->south.data = NULL;
+	tex_data->east.data = NULL;
+	tex_data->west.data = NULL;
+	tex_data->north.img_ptr = NULL;
+	tex_data->south.img_ptr = NULL;
+	tex_data->east.img_ptr = NULL;
+	tex_data->west.img_ptr = NULL;
 	tex_data->floor = malloc(sizeof(t_color));
 	if (!tex_data->floor)
 		return (EXIT_FAILURE);
@@ -36,6 +44,7 @@ int	init_context(t_context *ctx)
 	if (!ctx->mlx)
 		return (printf_err("init_context: Failed to initialize texture data\n"));
 	ctx->mlx->img.img_ptr = NULL;
+	ctx->mlx->img.data = NULL;
     if (init_texture_data(&ctx->texture_data) == EXIT_FAILURE)
     {
         printf_err("init_context: Failed to initialize texture data\n");
