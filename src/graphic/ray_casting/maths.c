@@ -6,7 +6,7 @@
 /*   By: dmazari <dmazari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 18:39:07 by mniemaz           #+#    #+#             */
-/*   Updated: 2025/08/05 13:42:33 by dmazari          ###   ########.fr       */
+/*   Updated: 2025/08/05 18:03:14 by dmazari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ int	is_rounded(double x)
 	return (frac_part == 0.0);
 }
 
-bool is_almost_rounded(double n) {
+bool is_almost_rounded(double n)
+{
     double nearest_int = round(n);
     double distance = fabs(n - nearest_int);
 

@@ -6,27 +6,36 @@
 /*   By: dmazari <dmazari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 16:34:30 by dmazari           #+#    #+#             */
-/*   Updated: 2025/08/05 17:17:55 by dmazari          ###   ########.fr       */
+/*   Updated: 2025/08/05 18:32:58 by dmazari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
-void	draw_vertical_ray(double distance, t_context *ctx, int x)
+void	draw_vertical_ray(double distance, t_context *ctx, int x, t_point impact_point)
 {
 	int	length;
 	int	i;
+	int	diff;
+	int	color;
 
 	i = 0;
-	length = 1 / distance * WIN_SIZE_Y * 0.5;
+	length = 1 / distance * WIN_SIZE_Y;
+	diff = (WIN_SIZE_Y - length) / 2 + length;
+	while (i < (WIN_SIZE_Y - length) / 2)
+	{
+		put_pixel(ctx, x, i, ctx->texture_data.ceiling->hexa);
+		i++;
+	}
+	while (i < diff)
+	{
+		color = get_pixel_color_img(&ctx->texture_data.north, i, length, impact_point);
+		put_pixel(ctx, x, i, color);
+		i++;
+	}
 	while (i < WIN_SIZE_Y)
 	{
-		if (i < (WIN_SIZE_Y - length) / 2)
-			put_pixel(ctx, x, i, 0x87CEEB);
-		else if (i > (WIN_SIZE_Y - length) / 2 + length)
-			put_pixel(ctx, x, i,  0x8B4513);
-		else
-			put_pixel(ctx, x, i,  0x228B22);
+		put_pixel(ctx, x, i,  ctx->texture_data.floor->hexa);
 		i++;
 	}
 }
@@ -72,6 +81,6 @@ void	vertical_render(t_context *ctx)
 		init_vector(&ray, cos(curr_angle), sin(curr_angle));
 		impact_point = get_pos_wall_toward(ctx, ray);
 		impact_distance = get_distance(ctx->player.pos, impact_point);
-		draw_vertical_ray(impact_distance, ctx, nb_rays);
+		draw_vertical_ray(impact_distance, ctx, nb_rays, impact_point);
 	}
 }

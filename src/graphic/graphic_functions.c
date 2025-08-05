@@ -6,11 +6,35 @@
 /*   By: dmazari <dmazari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 17:08:30 by dmazari           #+#    #+#             */
-/*   Updated: 2025/08/05 16:31:05 by dmazari          ###   ########.fr       */
+/*   Updated: 2025/08/05 18:36:03 by dmazari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
+
+int	get_pixel_color_img(t_img *img, int i, int length, t_point impact_point)
+{
+	int		color;
+	double	nearest_int;
+	double	distance;
+	int		pos_x;
+
+	pos_x = ;
+	if (impact_point.dir == NO || impact_point == SO)
+	{
+		nearest_int = round(impact_point.x);
+		distance = fabs(impact_point.x - nearest_int);
+		
+		printf("distance %f\n", distance);
+	}
+	else
+	{
+		nearest_int = round(impact_point.y);
+		distance = fabs(impact_point.y - nearest_int);
+		printf("distance %f\n", distance);
+	}
+	return (0xffffff);
+}
 
 void	put_pixel(t_context *ctx, int x, int y, int color)
 {

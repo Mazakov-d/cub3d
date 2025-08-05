@@ -6,7 +6,7 @@
 /*   By: dmazari <dmazari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 13:12:09 by mniemaz           #+#    #+#             */
-/*   Updated: 2025/08/05 17:19:34 by dmazari          ###   ########.fr       */
+/*   Updated: 2025/08/05 18:16:31 by dmazari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -233,6 +233,8 @@ void				bresenham_line(t_context *ctx, t_point from, t_point to,
 void				print_square(t_context *ctx, t_int_pos pos, int size,
 						int color);
 t_point				get_pos_wall_toward(t_context *ctx, t_vector dir);
+bool				is_almost_rounded(double n);
+
 
 /**
  * graphic_function.c
@@ -240,6 +242,7 @@ t_point				get_pos_wall_toward(t_context *ctx, t_vector dir);
 void				put_pixel(t_context *ctx, int x, int y, int color);
 void				clear_image(t_context *ctx);
 void				clear_image_fast(t_context *ctx);
+int					get_pixel_color_img(t_img *img, int x, t_point impact_point);
 
 /**
  * perspective.c
