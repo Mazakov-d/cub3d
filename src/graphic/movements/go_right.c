@@ -1,24 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_vector.c                                        :+:      :+:    :+:   */
+/*   go_right.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dmazari <dmazari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/30 12:47:06 by dmazari           #+#    #+#             */
-/*   Updated: 2025/08/05 13:49:42 by dmazari          ###   ########.fr       */
+/*   Created: 2025/08/05 13:34:27 by dmazari           #+#    #+#             */
+/*   Updated: 2025/08/05 13:39:05 by dmazari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+
 #include "cub.h"
 
-void	init_vector(t_vector *v, double x, double y)
+void	go_right(t_player *player, char **map)
 {
-	v->x_i = x;
-	v->y_i = y;
-}
+	float	i;
+	float	j;
 
-double	get_distance(t_point a, t_point b)
-{
-	return (sqrt(pow(b.x - a.x, 2) + pow(b.y - a.y, 2)));
+	j = player->pos.x - ((player->p_vec.y_i * SPEED));
+	i = player->pos.y + ((player->p_vec.x_i * SPEED));
+	if (map[(int)i][(int)j] == '1')
+		return ;
+	player->pos.x -= player->p_vec.y_i * SPEED;
+	player->pos.y += player->p_vec.x_i * SPEED;
 }

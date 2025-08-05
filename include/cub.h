@@ -6,7 +6,7 @@
 /*   By: mniemaz <mniemaz@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 13:12:09 by mniemaz           #+#    #+#             */
-/*   Updated: 2025/08/05 14:53:34 by mniemaz          ###   ########.fr       */
+/*   Updated: 2025/08/05 15:35:22 by mniemaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@
 # include <string.h>
 # include <unistd.h>
 
+# define MINI_MAP_X 150
+# define MINI_MAP_Y 100
 # define WIN_SIZE_X 1000
 # define WIN_SIZE_Y 800
 # define BUFFER_SIZE 1024
@@ -59,13 +61,16 @@ typedef struct s_color
 	unsigned char	r;
 	unsigned char	g;
 	unsigned char	b;
-	unsigned long	rgba;
+	unsigned long	hexa;
 }					t_color;
 
 typedef struct s_img
 {
+	char	*img_name;
 	void	*img_ptr;
 	char	*data;
+	int		width;
+	int		height;
 	int		bpp;
 	int		line_len;
 	int		endian;
@@ -79,16 +84,16 @@ typedef struct s_mlx
 	int				bits_per_pixel;
 	int				line_length;
 	int				endian;
-	void			*mlx;
-	void			*win;
+	void			*mlx_ptr;
+	void			*win_ptr;
 }					t_mlx;
 
 typedef struct s_texture_data
 {
-	char			*north;
-	char			*south;
-	char			*east;
-	char			*west;
+	t_img			north;
+	t_img			south;
+	t_img			east;
+	t_img			west;
 	t_color			*floor;
 	t_color			*ceiling;
 }					t_texture_data;
@@ -103,7 +108,7 @@ typedef struct s_pos
 {
 	double			x;
 	double			y;
-}					t_pos;
+}					t_point;
 
 typedef struct s_int_pos
 {
@@ -113,7 +118,7 @@ typedef struct s_int_pos
 
 typedef struct s_player
 {
-	t_pos			pos;
+	t_point			pos;
 	t_vector		p_vec;
 	double			left_fov_angle;
 	double			right_fov_angle;
@@ -123,7 +128,7 @@ typedef struct s_context
 {
 	char			**map;
 	t_texture_data	texture_data;
-	t_mlx			mlx;
+	t_mlx			*mlx;
 	t_player		player;
 }					t_context;
 
@@ -200,27 +205,34 @@ void				ray_man(t_context *ctx, t_vector dir, double square_x,
 int					free_graphic(t_context *context);
 
 /**
- * movement.c
+ * movements
 */
-void				go_forward_backward(t_player *player, char **map, char flag);
-void				go_left_right(t_player *player, char **map, char flag);
+void				go_forward(t_player *player, char **map);
+void				go_backward(t_player *player, char **map);
+void				go_left(t_player *player, char **map);
+void				go_right(t_player *player, char **map);
 void				turn_left(t_context *ctx);
 void				turn_right(t_context *ctx);
+int					key_hook_press(int keycode, t_context *context);
+int					key_release(int keycode, t_context *context);
+int 				move_player(t_context *ctx);
+
 
 /**
  * vector/ft_vector.c
 */
 void				init_vector(t_vector *v, double x, double y);
+double				get_distance(t_point a, t_point b);
 
 /**
  * maths
 */
-t_pos				get_intersection_pos(t_pos p, t_vector dir);
-void				bresenham_line(t_context *ctx, t_pos from, t_pos to,
+t_point				get_intersection_pos(t_point p, t_vector dir);
+void				bresenham_line(t_context *ctx, t_point from, t_point to,
 						int square_x, int square_y, int color);
 void				print_square(t_context *ctx, t_int_pos pos, int size,
 						int color);
-t_pos				get_pos_wall_toward(t_context *ctx, t_vector dir);
+t_point				get_pos_wall_toward(t_context *ctx, t_vector dir);
 
 /**
  * graphic_function.c

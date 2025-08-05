@@ -15,7 +15,7 @@
 /**
  * @brief Process the Bresenham calculation (used in bresenham algorithm)
  */
-static int process_bresenham_calc(t_pos *from, t_pos to, t_pos d, int err)
+static int process_bresenham_calc(t_point *from, t_point to, t_point d, int err)
 {
     int temp_err;
 
@@ -39,7 +39,7 @@ static int process_bresenham_calc(t_pos *from, t_pos to, t_pos d, int err)
     return (err);
 }
 
-static void init_err_and_d(t_pos from, t_pos to, t_pos *d, int *err)
+static void init_err_and_d(t_point from, t_point to, t_point *d, int *err)
 {
     d->x = ft_double_abs((to.x - from.x));
     d->y = ft_double_abs((to.y - from.y));
@@ -50,12 +50,12 @@ static void init_err_and_d(t_pos from, t_pos to, t_pos *d, int *err)
  * @returns the number of pixels that would be drawn by the
  * Bresenham algorithm for a given line
  */
-int bresenham_line_counter(t_pos from, t_pos to)
+int bresenham_line_counter(t_point from, t_point to)
 {
-    t_pos d;
+    t_point d;
     int err;
     int counter;
-    t_pos cur;
+    t_point cur;
 
     counter = 0;
     cur = from;
@@ -73,14 +73,14 @@ int bresenham_line_counter(t_pos from, t_pos to)
 /**
  * @brief Draw a line between two cells of the map using the Bresenham algorithm
  */
-void bresenham_line(t_context *ctx, t_pos from, t_pos to, int square_x, int square_y, int color)
+void bresenham_line(t_context *ctx, t_point from, t_point to, int square_x, int square_y, int color)
 {
-    t_pos d;
+    t_point d;
     int err;
     int i;
     t_int_pos from_pxl;
     t_int_pos to_pxl;
-    t_pos cur;
+    t_point cur;
 
     from_pxl.x = from.x * square_x;
     from_pxl.y = from.y * square_y;
@@ -97,14 +97,12 @@ void bresenham_line(t_context *ctx, t_pos from, t_pos to, int square_x, int squa
     i = 0;
     while (1)
     {
-        // my_put_pixel(&ctx->mlx.img, cur, rgb_to_int(calc_color(ctx,
-        //     from, i, 0xFFFFFF)));
         put_pixel(ctx, (int)cur.x, (int)cur.y, color);
         
         if ((int)cur.x == to_pxl.x && (int)cur.y == to_pxl.y)
             break ;
         
-        err = process_bresenham_calc(&cur, (t_pos){to_pxl.x, to_pxl.y}, d, err);
+        err = process_bresenham_calc(&cur, (t_point){to_pxl.x, to_pxl.y}, d, err);
         i++;
     }
 }

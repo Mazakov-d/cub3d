@@ -1,24 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_vector.c                                        :+:      :+:    :+:   */
+/*   turn_right.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dmazari <dmazari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/30 12:47:06 by dmazari           #+#    #+#             */
-/*   Updated: 2025/08/05 13:49:42 by dmazari          ###   ########.fr       */
+/*   Created: 2025/08/05 13:35:19 by dmazari           #+#    #+#             */
+/*   Updated: 2025/08/05 13:35:29 by dmazari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
-void	init_vector(t_vector *v, double x, double y)
+void turn_right(t_context *ctx)
 {
-	v->x_i = x;
-	v->y_i = y;
-}
+	double	old_x;
 
-double	get_distance(t_point a, t_point b)
-{
-	return (sqrt(pow(b.x - a.x, 2) + pow(b.y - a.y, 2)));
+	old_x = ctx->player.p_vec.x_i;
+	ctx->player.p_vec.x_i = ctx->player.p_vec.x_i * cos(TURN_SPEED)
+		- ctx->player.p_vec.y_i * sin(TURN_SPEED);
+	ctx->player.p_vec.y_i = old_x * sin(TURN_SPEED)
+		+ ctx->player.p_vec.y_i * cos(TURN_SPEED);
 }

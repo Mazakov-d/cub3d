@@ -6,7 +6,7 @@
 /*   By: mniemaz <mniemaz@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/30 14:48:23 by mniemaz           #+#    #+#             */
-/*   Updated: 2025/08/05 15:31:21 by mniemaz          ###   ########.fr       */
+/*   Updated: 2025/08/05 15:37:42 by mniemaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,29 +36,11 @@ void	print_rect(t_context *ctx, int x, int y, int square_x, int square_y,
 	}
 }
 
-void	print_square(t_context *ctx, t_int_pos pos, int size, int color)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	while (i < size)
-	{
-		j = 0;
-		while (j < size)
-		{
-			put_pixel(ctx, pos.x + i, pos.y + j, color);
-			j++;
-		}
-		i++;
-	}
-}
-
 /**
  * Sets the left and right angles of the player's FOV based on the
  * player's vector direction
  */
-void	set_left_right_angles(t_context *ctx)
+double	get_fov_angle(t_context *ctx)
 {
 	double	angle;
 
@@ -83,7 +65,7 @@ void	draw_rays(t_context *ctx, int square_x, int square_y)
 	double		step;
 	t_vector	ray;
 	double		curr_angle;
-	t_pos		ray_wall;
+	t_point		ray_wall;
 
 	set_left_right_angles(ctx);
 	nb_rays = WIN_SIZE_X;

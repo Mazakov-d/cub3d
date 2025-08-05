@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fill_texture_data.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mniemaz <mniemaz@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: dmazari <dmazari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 14:10:42 by mniemaz           #+#    #+#             */
-/*   Updated: 2025/07/30 09:41:46 by mniemaz          ###   ########.fr       */
+/*   Updated: 2025/08/05 15:26:44 by dmazari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,15 +38,14 @@ static int	fill_color(t_color *color, char *id, char *str_colors)
 	ft_free_tab((void **)color_values);
 	if (color_error)
 		return (printf_err("Invalid color: '%s'\n", str_colors));
-	color->rgba = (color->r << 16) | (color->g << 8) | color->b;
+	color->hexa = (color->r << 16) | (color->g << 8) | color->b;
 	return (EXIT_SUCCESS);
 }
 
 static bool	is_texture_data_filled(t_texture_data *tex_data)
 {
-	return (tex_data->north && tex_data->south && tex_data->east
-		&& tex_data->west && tex_data->floor && tex_data->ceiling
-		&& tex_data->floor->r != (unsigned char)COLOR_INIT_VAL
+	return (tex_data->north.img_name && tex_data->south.img_name && tex_data->east.img_name
+		&& tex_data->west.img_name && tex_data->floor->r != (unsigned char)COLOR_INIT_VAL
 		&& tex_data->ceiling->r != (unsigned char)COLOR_INIT_VAL);
 }
 
@@ -64,10 +63,10 @@ static int	fill_directions(t_texture_data *tex_data, char **lines_tab)
 	dirs[1] = "SO";
 	dirs[2] = "WE";
 	dirs[3] = "EA";
-	to_fill[0] = &tex_data->north;
-	to_fill[1] = &tex_data->south;
-	to_fill[2] = &tex_data->west;
-	to_fill[3] = &tex_data->east;
+	to_fill[0] = &tex_data->north.img_name;
+	to_fill[1] = &tex_data->south.img_name;
+	to_fill[2] = &tex_data->west.img_name;
+	to_fill[3] = &tex_data->east.img_name;
 	i = -1;
 	while (++i < 4)
 	{

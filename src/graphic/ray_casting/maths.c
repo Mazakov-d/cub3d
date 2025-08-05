@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   maths.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mniemaz <mniemaz@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: dmazari <dmazari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 18:39:07 by mniemaz           #+#    #+#             */
-/*   Updated: 2025/08/04 18:38:21 by mniemaz          ###   ########.fr       */
+/*   Updated: 2025/08/05 13:42:33 by dmazari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ double	ft_min(double a, double b)
  * square (1,1)
  * @returns the least t because it means it is the closest to an edge
  */
-double	get_t(t_pos pos, t_vector v)
+double	get_t(t_point pos, t_vector v)
 {
 	double	t;
 	double	tmp;
@@ -77,13 +77,13 @@ double	get_t(t_pos pos, t_vector v)
  * a line starting at p, going in direction dir
  * pos_in_square_1 is the position of p in the square (1,1)
  */
-t_pos	get_intersection_pos(t_pos p, t_vector dir)
+t_point	get_intersection_pos(t_point p, t_vector dir)
 {
-	t_pos	pos_in_square_1;
+	t_point	pos_in_square_1;
 	int		floor_p_x;
 	int		floor_p_y;
 	double	t;
-	t_pos	res;
+	t_point	res;
 
 	// edge cases
 	if (dir.x_i < 0 && is_rounded(p.x))
@@ -111,7 +111,7 @@ t_pos	get_intersection_pos(t_pos p, t_vector dir)
  * "stuck on a wall" means it is at the edge of a square, and the next square
  * in the direction of dir is a wall (or not allocated)
  */
-bool	is_stuck_on_wall(char **map, t_pos pos, t_vector dir)
+bool	is_stuck_on_wall(char **map, t_point pos, t_vector dir)
 {
 	if (is_almost_rounded(pos.x) && dir.x_i > 0)
 	{
@@ -145,9 +145,9 @@ bool	is_stuck_on_wall(char **map, t_pos pos, t_vector dir)
 	return (false);
 }
 
-t_pos	get_pos_wall_toward(t_context *ctx, t_vector dir)
+t_point	get_pos_wall_toward(t_context *ctx, t_vector dir)
 {
-	t_pos inters;
+	t_point inters;
 
 	inters = ctx->player.pos;
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mniemaz <mniemaz@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: dmazari <dmazari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 13:59:15 by mniemaz           #+#    #+#             */
-/*   Updated: 2025/07/30 15:10:27 by mniemaz          ###   ########.fr       */
+/*   Updated: 2025/08/05 14:38:40 by dmazari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,7 @@ int	main(int ac, char **av)
 	if (init_context(&ctx) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
 	if (parse_file(&ctx, av[1]) == EXIT_SUCCESS)
-	{
-		printf("Map OK\n");
 		init_graphic(&ctx);
-	}
 	free_context(&ctx);
 	return (0);
 }
