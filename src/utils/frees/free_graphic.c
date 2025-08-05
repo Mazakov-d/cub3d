@@ -6,7 +6,7 @@
 /*   By: dmazari <dmazari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 16:11:35 by dmazari           #+#    #+#             */
-/*   Updated: 2025/08/05 14:48:54 by dmazari          ###   ########.fr       */
+/*   Updated: 2025/08/05 15:50:52 by dmazari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,14 @@ void free_strs(char **strs)
 
 int	free_graphic(t_context *context)
 {
+	if (context->texture_data.east.img_ptr)
+		free(context->texture_data.east.img_ptr);
+	if (context->texture_data.north.img_ptr)
+		free(context->texture_data.north.img_ptr);
+	if (context->texture_data.west.img_ptr)
+		free(context->texture_data.west.img_ptr);
+	if (context->texture_data.south.img_ptr)
+		free(context->texture_data.south.img_ptr);
 	if (context->mlx->img.img_ptr)
 		mlx_destroy_image(context->mlx->mlx_ptr, context->mlx->img.img_ptr);
 	if (context->mlx->win_ptr)
