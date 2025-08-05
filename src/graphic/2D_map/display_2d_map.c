@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   display_2d_map.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mniemaz <mniemaz@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: dmazari <dmazari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/30 14:48:23 by mniemaz           #+#    #+#             */
-/*   Updated: 2025/08/05 19:52:58 by mniemaz          ###   ########.fr       */
+/*   Updated: 2025/08/05 20:03:12 by dmazari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,9 @@ void	print_rect(t_context *ctx, int x, int y, int square_x, int square_y,
 		while (j < square_y)
 		{
 			if (c == '1')
-				put_pixel(ctx, x + i, y + j, 0x440000);
+				put_pixel(ctx, x + i, y + j, 0x444444);
 			else if (c == '0')
-				put_pixel(ctx, x + i, y + j, 0x004400);
-			else if (c == 'X')
-				put_pixel(ctx, x + i, y + j, 0x000044);
+				put_pixel(ctx, x + i, y + j, 0x888888);
 			j++;
 		}
 		i++;
@@ -45,14 +43,14 @@ void	draw_rays(t_context *ctx, int square_x, int square_y)
 	t_point_dir	ray_wall;
 
 	set_left_right_angles(ctx);
-	nb_rays = 2;
+	nb_rays = 3;
 	step = (ctx->player.right_fov_angle - ctx->player.left_fov_angle) / (nb_rays - 1);
 	curr_angle = ctx->player.right_fov_angle;
 	while (--nb_rays > -1)
 	{
 		init_vector(&ray, cos(curr_angle), sin(curr_angle));
 		ray_wall = get_pos_wall_toward(ctx, ray);
-		bresenham_line(ctx, ctx->player.pos, ray_wall.pos, square_x, square_y, 0x00FF00);
+		bresenham_line(ctx, ctx->player.pos, ray_wall.pos, square_x, square_y, 0xFFFFFF);
 		curr_angle -= step;
 	}
 }

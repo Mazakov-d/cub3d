@@ -6,7 +6,7 @@
 /*   By: dmazari <dmazari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 13:12:09 by mniemaz           #+#    #+#             */
-/*   Updated: 2025/08/05 19:21:45 by dmazari          ###   ########.fr       */
+/*   Updated: 2025/08/05 19:54:35 by dmazari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@
 
 # define WIN_SIZE_X 1920
 # define WIN_SIZE_Y 1080
-# define MINI_MAP_X WIN_SIZE_X * 0.1
-# define MINI_MAP_Y WIN_SIZE_Y * 0.1
+# define MINI_MAP_X WIN_SIZE_X * 0.2
+# define MINI_MAP_Y WIN_SIZE_Y * 0.2
 # define BUFFER_SIZE 1024
 # define COLOR_INIT_VAL 256
 # define MAP_CHARS "NSEW01 "
