@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   graphic_functions.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmazari <dmazari@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mniemaz <mniemaz@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 17:08:30 by dmazari           #+#    #+#             */
-/*   Updated: 2025/08/05 19:44:03 by dmazari          ###   ########.fr       */
+/*   Updated: 2025/08/06 12:26:45 by mniemaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	get_pixel_data(t_img img, int y_wall, int length, t_point_dir impact)
 		fract_part = fabs(impact.pos.y - round(impact.pos.y));
 	x_img = fract_part * img.width;
 	y_img = ratio * img.height;
-	offset = y_img * img.line_len + x_img * (img.bpp / 8);
+	offset = y_img * img.line_len + x_img * (img.bpp >> 3);
 	// printf("offset: %d\n", offset);
 	pixel = img.data + offset;
 	color = *(int*)pixel;
@@ -48,14 +48,12 @@ int	get_pixel_color_img(t_context *ctx, t_point_dir impact, int length, int y_wa
 		return (get_pixel_data(ctx->texture_data.east, y_wall, length, impact));
 }
 
-void	put_pixel(t_context *ctx, int x, int y, int color)
+inline void	put_pixel(t_context *ctx, int x, int y, int color)
 {
 	char	*pixel;
 	int		offset;
 
-	if (x < 0 || x >= WIN_SIZE_X || y < 0 || y >= WIN_SIZE_Y)
-		return ;
-	offset = y * ctx->mlx->img.line_len + x * (ctx->mlx->img.bpp / 8);
+	offset = y * ctx->mlx->img.line_len + x * (ctx->mlx->img.bpp >> 3);
 	pixel = ctx->mlx->img.data + offset;
 	*(int*)pixel = color;
 }

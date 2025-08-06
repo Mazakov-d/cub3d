@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   perspective.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmazari <dmazari@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mniemaz <mniemaz@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 16:34:30 by dmazari           #+#    #+#             */
-/*   Updated: 2025/08/05 19:23:13 by dmazari          ###   ########.fr       */
+/*   Updated: 2025/08/06 12:27:17 by mniemaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	draw_vertical_ray(t_point_dir impact, t_context *ctx, int x)
 {
 	int		length;
 	int		y;
-	int		diff;
+	int		bottom_wall;
 	int		color;
 	double	impact_distance;
 	int		top_length;
@@ -27,14 +27,14 @@ void	draw_vertical_ray(t_point_dir impact, t_context *ctx, int x)
 		length = WIN_SIZE_Y;
 	else
 		length = 1 / impact_distance * WIN_SIZE_Y;
-	diff = (WIN_SIZE_Y - length) / 2 + length;
-	top_length = (WIN_SIZE_Y - length) / 2;
+	top_length = (WIN_SIZE_Y - length) * 0.5;
+	bottom_wall = top_length + length;
 	while (y < top_length)
 	{
 		put_pixel(ctx, x, y, ctx->texture_data.ceiling->hexa);
 		y++;
 	}
-	while (y < diff)
+	while (y < bottom_wall && y < WIN_SIZE_Y)
 	{
 		color = get_pixel_color_img(ctx, impact, length, y - top_length);
 		put_pixel(ctx, x, y, color);
