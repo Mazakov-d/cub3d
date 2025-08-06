@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmazari <dmazari@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mniemaz <mniemaz@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 13:12:09 by mniemaz           #+#    #+#             */
-/*   Updated: 2025/08/05 19:54:35 by dmazari          ###   ########.fr       */
+/*   Updated: 2025/08/06 17:01:15 by mniemaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 # include <stdlib.h>
 # include <string.h>
 # include <unistd.h>
+# include <limits.h>
 
 # define WIN_SIZE_X 1920
 # define WIN_SIZE_Y 1080
@@ -45,6 +46,7 @@
 # define ESC 65307
 # define SPEED 0.05
 # define TURN_SPEED 0.05
+
 
 typedef enum e_cardinal_dir
 {
@@ -111,10 +113,7 @@ typedef struct s_mlx
 
 typedef struct s_texture_data
 {
-	t_img			north;
-	t_img			south;
-	t_img			east;
-	t_img			west;
+	t_img			walls[4];
 	t_color			*floor;
 	t_color			*ceiling;
 }					t_texture_data;
@@ -255,8 +254,8 @@ bool				is_almost_rounded(double n);
 void				put_pixel(t_context *ctx, int x, int y, int color);
 void				clear_image(t_context *ctx);
 void				clear_image_fast(t_context *ctx);
-int					get_pixel_color_img(t_context *ctx, t_point_dir impact, int length, int y_wall);
-
+int					get_pixel_color_img(t_img img, int y_wall, int length,
+						t_point_dir impact);
 /**
  * perspective.c
  */

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fill_texture_data.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmazari <dmazari@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mniemaz <mniemaz@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 14:10:42 by mniemaz           #+#    #+#             */
-/*   Updated: 2025/08/05 15:26:44 by dmazari          ###   ########.fr       */
+/*   Updated: 2025/08/06 14:38:11 by mniemaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,8 @@ static int	fill_color(t_color *color, char *id, char *str_colors)
 
 static bool	is_texture_data_filled(t_texture_data *tex_data)
 {
-	return (tex_data->north.img_name && tex_data->south.img_name && tex_data->east.img_name
-		&& tex_data->west.img_name && tex_data->floor->r != (unsigned char)COLOR_INIT_VAL
+	return (tex_data->walls[NO].img_name && tex_data->walls[SO].img_name && tex_data->walls[EA].img_name
+		&& tex_data->walls[WE].img_name && tex_data->floor->r != (unsigned char)COLOR_INIT_VAL
 		&& tex_data->ceiling->r != (unsigned char)COLOR_INIT_VAL);
 }
 
@@ -61,12 +61,12 @@ static int	fill_directions(t_texture_data *tex_data, char **lines_tab)
 
 	dirs[0] = "NO";
 	dirs[1] = "SO";
-	dirs[2] = "WE";
 	dirs[3] = "EA";
-	to_fill[0] = &tex_data->north.img_name;
-	to_fill[1] = &tex_data->south.img_name;
-	to_fill[2] = &tex_data->west.img_name;
-	to_fill[3] = &tex_data->east.img_name;
+	dirs[2] = "WE";
+	to_fill[0] = &tex_data->walls[NO].img_name;
+	to_fill[1] = &tex_data->walls[SO].img_name;
+	to_fill[2] = &tex_data->walls[EA].img_name;
+	to_fill[3] = &tex_data->walls[WE].img_name;
 	i = -1;
 	while (++i < 4)
 	{

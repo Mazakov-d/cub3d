@@ -6,7 +6,7 @@
 /*   By: mniemaz <mniemaz@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 16:34:30 by dmazari           #+#    #+#             */
-/*   Updated: 2025/08/06 12:27:17 by mniemaz          ###   ########.fr       */
+/*   Updated: 2025/08/06 17:25:35 by mniemaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,30 +14,32 @@
 
 void	draw_vertical_ray(t_point_dir impact, t_context *ctx, int x)
 {
-	int		length;
+	int		wall_height;
 	int		y;
-	int		bottom_wall;
-	int		color;
 	double	impact_distance;
-	int		top_length;
+	int		sky_height;
+	int		limit;
 
 	y = 0;
 	impact_distance = get_distance(ctx->player.pos, impact.pos);
 	if (impact_distance == 0.0f)
-		length = WIN_SIZE_Y;
+		wall_height = INT_MAX;
 	else
-		length = 1 / impact_distance * WIN_SIZE_Y;
-	top_length = (WIN_SIZE_Y - length) * 0.5;
-	bottom_wall = top_length + length;
-	while (y < top_length)
+		wall_height = WIN_SIZE_X / impact_distance;
+	sky_height = (WIN_SIZE_Y - wall_height) >> 1;
+	while (y < sky_height)
 	{
 		put_pixel(ctx, x, y, ctx->texture_data.ceiling->hexa);
 		y++;
 	}
-	while (y < bottom_wall && y < WIN_SIZE_Y)
+	limit = sky_height + wall_height;
+	if (limit > WIN_SIZE_Y)
+		limit = WIN_SIZE_Y;
+	while (y < limit)
 	{
-		color = get_pixel_color_img(ctx, impact, length, y - top_length);
-		put_pixel(ctx, x, y, color);
+		put_pixel(ctx, x, y,
+			get_pixel_color_img(ctx->texture_data.walls[impact.dir], y
+				- sky_height, wall_height, impact));
 		y++;
 	}
 	while (y < WIN_SIZE_Y)
@@ -76,12 +78,10 @@ void	vertical_render(t_context *ctx)
 	double		step;
 	t_vector	ray;
 	double		curr_angle;
-	t_point_dir		impact;
+	t_point_dir	impact;
 
-	set_left_right_angles(ctx);
 	nb_rays = WIN_SIZE_X;
-	step = (ctx->player.right_fov_angle - ctx->player.left_fov_angle) / (nb_rays
-			- 1);
+	step = (ctx->player.right_fov_angle - ctx->player.left_fov_angle) / (nb_rays - 1);
 	curr_angle = ctx->player.right_fov_angle;
 	while (--nb_rays > -1)
 	{
@@ -91,4 +91,3 @@ void	vertical_render(t_context *ctx)
 		draw_vertical_ray(impact, ctx, nb_rays);
 	}
 }
-

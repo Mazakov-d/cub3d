@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_context.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmazari <dmazari@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mniemaz <mniemaz@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 11:23:43 by mniemaz           #+#    #+#             */
-/*   Updated: 2025/08/05 15:52:55 by dmazari          ###   ########.fr       */
+/*   Updated: 2025/08/06 14:42:58 by mniemaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,18 @@
 
 static int	init_texture_data(t_texture_data *tex_data)
 {
-	tex_data->north.img_name = NULL;
-	tex_data->south.img_name = NULL;
-	tex_data->east.img_name = NULL;
-	tex_data->west.img_name = NULL;
-	tex_data->north.data = NULL;
-	tex_data->south.data = NULL;
-	tex_data->east.data = NULL;
-	tex_data->west.data = NULL;
-	tex_data->north.img_ptr = NULL;
-	tex_data->south.img_ptr = NULL;
-	tex_data->east.img_ptr = NULL;
-	tex_data->west.img_ptr = NULL;
+	tex_data->walls[NO].img_name = NULL;
+	tex_data->walls[SO].img_name = NULL;
+	tex_data->walls[EA].img_name = NULL;
+	tex_data->walls[WE].img_name = NULL;
+	tex_data->walls[NO].data = NULL;
+	tex_data->walls[SO].data = NULL;
+	tex_data->walls[EA].data = NULL;
+	tex_data->walls[WE].data = NULL;
+	tex_data->walls[NO].img_ptr = NULL;
+	tex_data->walls[SO].img_ptr = NULL;
+	tex_data->walls[EA].img_ptr = NULL;
+	tex_data->walls[WE].img_ptr = NULL;
 	tex_data->floor = malloc(sizeof(t_color));
 	if (!tex_data->floor)
 		return (EXIT_FAILURE);

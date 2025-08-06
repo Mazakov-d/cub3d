@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   display_2d_map.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmazari <dmazari@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mniemaz <mniemaz@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/30 14:48:23 by mniemaz           #+#    #+#             */
-/*   Updated: 2025/08/05 20:03:12 by dmazari          ###   ########.fr       */
+/*   Updated: 2025/08/06 16:34:01 by mniemaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ void	draw_rays(t_context *ctx, int square_x, int square_y)
 	double		curr_angle;
 	t_point_dir	ray_wall;
 
-	set_left_right_angles(ctx);
 	nb_rays = 3;
 	step = (ctx->player.right_fov_angle - ctx->player.left_fov_angle) / (nb_rays - 1);
 	curr_angle = ctx->player.right_fov_angle;
@@ -80,7 +79,7 @@ void calc_square_size(t_context *ctx, int *square_x, int *square_y)
 	while (ctx->map[++i])
 		if (ft_strlen(ctx->map[i]) > largest_line)
 			largest_line = ft_strlen(ctx->map[i]);
-	*square_x = MINI_MAP_X/ largest_line;
+	*square_x = MINI_MAP_X / largest_line;
 	*square_y = MINI_MAP_Y / i;
 }
 

@@ -6,7 +6,7 @@
 /*   By: mniemaz <mniemaz@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 14:00:06 by mniemaz           #+#    #+#             */
-/*   Updated: 2025/08/04 15:39:15 by mniemaz          ###   ########.fr       */
+/*   Updated: 2025/08/06 16:57:51 by mniemaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ static void	init_player_dir(t_context *ctx)
 	else if (ctx->map[(int)(ctx->player.pos.y)][(int)(ctx->player.pos.x)] == 'N')
 		init_vector(&ctx->player.p_vec, 0, -1);
 	else if (ctx->map[(int)(ctx->player.pos.y)][(int)(ctx->player.pos.x)] == 'S')
-		init_vector(&ctx->player.p_vec, 1, 1);
+		init_vector(&ctx->player.p_vec, 0, 1);
 	ctx->map[(int)(ctx->player.pos.y)][(int)(ctx->player.pos.x)] = '0';
 }
 

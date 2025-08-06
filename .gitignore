@@ -6,3 +6,4 @@ cub3D
 malloc_protection_checker
 *.txt
 a.out
+*callgrind*
