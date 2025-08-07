@@ -6,45 +6,45 @@
 /*   By: dmazari <dmazari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 14:22:49 by dmazari           #+#    #+#             */
-/*   Updated: 2025/08/07 12:58:21 by dmazari          ###   ########.fr       */
+/*   Updated: 2025/08/07 13:10:50 by dmazari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
-int	key_hook_press(int keycode, t_context *context)
+int	key_hook_press(int keycode, t_context *ctx)
 {
 	if (keycode == ESC)
-		free_graphic(context);
+		free_graphic(ctx);
 	else if (keycode == W)
-		context->mlx->keys.w_bool = true;
+		ctx->mlx->keys.w_bool = true;
 	else if (keycode == A)
-		context->mlx->keys.a_bool = true;
+		ctx->mlx->keys.a_bool = true;
 	else if (keycode == S)
-		context->mlx->keys.s_bool = true;
+		ctx->mlx->keys.s_bool = true;
 	else if (keycode == D)
-		context->mlx->keys.d_bool = true;
+		ctx->mlx->keys.d_bool = true;
 	else if (keycode == LEFT_ARROW)
-		context->mlx->keys.left_arrow_bool = true;
+		ctx->mlx->keys.left_arrow_bool = true;
 	else if (keycode == RIGHT_ARROW)
-		context->mlx->keys.right_arrow_bool = true;
+		ctx->mlx->keys.right_arrow_bool = true;
 	return (0);
 }
 
-int	key_release(int keycode, t_context *context)
+int	key_release(int keycode, t_context *ctx)
 {
 	if (keycode == W)
-		context->mlx->keys.w_bool = false;
+		ctx->mlx->keys.w_bool = false;
 	else if (keycode == A)
-		context->mlx->keys.a_bool = false;
+		ctx->mlx->keys.a_bool = false;
 	else if (keycode == S)
-		context->mlx->keys.s_bool = false;
+		ctx->mlx->keys.s_bool = false;
 	else if (keycode == D)
-		context->mlx->keys.d_bool = false;
+		ctx->mlx->keys.d_bool = false;
 	else if (keycode == LEFT_ARROW)
-		context->mlx->keys.left_arrow_bool = false;
+		ctx->mlx->keys.left_arrow_bool = false;
 	else if (keycode == RIGHT_ARROW)
-		context->mlx->keys.right_arrow_bool = false;
+		ctx->mlx->keys.right_arrow_bool = false;
 	return (0);
 }
 

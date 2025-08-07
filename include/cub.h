@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mniemaz <mniemaz@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: dmazari <dmazari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 13:12:09 by mniemaz           #+#    #+#             */
-/*   Updated: 2025/08/07 11:43:52 by mniemaz          ###   ########.fr       */
+/*   Updated: 2025/08/07 13:10:50 by dmazari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -199,12 +199,12 @@ double				ft_double_abs(double n);
  * graphic
  * init.c
  */
-void				init_graphic(t_context *context);
+void				init_graphic(t_context *ctx);
 
 /**
  * free_graphic.c
  */
-int					free_graphic(t_context *context);
+int					free_graphic(t_context *ctx);
 
 /**
  * movements
@@ -215,8 +215,8 @@ void				go_left(t_player *player, char **map);
 void				go_right(t_player *player, char **map);
 void				turn_left(t_context *ctx);
 void				turn_right(t_context *ctx);
-int					key_hook_press(int keycode, t_context *context);
-int					key_release(int keycode, t_context *context);
+int					key_hook_press(int keycode, t_context *ctx);
+int					key_release(int keycode, t_context *ctx);
 int					move_player(t_context *ctx);
 
 /**
