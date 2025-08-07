@@ -6,7 +6,7 @@
 /*   By: mniemaz <mniemaz@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 16:34:30 by dmazari           #+#    #+#             */
-/*   Updated: 2025/08/07 11:03:29 by mniemaz          ###   ########.fr       */
+/*   Updated: 2025/08/07 11:45:26 by mniemaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	draw_vertical_ray(t_context *ctx, t_point_dir impact, int x)
 	}
 	while (y < sky_height)
 	{
-		put_pixel(ctx, x, y, ctx->texture_data.ceiling->hexa);
+		put_pixel(ctx, x, y, ctx->texture_data.ceiling_hexa);
 		y++;
 	}
 	// printf("limit: %d, wall_height: %d, sky_height: %d\n", limit, wall_height,
@@ -52,7 +52,7 @@ void	draw_vertical_ray(t_context *ctx, t_point_dir impact, int x)
 	}
 	while (y < WIN_SIZE_Y)
 	{
-		put_pixel(ctx, x, y, ctx->texture_data.floor->hexa);
+		put_pixel(ctx, x, y, ctx->texture_data.floor_hexa);
 		y++;
 	}
 }
