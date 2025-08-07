@@ -6,7 +6,7 @@
 /*   By: dmazari <dmazari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 13:33:35 by dmazari           #+#    #+#             */
-/*   Updated: 2025/08/07 17:41:23 by dmazari          ###   ########.fr       */
+/*   Updated: 2025/08/07 17:45:52 by dmazari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,5 +29,4 @@ void	go_left(t_player *player, char **map)
 		return ;
 	player->pos.x += player->p_vec.y_i * SPEED;
 	player->pos.y -= player->p_vec.x_i * SPEED;
-	printf("x: %f, y: %f\n", player->pos.x, player->pos.y);
 }

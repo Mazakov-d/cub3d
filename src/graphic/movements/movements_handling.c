@@ -6,7 +6,7 @@
 /*   By: dmazari <dmazari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 14:22:49 by dmazari           #+#    #+#             */
-/*   Updated: 2025/08/07 15:46:49 by dmazari          ###   ########.fr       */
+/*   Updated: 2025/08/07 17:49:03 by dmazari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ int	key_release(int keycode, t_context *ctx)
 
 int move_player(t_context *ctx)
 {
-	mouse_move(ctx);
 	if (ctx->mlx->keys.w_bool)
 		go_forward(&ctx->player, ctx->map);
 	if (ctx->mlx->keys.s_bool)
@@ -64,6 +63,7 @@ int move_player(t_context *ctx)
 	if (ctx->mlx->keys.right_arrow_bool)
 		turn_right(ctx);
 	render_window_pxls(ctx);
+	mouse_move(ctx);
 	mlx_put_image_to_window(ctx->mlx->mlx_ptr, ctx->mlx->win_ptr, ctx->mlx->img.img_ptr, 0, 0);
 	return (0);
 }
