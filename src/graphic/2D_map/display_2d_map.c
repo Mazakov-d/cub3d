@@ -6,7 +6,7 @@
 /*   By: dmazari <dmazari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/30 14:48:23 by mniemaz           #+#    #+#             */
-/*   Updated: 2025/08/07 11:37:31 by dmazari          ###   ########.fr       */
+/*   Updated: 2025/08/07 13:02:04 by dmazari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void	draw_2d_map(t_context *ctx)
 	{
 		col = -1;
 		while (ctx->map[row][++col])
-			print_rect(ctx, ctx->w_square_2d * col, ctx->h_square_2d * row,
+			print_rect(ctx, ctx->w_square_2d * col + 10, ctx->h_square_2d * row + 10,
 				ctx->w_square_2d, ctx->h_square_2d, ctx->map[row][col]);
 	}
 }

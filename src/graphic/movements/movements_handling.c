@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   movements_handling.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mniemaz <mniemaz@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: dmazari <dmazari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 14:22:49 by dmazari           #+#    #+#             */
-/*   Updated: 2025/08/07 10:11:22 by mniemaz          ###   ########.fr       */
+/*   Updated: 2025/08/07 12:58:21 by dmazari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,11 +52,11 @@ int move_player(t_context *ctx)
 {
 	if (ctx->mlx->keys.w_bool)
 		go_forward(&ctx->player, ctx->map);
-	else if (ctx->mlx->keys.s_bool)
+	if (ctx->mlx->keys.s_bool)
 		go_backward(&ctx->player, ctx->map);
-	else if (ctx->mlx->keys.a_bool)
+	if (ctx->mlx->keys.a_bool)
 		go_left(&ctx->player, ctx->map);
-	else if (ctx->mlx->keys.d_bool)
+	if (ctx->mlx->keys.d_bool)
 		go_right(&ctx->player, ctx->map);
 	if (ctx->mlx->keys.left_arrow_bool)
 		turn_left(ctx);

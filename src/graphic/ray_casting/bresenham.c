@@ -98,7 +98,7 @@ void bresenham_line(t_context *ctx, t_point_dir to, int unused)
     i = 0;
     while (1)
     {
-        put_pixel(ctx, (int)cur.x, (int)cur.y, 0xFFFFFF);
+        put_pixel(ctx, (int)cur.x + 10, (int)cur.y + 10, 0xFFFFFF);
 
         if ((int)cur.x == to_pxl.x && (int)cur.y == to_pxl.y)
             break ;
