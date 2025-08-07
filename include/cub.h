@@ -6,7 +6,7 @@
 /*   By: mniemaz <mniemaz@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 13:12:09 by mniemaz           #+#    #+#             */
-/*   Updated: 2025/08/07 11:17:05 by mniemaz          ###   ########.fr       */
+/*   Updated: 2025/08/07 11:43:52 by mniemaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@
 # define MINI_MAP_X WIN_SIZE_X * 0.2
 # define MINI_MAP_Y WIN_SIZE_Y * 0.2
 # define BUFFER_SIZE 1024
-# define COLOR_INIT_VAL 256
+# define HEXA_INIT_VAL 0xFFFFFF + 1
 # define MAP_CHARS "NSEW01 "
 # define USER_CHARS "NSEW"
 # define EXIT_NEUTRAL 2
@@ -82,7 +82,6 @@ typedef struct s_color
 	unsigned char	r;
 	unsigned char	g;
 	unsigned char	b;
-	unsigned long	hexa;
 }					t_color;
 
 typedef struct s_img
@@ -112,8 +111,8 @@ typedef struct s_mlx
 typedef struct s_texture_data
 {
 	t_img			walls[4];
-	t_color			*floor;
-	t_color			*ceiling;
+	unsigned long	floor_hexa;
+	unsigned long	ceiling_hexa;
 }					t_texture_data;
 
 typedef struct s_line

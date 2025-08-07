@@ -6,7 +6,7 @@
 /*   By: mniemaz <mniemaz@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 14:10:42 by mniemaz           #+#    #+#             */
-/*   Updated: 2025/08/06 14:38:11 by mniemaz          ###   ########.fr       */
+/*   Updated: 2025/08/07 11:52:41 by mniemaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,11 @@
 /**
  * @returns EXIT_SUCCESS on success, EXIT_FAILURE on error.
  */
-static int	fill_color(t_color *color, char *id, char *str_colors)
+static int	fill_color(unsigned long *hexa, char *id, char *str_colors)
 {
 	char	**color_values;
 	int		color_error;
+	t_color	c;
 
 	if (!str_colors)
 		return (printf_err("Missing color for %s\n", id));
@@ -32,21 +33,22 @@ static int	fill_color(t_color *color, char *id, char *str_colors)
 		return (printf_err("Invalid color: '%s'\n", str_colors));
 	}
 	color_error = 0;
-	color->r = (unsigned char)ft_atoi_color(color_values[0], &color_error);
-	color->g = (unsigned char)ft_atoi_color(color_values[1], &color_error);
-	color->b = (unsigned char)ft_atoi_color(color_values[2], &color_error);
+	c.r = (unsigned char)ft_atoi_color(color_values[0], &color_error);
+	c.g = (unsigned char)ft_atoi_color(color_values[1], &color_error);
+	c.b = (unsigned char)ft_atoi_color(color_values[2], &color_error);
 	ft_free_tab((void **)color_values);
 	if (color_error)
 		return (printf_err("Invalid color: '%s'\n", str_colors));
-	color->hexa = (color->r << 16) | (color->g << 8) | color->b;
+	*hexa = (c.r << 16) | (c.g << 8) | c.b;
 	return (EXIT_SUCCESS);
 }
 
 static bool	is_texture_data_filled(t_texture_data *tex_data)
 {
-	return (tex_data->walls[NO].img_name && tex_data->walls[SO].img_name && tex_data->walls[EA].img_name
-		&& tex_data->walls[WE].img_name && tex_data->floor->r != (unsigned char)COLOR_INIT_VAL
-		&& tex_data->ceiling->r != (unsigned char)COLOR_INIT_VAL);
+	return (tex_data->walls[NO].img_name && tex_data->walls[SO].img_name
+		&& tex_data->walls[EA].img_name && tex_data->walls[WE].img_name
+		&& tex_data->floor_hexa != HEXA_INIT_VAL
+		&& tex_data->ceiling_hexa != HEXA_INIT_VAL);
 }
 
 /**
@@ -98,9 +100,10 @@ static int	process_line_fill_texture_data(t_texture_data *tex_data,
 	if (fill_dirs_ret == EXIT_FAILURE || fill_dirs_ret == EXIT_SUCCESS)
 		return (fill_dirs_ret);
 	if (ft_strncmp(lines_tab[0], "F", 2) == 0)
-		return (fill_color(tex_data->floor, lines_tab[0], lines_tab[1]));
+		return (fill_color(&tex_data->floor_hexa, lines_tab[0], lines_tab[1]));
 	else if (ft_strncmp(lines_tab[0], "C", 2) == 0)
-		return (fill_color(tex_data->ceiling, lines_tab[0], lines_tab[1]));
+		return (fill_color(&tex_data->ceiling_hexa, lines_tab[0],
+				lines_tab[1]));
 	else
 		return (printf_err("Unknown identifier: '%s'\n", lines_tab[0]));
 	return (EXIT_SUCCESS);

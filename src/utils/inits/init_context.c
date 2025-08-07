@@ -6,7 +6,7 @@
 /*   By: mniemaz <mniemaz@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 11:23:43 by mniemaz           #+#    #+#             */
-/*   Updated: 2025/08/06 14:42:58 by mniemaz          ###   ########.fr       */
+/*   Updated: 2025/08/07 11:44:03 by mniemaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,8 @@ static int	init_texture_data(t_texture_data *tex_data)
 	tex_data->walls[SO].img_ptr = NULL;
 	tex_data->walls[EA].img_ptr = NULL;
 	tex_data->walls[WE].img_ptr = NULL;
-	tex_data->floor = malloc(sizeof(t_color));
-	if (!tex_data->floor)
-		return (EXIT_FAILURE);
-	tex_data->ceiling = malloc(sizeof(t_color));
-	if (!tex_data->ceiling)
-		return (EXIT_FAILURE);
-	tex_data->floor->r = (unsigned char)COLOR_INIT_VAL;
-	tex_data->ceiling->r = (unsigned char)COLOR_INIT_VAL;
+	tex_data->floor_hexa = HEXA_INIT_VAL;
+	tex_data->ceiling_hexa = HEXA_INIT_VAL;
 	return (EXIT_SUCCESS);
 }
 
