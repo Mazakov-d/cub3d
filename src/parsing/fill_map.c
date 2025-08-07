@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fill_map.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: miloniemaz <mniemaz@student.42lyon.fr>     +#+  +:+       +#+        */
+/*   By: dmazari <dmazari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 14:12:36 by mniemaz           #+#    #+#             */
-/*   Updated: 2025/08/01 05:11:38 by miloniemaz       ###   ########.fr       */
+/*   Updated: 2025/08/07 13:10:50 by dmazari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ static char	**get_filled_map(int nb_map_rows, t_line *curr_line)
 }
 
 /**
- * @brief Fills the map in the context and checks if:
+ * @brief Fills the map in the ctx and checks if:
  * - the map contains valid characters
  */
 int	fill_map(t_context *ctx, t_line *map_start_line)
