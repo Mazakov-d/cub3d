@@ -6,7 +6,7 @@
 /*   By: mniemaz <mniemaz@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 18:39:07 by mniemaz           #+#    #+#             */
-/*   Updated: 2025/08/07 10:35:01 by mniemaz          ###   ########.fr       */
+/*   Updated: 2025/08/07 16:08:10 by mniemaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,12 +114,21 @@ t_point	get_intersection_pos(t_point p, t_vector dir)
  */
 t_cardinal_dir	stuck_on_wall_dir(char **map, t_point pos, t_vector dir)
 {
+	if (is_almost_rounded(pos.y) && dir.y_i > 0)
+	{
+		if (!map[(int)floorf(pos.y) + 1] || ft_strlen(map[(int)floorf(pos.y) + 1]) <= (int)(pos.x))
+			return (SO);
+		if (map[(int)floorf(pos.y)][(int)(pos.x)] == '1')
+			return (SO);
+	}
+	
 	if (is_almost_rounded(pos.x) && dir.x_i > 0)
 	{
 		if (map[(int)(pos.y)][(int)floorf(pos.x)]
 			&& map[(int)(pos.y)][(int)floorf(pos.x)] == '1')
 			return (EA);
 	}
+
 	if (is_almost_rounded(pos.x) && dir.x_i < 0)
 	{
 		if (pos.x == 0.0f)
@@ -128,13 +137,7 @@ t_cardinal_dir	stuck_on_wall_dir(char **map, t_point pos, t_vector dir)
 			&& map[(int)(pos.y)][(int)floorf(pos.x) - 1] == '1')
 			return (WE);
 	}
-	if (is_almost_rounded(pos.y) && dir.y_i > 0)
-	{
-		if (!map[(int)floorf(pos.y) + 1] || ft_strlen(map[(int)floorf(pos.y) + 1]) <= (int)(pos.x))
-			return (SO);
-		if (map[(int)floorf(pos.y)][(int)(pos.x)] == '1')
-			return (SO);
-	}
+	
 	if (is_almost_rounded(pos.y) && dir.y_i < 0)
 	{
 		if ((int)floorf(pos.y) == 0 || ft_strlen(map[(int)floorf(pos.y) - 1]) <= (int)(pos.x))
