@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_graphic.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mniemaz <mniemaz@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: dmazari <dmazari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 16:11:35 by dmazari           #+#    #+#             */
-/*   Updated: 2025/08/06 14:42:16 by mniemaz          ###   ########.fr       */
+/*   Updated: 2025/08/07 11:28:17 by dmazari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,15 @@ void free_strs(char **strs)
 int	free_graphic(t_context *context)
 {
 	if (context->texture_data.walls[NO].img_ptr)
+	{
+		// mlx_destroy_image(context->mlx->mlx_ptr, context->texture_data.walls[NO].img_ptr);
 		free(context->texture_data.walls[NO].img_ptr);
+	}
 	if (context->texture_data.walls[SO].img_ptr)
+	{
+		// mlx_destroy_image(context->mlx->mlx_ptr, context->texture_data.walls[NO].img_ptr);
 		free(context->texture_data.walls[SO].img_ptr);
+	}
 	if (context->texture_data.walls[EA].img_ptr)
 		free(context->texture_data.walls[EA].img_ptr);
 	if (context->texture_data.walls[WE].img_ptr)
