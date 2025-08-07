@@ -6,7 +6,7 @@
 /*   By: dmazari <dmazari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 15:32:17 by dmazari           #+#    #+#             */
-/*   Updated: 2025/08/07 11:31:44 by dmazari          ###   ########.fr       */
+/*   Updated: 2025/08/07 11:37:24 by dmazari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,13 @@ void	init_texture(t_context *ctx)
 		free_graphic(ctx);
 }
 
+void render_window_pxls(t_context *ctx)
+{
+	set_left_right_angles(ctx);
+	handle_rays(ctx, draw_vertical_ray, WIN_SIZE_X);
+	display_2d_map(ctx);
+}
+
 void	init_graphic(t_context *ctx)
 {
 	ctx->mlx->mlx_ptr = mlx_init();
@@ -66,9 +73,7 @@ void	init_graphic(t_context *ctx)
 	mlx_hook(ctx->mlx->win_ptr, 2, 1L << 0, key_hook_press, ctx);
 	mlx_hook(ctx->mlx->win_ptr, 3, 1L << 1, key_release, ctx);
 	mlx_hook(ctx->mlx->win_ptr, 17, 0L, free_graphic, (void *)ctx);
-	set_left_right_angles(ctx);
-	display_2d_map(ctx);
-	vertical_render(ctx);
+	render_window_pxls(ctx);
 	mlx_put_image_to_window(ctx->mlx->mlx_ptr, ctx->mlx->win_ptr,
 		ctx->mlx->img.img_ptr, 0, 0);
 	mlx_loop_hook(ctx->mlx->mlx_ptr, move_player, ctx);

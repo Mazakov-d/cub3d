@@ -6,7 +6,7 @@
 /*   By: dmazari <dmazari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/30 14:48:23 by mniemaz           #+#    #+#             */
-/*   Updated: 2025/08/07 11:36:50 by dmazari          ###   ########.fr       */
+/*   Updated: 2025/08/07 11:37:31 by dmazari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,43 +33,46 @@ void	print_rect(t_context *ctx, int x, int y, int square_x, int square_y,
 		i++;
 	}
 }
-
-void	draw_rays(t_context *ctx, int square_x, int square_y)
+/**
+ * @param this function is used twice, once to draw the rays and once to
+ * draw the 3D (vertical lines).
+ */
+void	handle_rays(t_context *ctx, void (*func)(t_context *, t_point_dir, int),
+		int nb_rays)
 {
-	int			nb_rays;
 	double		step;
 	t_vector	ray;
 	double		curr_angle;
-	t_point_dir	ray_wall;
+	t_point_dir	impact;
 
-	nb_rays = 3;
-	step = (ctx->player.right_fov_angle - ctx->player.left_fov_angle) / (nb_rays - 1);
+	step = (ctx->player.right_fov_angle - ctx->player.left_fov_angle) / (nb_rays
+			- 1);
 	curr_angle = ctx->player.right_fov_angle;
 	while (--nb_rays > -1)
 	{
 		init_vector(&ray, cos(curr_angle), sin(curr_angle));
-		ray_wall = get_pos_wall_toward(ctx, ray);
-		bresenham_line(ctx, ctx->player.pos, ray_wall.pos, square_x, square_y, 0xFFFFFF);
+		impact = get_impact_wall_toward(ctx, ray);
+		func(ctx, impact, nb_rays);
 		curr_angle -= step;
 	}
 }
 
-void draw_map_squares(t_context *ctx, int square_x, int square_y)
+void	draw_2d_map(t_context *ctx)
 {
-	int row;
-	int col;
+	int	row;
+	int	col;
 
 	row = -1;
 	while (ctx->map[++row])
 	{
 		col = -1;
 		while (ctx->map[row][++col])
-			print_rect(ctx, square_x * col, square_y * row, square_x, square_y,
-				ctx->map[row][col]);
+			print_rect(ctx, ctx->w_square_2d * col, ctx->h_square_2d * row,
+				ctx->w_square_2d, ctx->h_square_2d, ctx->map[row][col]);
 	}
 }
 
-void calc_square_size(t_context *ctx, int *square_x, int *square_y)
+void	set_squares_2d_sizes(t_context *ctx)
 {
 	int	largest_line;
 	int	i;
@@ -79,18 +82,17 @@ void calc_square_size(t_context *ctx, int *square_x, int *square_y)
 	while (ctx->map[++i])
 		if (ft_strlen(ctx->map[i]) > largest_line)
 			largest_line = ft_strlen(ctx->map[i]);
-	*square_x = MINI_MAP_X / largest_line;
-	*square_y = MINI_MAP_Y / i;
+	if (largest_line == 0)
+		largest_line = 1;
+	if (i == 0)
+		i = 1;
+	ctx->w_square_2d = MINI_MAP_X / largest_line;
+	ctx->h_square_2d = MINI_MAP_Y / i;
 }
-
 
 void	display_2d_map(t_context *ctx)
 {
-	int	square_x;
-	int	square_y;
-
-	calc_square_size(ctx, &square_x, &square_y);
-	draw_map_squares(ctx, square_x, square_y);
-	
-	draw_rays(ctx, square_x, square_y);
+	set_squares_2d_sizes(ctx);
+	draw_2d_map(ctx);
+	handle_rays(ctx, bresenham_line, 3);
 }

@@ -73,7 +73,7 @@ int bresenham_line_counter(t_point from, t_point to)
 /**
  * @brief Draw a line between two cells of the map using the Bresenham algorithm
  */
-void bresenham_line(t_context *ctx, t_point from, t_point to, int square_x, int square_y, int color)
+void bresenham_line(t_context *ctx, t_point_dir to, int unused)
 {
     t_point d;
     int err;
@@ -81,12 +81,13 @@ void bresenham_line(t_context *ctx, t_point from, t_point to, int square_x, int 
     t_int_pos from_pxl;
     t_int_pos to_pxl;
     t_point cur;
+    (void)unused;
 
-    from_pxl.x = from.x * square_x;
-    from_pxl.y = from.y * square_y;
-    to_pxl.x = to.x * square_x;
-    to_pxl.y = to.y * square_y;
-    
+    from_pxl.x = ctx->player.pos.x * ctx->w_square_2d;
+    from_pxl.y = ctx->player.pos.y * ctx->h_square_2d;
+    to_pxl.x = to.pos.x * ctx->w_square_2d;
+    to_pxl.y = to.pos.y * ctx->h_square_2d;
+
     cur.x = from_pxl.x;
     cur.y = from_pxl.y;
     
@@ -97,8 +98,8 @@ void bresenham_line(t_context *ctx, t_point from, t_point to, int square_x, int 
     i = 0;
     while (1)
     {
-        put_pixel(ctx, (int)cur.x, (int)cur.y, color);
-        
+        put_pixel(ctx, (int)cur.x, (int)cur.y, 0xFFFFFF);
+
         if ((int)cur.x == to_pxl.x && (int)cur.y == to_pxl.y)
             break ;
         

@@ -6,7 +6,7 @@
 /*   By: mniemaz <mniemaz@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 14:22:49 by dmazari           #+#    #+#             */
-/*   Updated: 2025/08/06 16:35:29 by mniemaz          ###   ########.fr       */
+/*   Updated: 2025/08/07 10:11:22 by mniemaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,9 +62,7 @@ int move_player(t_context *ctx)
 		turn_left(ctx);
 	if (ctx->mlx->keys.right_arrow_bool)
 		turn_right(ctx);
-	set_left_right_angles(ctx);
-	vertical_render(ctx);
-	display_2d_map(ctx);
+	render_window_pxls(ctx);
 	mlx_put_image_to_window(ctx->mlx->mlx_ptr, ctx->mlx->win_ptr, ctx->mlx->img.img_ptr, 0, 0);
 	return (0);
 }
