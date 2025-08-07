@@ -6,7 +6,7 @@
 /*   By: mniemaz <mniemaz@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 13:12:09 by mniemaz           #+#    #+#             */
-/*   Updated: 2025/08/06 17:01:15 by mniemaz          ###   ########.fr       */
+/*   Updated: 2025/08/07 11:17:05 by mniemaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <errno.h>
 # include <fcntl.h>
 # include <float.h>
+# include <limits.h>
 # include <math.h>
 # include <mlx.h>
 # include <stdarg.h>
@@ -25,7 +26,6 @@
 # include <stdlib.h>
 # include <string.h>
 # include <unistd.h>
-# include <limits.h>
 
 # define WIN_SIZE_X 1920
 # define WIN_SIZE_Y 1080
@@ -35,7 +35,6 @@
 # define COLOR_INIT_VAL 256
 # define MAP_CHARS "NSEW01 "
 # define USER_CHARS "NSEW"
-# define OUR_USER_CHAR 'P'
 # define EXIT_NEUTRAL 2
 # define W 119
 # define A 97
@@ -46,7 +45,6 @@
 # define ESC 65307
 # define SPEED 0.05
 # define TURN_SPEED 0.05
-
 
 typedef enum e_cardinal_dir
 {
@@ -144,6 +142,8 @@ typedef struct s_context
 	t_texture_data	texture_data;
 	t_mlx			*mlx;
 	t_player		player;
+	int				w_square_2d;
+	int				h_square_2d;
 }					t_context;
 
 /*
@@ -203,17 +203,6 @@ double				ft_double_abs(double n);
 void				init_graphic(t_context *context);
 
 /**
- * ray_init.c
- */
-void				init_ray(t_context *ctx);
-
-/**
- * ray_man.c
- */
-void				ray_man(t_context *ctx, t_vector dir, double square_x,
-						double square_y);
-
-/**
  * free_graphic.c
  */
 int					free_graphic(t_context *context);
@@ -241,11 +230,10 @@ double				get_distance(t_point a, t_point b);
  * maths
  */
 t_point				get_intersection_pos(t_point p, t_vector dir);
-void				bresenham_line(t_context *ctx, t_point from, t_point to,
-						int square_x, int square_y, int color);
+void				bresenham_line(t_context *ctx, t_point_dir to, int unused);
 void				print_square(t_context *ctx, t_int_pos pos, int size,
 						int color);
-t_point_dir			get_pos_wall_toward(t_context *ctx, t_vector dir);
+t_point_dir			get_impact_wall_toward(t_context *ctx, t_vector dir);
 bool				is_almost_rounded(double n);
 
 /**
@@ -256,10 +244,16 @@ void				clear_image(t_context *ctx);
 void				clear_image_fast(t_context *ctx);
 int					get_pixel_color_img(t_img img, int y_wall, int length,
 						t_point_dir impact);
+void				handle_rays(t_context *ctx, void (*func)(t_context *,
+							t_point_dir, int), int nb_rays);
+void				render_window_pxls(t_context *ctx);
+
 /**
  * perspective.c
  */
 void				vertical_render(t_context *ctx);
 void				set_left_right_angles(t_context *ctx);
+void				draw_vertical_ray(t_context *ctx, t_point_dir impact,
+						int x);
 
 #endif

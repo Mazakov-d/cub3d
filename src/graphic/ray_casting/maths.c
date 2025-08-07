@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   maths.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmazari <dmazari@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mniemaz <mniemaz@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 18:39:07 by mniemaz           #+#    #+#             */
-/*   Updated: 2025/08/05 18:42:38 by dmazari          ###   ########.fr       */
+/*   Updated: 2025/08/07 10:35:01 by mniemaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,46 +116,45 @@ t_cardinal_dir	stuck_on_wall_dir(char **map, t_point pos, t_vector dir)
 {
 	if (is_almost_rounded(pos.x) && dir.x_i > 0)
 	{
-		if (map[(int)floor(pos.y)][(int)pos.x]
-			&& map[(int)floor(pos.y)][(int)pos.x] == '1')
+		if (map[(int)(pos.y)][(int)floorf(pos.x)]
+			&& map[(int)(pos.y)][(int)floorf(pos.x)] == '1')
 			return (EA);
 	}
 	if (is_almost_rounded(pos.x) && dir.x_i < 0)
 	{
 		if (pos.x == 0.0f)
 			return (WE);
-		if (map[(int)floor(pos.y)][(int)floorf(pos.x) - 1]
-			&& map[(int)floor(pos.y)][(int)floorf(pos.x) - 1] == '1')
+		if (map[(int)(pos.y)][(int)floorf(pos.x) - 1]
+			&& map[(int)(pos.y)][(int)floorf(pos.x) - 1] == '1')
 			return (WE);
 	}
 	if (is_almost_rounded(pos.y) && dir.y_i > 0)
 	{
-		if (!map[(int)pos.y + 1] || ft_strlen(map[(int)pos.y
-				+ 1]) <= (int)floor(pos.x))
+		if (!map[(int)floorf(pos.y) + 1] || ft_strlen(map[(int)floorf(pos.y) + 1]) <= (int)(pos.x))
 			return (SO);
-		if (map[(int)pos.y][(int)floor(pos.x)] == '1')
+		if (map[(int)floorf(pos.y)][(int)(pos.x)] == '1')
 			return (SO);
 	}
 	if (is_almost_rounded(pos.y) && dir.y_i < 0)
 	{
-		if ((int)pos.y == 0 || ft_strlen(map[(int)pos.y - 1]) <= (int)floor(pos.x))
+		if ((int)floorf(pos.y) == 0 || ft_strlen(map[(int)floorf(pos.y) - 1]) <= (int)(pos.x))
 			return (NO);
-		if (map[(int)pos.y - 1][(int)floor(pos.x)] == '1')
+		if (map[(int)floorf(pos.y) - 1][(int)(pos.x)] == '1')
 			return (NO);
 	}
 	return (NONE);
 }
 
-t_point_dir	get_pos_wall_toward(t_context *ctx, t_vector dir)
+t_point_dir	get_impact_wall_toward(t_context *ctx, t_vector vec)
 {
-	t_point_dir	ret;
-	ret.pos = ctx->player.pos;
+	t_point_dir	impact;
+	impact.pos = ctx->player.pos;
 
-	ret.dir = stuck_on_wall_dir(ctx->map, ret.pos, dir);
-	while (ret.dir == NONE)
+	impact.dir = stuck_on_wall_dir(ctx->map, impact.pos, vec);
+	while (impact.dir == NONE)
 	{
-		ret.pos = get_intersection_pos(ret.pos, dir);
-		ret.dir = stuck_on_wall_dir(ctx->map, ret.pos, dir);
+		impact.pos = get_intersection_pos(impact.pos, vec);
+		impact.dir = stuck_on_wall_dir(ctx->map, impact.pos, vec);
 	}
-	return (ret);
+	return (impact);
 }
