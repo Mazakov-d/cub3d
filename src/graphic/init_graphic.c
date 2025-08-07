@@ -6,7 +6,7 @@
 /*   By: dmazari <dmazari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 15:32:17 by dmazari           #+#    #+#             */
-/*   Updated: 2025/08/07 11:43:29 by dmazari          ###   ########.fr       */
+/*   Updated: 2025/08/07 14:58:55 by dmazari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,6 @@ int	open_image(t_img *img, t_mlx *mlx)
 	}
 	img->data = mlx_get_data_addr(img->img_ptr, &img->bpp, &img->line_len,
 			&img->endian);
-	// mlx_destroy_image(mlx->mlx_ptr, img->img_ptr);
-	// img->img_ptr = NULL;
 	if (!img->data)
 	{
 		printf_err("%s: %s\n", img->img_name, strerror(errno));
@@ -47,7 +45,7 @@ void	init_texture(t_context *ctx)
 		free_graphic(ctx);
 }
 
-void render_window_pxls(t_context *ctx)
+void	render_window_pxls(t_context *ctx)
 {
 	set_left_right_angles(ctx);
 	handle_rays(ctx, draw_vertical_ray, WIN_SIZE_X);
@@ -70,6 +68,8 @@ void	init_graphic(t_context *ctx)
 		free_graphic(ctx);
 	ctx->mlx->img.data = mlx_get_data_addr(ctx->mlx->img.img_ptr,
 			&ctx->mlx->img.bpp, &ctx->mlx->img.line_len, &ctx->mlx->img.endian);
+	mlx_mouse_hide(ctx->mlx->mlx_ptr, ctx->mlx->win_ptr);
+	mlx_mouse_move(ctx->mlx->mlx_ptr, ctx->mlx->win_ptr, WIN_SIZE_X >> 1, WIN_SIZE_Y >> 1);
 	mlx_hook(ctx->mlx->win_ptr, 2, 1L << 0, key_hook_press, ctx);
 	mlx_hook(ctx->mlx->win_ptr, 3, 1L << 1, key_release, ctx);
 	mlx_hook(ctx->mlx->win_ptr, 17, 0L, free_graphic, (void *)ctx);

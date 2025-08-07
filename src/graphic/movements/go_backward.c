@@ -6,7 +6,7 @@
 /*   By: dmazari <dmazari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 13:33:07 by dmazari           #+#    #+#             */
-/*   Updated: 2025/08/05 13:35:48 by dmazari          ###   ########.fr       */
+/*   Updated: 2025/08/07 16:58:27 by dmazari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,13 @@ void	go_backward(t_player *player, char **map)
 
 	j = player->pos.x - (player->p_vec.x_i * SPEED);
 	i = player->pos.y - (player->p_vec.y_i * SPEED);
-	if (map[(int)i][(int)j] == '1')
+	if (map[(int)floorf(i)][(int)(player->pos.x)] == '1')
+		return ;
+	if (map[(int)floorf(player->pos.y)][(int)floorf(j)] == '1')
+		return ;
+	if (map[(int)floor(i)][(int)floorf(j)] == '1')
 		return ;
 	player->pos.x -= player->p_vec.x_i * SPEED;
 	player->pos.y -= player->p_vec.y_i * SPEED;
+
 }

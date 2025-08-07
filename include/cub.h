@@ -6,14 +6,13 @@
 /*   By: dmazari <dmazari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 13:12:09 by mniemaz           #+#    #+#             */
-/*   Updated: 2025/08/07 13:10:50 by dmazari          ###   ########.fr       */
+/*   Updated: 2025/08/07 15:46:39 by dmazari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB_H
 # define CUB_H
 
-# include "ray_casting.h"
 # include <errno.h>
 # include <fcntl.h>
 # include <float.h>
@@ -29,10 +28,10 @@
 
 # define WIN_SIZE_X 1920
 # define WIN_SIZE_Y 1080
-# define MINI_MAP_X WIN_SIZE_X * 0.2
-# define MINI_MAP_Y WIN_SIZE_Y * 0.2
+# define MINI_MAP_X (1920 * 0.2)
+# define MINI_MAP_Y (1080 * 0.2)
 # define BUFFER_SIZE 1024
-# define HEXA_INIT_VAL 0xFFFFFF + 1
+# define HEXA_INIT_VAL 16777216
 # define MAP_CHARS "NSEW01 "
 # define USER_CHARS "NSEW"
 # define EXIT_NEUTRAL 2
@@ -45,6 +44,9 @@
 # define ESC 65307
 # define SPEED 0.05
 # define TURN_SPEED 0.05
+# define MOUSE_SPEED 0.001
+# define PI 3.14159265358979323846
+# define FOV_RAD 60 * (3.14159265358979323846 / 180)
 
 typedef enum e_cardinal_dir
 {
@@ -54,6 +56,12 @@ typedef enum e_cardinal_dir
 	WE,
 	NONE
 }					t_cardinal_dir;
+
+typedef struct s_vector
+{
+	double	x_i;
+	double	y_i;
+}	t_vector;
 
 typedef struct s_point
 {
@@ -218,7 +226,7 @@ void				turn_right(t_context *ctx);
 int					key_hook_press(int keycode, t_context *ctx);
 int					key_release(int keycode, t_context *ctx);
 int					move_player(t_context *ctx);
-
+void				mouse_move(t_context *ctx);
 /**
  * vector/ft_vector.c
  */

@@ -6,7 +6,7 @@
 /*   By: dmazari <dmazari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 14:22:49 by dmazari           #+#    #+#             */
-/*   Updated: 2025/08/07 13:10:50 by dmazari          ###   ########.fr       */
+/*   Updated: 2025/08/07 15:46:49 by dmazari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ int	key_release(int keycode, t_context *ctx)
 
 int move_player(t_context *ctx)
 {
+	mouse_move(ctx);
 	if (ctx->mlx->keys.w_bool)
 		go_forward(&ctx->player, ctx->map);
 	if (ctx->mlx->keys.s_bool)
