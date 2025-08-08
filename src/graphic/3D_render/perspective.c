@@ -6,7 +6,7 @@
 /*   By: mniemaz <mniemaz@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 16:34:30 by dmazari           #+#    #+#             */
-/*   Updated: 2025/08/07 11:45:26 by mniemaz          ###   ########.fr       */
+/*   Updated: 2025/08/07 18:13:00 by mniemaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,10 +73,10 @@ void	set_left_right_angles(t_context *ctx)
 	else if (ctx->player.p_vec.x_i == 0.0f)
 	{
 		if (ctx->player.p_vec.y_i < 0.0f)
-			angle = -PI * 0.5;
+			angle = -PI_DIV_2;
 		else
-			angle = PI * 0.5;
+			angle = PI_DIV_2;
 	}
-	ctx->player.right_fov_angle = angle + FOV_RAD * 0.5;
-	ctx->player.left_fov_angle = angle - FOV_RAD * 0.5;
+	ctx->player.right_fov_angle = angle + FOV_RAD_DIV_2;
+	ctx->player.left_fov_angle = angle - FOV_RAD_DIV_2;
 }

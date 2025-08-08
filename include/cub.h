@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmazari <dmazari@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mniemaz <mniemaz@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 13:12:09 by mniemaz           #+#    #+#             */
-/*   Updated: 2025/08/07 17:38:38 by dmazari          ###   ########.fr       */
+/*   Updated: 2025/08/08 09:11:59 by mniemaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,9 @@
 # define TURN_SPEED 0.05
 # define MOUSE_SPEED 0.001
 # define PI 3.14159265358979323846
+# define PI_DIV_2 (3.14159265358979323846) * 0.5
 # define FOV_RAD 60 * (3.14159265358979323846 / 180)
+# define FOV_RAD_DIV_2 (60 * (3.14159265358979323846 / 180)) * 0.5
 
 typedef enum e_cardinal_dir
 {

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   go_right.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmazari <dmazari@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mniemaz <mniemaz@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 13:34:27 by dmazari           #+#    #+#             */
-/*   Updated: 2025/08/07 17:41:26 by dmazari          ###   ########.fr       */
+/*   Updated: 2025/08/07 18:13:32 by mniemaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,5 +28,4 @@ void	go_right(t_player *player, char **map)
 		return ;
 	player->pos.x -= player->p_vec.y_i * SPEED;
 	player->pos.y += player->p_vec.x_i * SPEED;
-	printf("x: %f, y: %f\n", player->pos.x, player->pos.y);
 }
