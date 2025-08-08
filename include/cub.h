@@ -6,7 +6,7 @@
 /*   By: mniemaz <mniemaz@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 13:12:09 by mniemaz           #+#    #+#             */
-/*   Updated: 2025/08/08 09:14:56 by mniemaz          ###   ########.fr       */
+/*   Updated: 2025/08/08 16:01:46 by mniemaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -241,7 +241,7 @@ double				get_distance(t_point a, t_point b);
  * maths
  */
 t_point				get_intersection_pos(t_point p, t_vector dir);
-void				bresenham_line(t_context *ctx, t_point_dir to, int unused);
+void				bresenham_line(t_context *ctx, t_point_dir to, int unused, double unused_2);
 void				print_square(t_context *ctx, t_int_pos pos, int size,
 						int color);
 t_point_dir			get_impact_wall_toward(t_context *ctx, t_vector dir);
@@ -256,7 +256,7 @@ void				clear_image_fast(t_context *ctx);
 int					get_pixel_color_img(t_img img, int y_wall, int length,
 						t_point_dir impact);
 void				handle_rays(t_context *ctx, void (*func)(t_context *,
-							t_point_dir, int), int nb_rays);
+							t_point_dir, int, double), int nb_rays);
 void				render_window_pxls(t_context *ctx);
 
 /**
@@ -265,6 +265,6 @@ void				render_window_pxls(t_context *ctx);
 void				vertical_render(t_context *ctx);
 void				set_left_right_angles(t_context *ctx);
 void				draw_vertical_ray(t_context *ctx, t_point_dir impact,
-						int x);
+						int x, double curr_angle);
 
 #endif

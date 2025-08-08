@@ -74,7 +74,8 @@ int	bresenham_line_counter(t_point from, t_point to)
 /**
  * @brief Draw a line between two cells of the map using the Bresenham algorithm
  */
-void	bresenham_line(t_context *ctx, t_point_dir to, int unused)
+void	bresenham_line(t_context *ctx, t_point_dir to, int unused,
+		double unused_2)
 {
 	t_point d;
 	int err;
@@ -83,6 +84,7 @@ void	bresenham_line(t_context *ctx, t_point_dir to, int unused)
 	t_int_pos to_pxl;
 	t_point cur;
 	(void)unused;
+	(void)unused_2;
 
 	from_pxl.x = ctx->player.pos.x * ctx->w_square_2d;
 	from_pxl.y = ctx->player.pos.y * ctx->h_square_2d;

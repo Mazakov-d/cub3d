@@ -6,7 +6,7 @@
 /*   By: mniemaz <mniemaz@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 14:10:42 by mniemaz           #+#    #+#             */
-/*   Updated: 2025/08/07 11:52:41 by mniemaz          ###   ########.fr       */
+/*   Updated: 2025/08/08 10:37:51 by mniemaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,14 +61,14 @@ static int	fill_directions(t_texture_data *tex_data, char **lines_tab)
 	char	**to_fill[4];
 	int		i;
 
-	dirs[0] = "NO";
-	dirs[1] = "SO";
-	dirs[3] = "EA";
-	dirs[2] = "WE";
-	to_fill[0] = &tex_data->walls[NO].img_name;
-	to_fill[1] = &tex_data->walls[SO].img_name;
-	to_fill[2] = &tex_data->walls[EA].img_name;
-	to_fill[3] = &tex_data->walls[WE].img_name;
+	dirs[NO] = "NO";
+	dirs[SO] = "SO";
+	dirs[EA] = "EA";
+	dirs[WE] = "WE";
+	to_fill[NO] = &tex_data->walls[NO].img_name;
+	to_fill[SO] = &tex_data->walls[SO].img_name;
+	to_fill[EA] = &tex_data->walls[EA].img_name;
+	to_fill[WE] = &tex_data->walls[WE].img_name;
 	i = -1;
 	while (++i < 4)
 	{
@@ -81,6 +81,7 @@ static int	fill_directions(t_texture_data *tex_data, char **lines_tab)
 			return (printf_err("fill_dirs: %s\n", strerror(errno)));
 		return (EXIT_SUCCESS);
 	}
+	
 	return (EXIT_NEUTRAL);
 }
 
