@@ -6,7 +6,7 @@
 /*   By: mniemaz <mniemaz@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 13:12:09 by mniemaz           #+#    #+#             */
-/*   Updated: 2025/08/08 09:11:59 by mniemaz          ###   ########.fr       */
+/*   Updated: 2025/08/08 09:14:56 by mniemaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,9 @@
 # define LEFT_ARROW 65361
 # define RIGHT_ARROW 65363
 # define ESC 65307
-# define SPEED 0.05
+# define SPEED 0.08
 # define TURN_SPEED 0.05
-# define MOUSE_SPEED 0.001
+# define MOUSE_SPEED 0.0005
 # define PI 3.14159265358979323846
 # define PI_DIV_2 (3.14159265358979323846) * 0.5
 # define FOV_RAD 60 * (3.14159265358979323846 / 180)
