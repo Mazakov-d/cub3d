@@ -6,7 +6,7 @@
 /*   By: mniemaz <mniemaz@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/30 14:48:23 by mniemaz           #+#    #+#             */
-/*   Updated: 2025/08/08 16:52:30 by mniemaz          ###   ########.fr       */
+/*   Updated: 2025/08/08 17:13:43 by mniemaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,6 @@ void	handle_rays(t_context *ctx, void (*func)(t_context *, t_point_dir, int,
 		impact = get_impact_wall_toward(ctx, ray);
 		func(ctx, impact, nb_rays, curr_angle);
 		curr_angle = curr_angle - step;
-		if (curr_angle < 0.0f)
-			curr_angle += (2 * PI);
 	}
 }
 	
