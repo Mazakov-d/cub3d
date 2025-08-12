@@ -6,7 +6,7 @@
 /*   By: dorianmazari <dorianmazari@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 13:12:09 by mniemaz           #+#    #+#             */
-/*   Updated: 2025/08/12 15:02:57 by dorianmazar      ###   ########.fr       */
+/*   Updated: 2025/08/12 15:46:20 by dorianmazar      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,14 +52,16 @@
 # define FOV_RAD 60 * (3.14159265358979323846 / 180)
 # define FOV_RAD_DIV_2 (60 * (3.14159265358979323846 / 180)) * 0.5
 
-typedef enum e_cardinal_dir
+typedef enum e_wall_type
 {
 	NO,
 	SO,
 	EA,
 	WE,
+	CLOSE,
+	OPEN,
 	NONE
-}					t_cardinal_dir;
+}					t_wall_type;
 
 typedef struct s_vector
 {
@@ -76,7 +78,7 @@ typedef struct s_point
 typedef struct s_point_dir
 {
 	t_point			pos;
-	t_cardinal_dir	dir;
+	t_wall_type	dir;
 }					t_point_dir;
 
 typedef struct s_key_bool

@@ -6,7 +6,7 @@
 /*   By: dorianmazari <dorianmazari@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 14:22:49 by dmazari           #+#    #+#             */
-/*   Updated: 2025/08/12 15:02:48 by dorianmazar      ###   ########.fr       */
+/*   Updated: 2025/08/12 15:03:58 by dorianmazar      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,8 @@ int move_player(t_context *ctx)
 		turn_left(ctx);
 	if (ctx->mlx->keys.right_arrow_bool)
 		turn_right(ctx);
+	if (ctx->mlx->keys.space_bool)
+		handle_door(ctx);
 	render_window_pxls(ctx);
 	mouse_move(ctx);
 	mlx_put_image_to_window(ctx->mlx->mlx_ptr, ctx->mlx->win_ptr, ctx->mlx->img.img_ptr, 0, 0);
