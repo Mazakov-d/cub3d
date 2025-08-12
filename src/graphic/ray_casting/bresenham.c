@@ -77,7 +77,7 @@ void bresenham_line(t_context *ctx, t_point from, t_point to, int square_x, int 
 {
     t_point d;
     int err;
-    int i;
+    
     t_int_pos from_pxl;
     t_int_pos to_pxl;
     t_point cur;
@@ -94,7 +94,6 @@ void bresenham_line(t_context *ctx, t_point from, t_point to, int square_x, int 
     d.y = ft_double_abs((double)(to_pxl.y - from_pxl.y));
     err = d.x - d.y;
     
-    i = 0;
     while (1)
     {
         put_pixel(ctx, (int)cur.x, (int)cur.y, color);
@@ -103,6 +102,5 @@ void bresenham_line(t_context *ctx, t_point from, t_point to, int square_x, int 
             break ;
         
         err = process_bresenham_calc(&cur, (t_point){to_pxl.x, to_pxl.y}, d, err);
-        i++;
     }
 }
