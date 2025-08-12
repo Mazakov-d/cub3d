@@ -6,7 +6,7 @@
 /*   By: miloniemaz <mniemaz@student.42lyon.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 14:10:42 by mniemaz           #+#    #+#             */
-/*   Updated: 2025/08/12 07:53:26 by miloniemaz       ###   ########.fr       */
+/*   Updated: 2025/08/12 08:16:49 by miloniemaz       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ static bool	is_texture_data_filled(t_texture_data *tex_data)
 {
 	return (tex_data->walls[NO].img_name && tex_data->walls[SO].img_name
 		&& tex_data->walls[EA].img_name && tex_data->walls[WE].img_name
+		&& tex_data->walls[CLOSE].img_name
 		&& tex_data->floor_hexa != HEXA_INIT_VAL
 		&& tex_data->ceiling_hexa != HEXA_INIT_VAL);
 }
@@ -65,7 +66,7 @@ static int	fill_directions(t_texture_data *tex_data, char **lines_tab)
 	wall_type[SO] = "SO";
 	wall_type[EA] = "EA";
 	wall_type[WE] = "WE";
-	wall_type[CLOSE] = "DO";
+	wall_type[CLOSE] = "DOOR";
 	to_fill[NO] = &tex_data->walls[NO].img_name;
 	to_fill[SO] = &tex_data->walls[SO].img_name;
 	to_fill[EA] = &tex_data->walls[EA].img_name;
