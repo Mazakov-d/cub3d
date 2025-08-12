@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dorianmazari <dorianmazari@student.42.f    +#+  +:+       +#+        */
+/*   By: mazakov <mazakov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 13:12:09 by mniemaz           #+#    #+#             */
-/*   Updated: 2025/08/12 15:46:20 by dorianmazar      ###   ########.fr       */
+/*   Updated: 2025/08/12 16:33:44 by mazakov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,10 @@
 # define CENTER_WIN_Y 540
 # define BUFFER_SIZE 1024
 # define HEXA_INIT_VAL 16777216
-# define MAP_CHARS "NSEW01 "
+# define MAP_CHARS "NSEW01 CO"
 # define USER_CHARS "NSEW"
 # define EXIT_NEUTRAL 2
+# define SPACE 32
 # define W 119
 # define A 97
 # define S 115
@@ -89,7 +90,6 @@ typedef struct s_key_bool
 	bool			d_bool;
 	bool			left_arrow_bool;
 	bool			right_arrow_bool;
-	bool			space_bool;
 }					t_key_bool;
 
 typedef struct s_color
@@ -125,7 +125,7 @@ typedef struct s_mlx
 
 typedef struct s_texture_data
 {
-	t_img			walls[4];
+	t_img			walls[5];
 	unsigned long	floor_hexa;
 	unsigned long	ceiling_hexa;
 }					t_texture_data;
@@ -234,6 +234,8 @@ int					key_hook_press(int keycode, t_context *ctx);
 int					key_release(int keycode, t_context *ctx);
 int					move_player(t_context *ctx);
 void				mouse_move(t_context *ctx);
+void				handle_door(t_context *ctx);
+
 /**
  * vector/ft_vector.c
  */
@@ -269,5 +271,8 @@ void				vertical_render(t_context *ctx);
 void				set_left_right_angles(t_context *ctx);
 void				draw_vertical_ray(t_context *ctx, t_point_dir impact,
 						int x);
+int					is_rounded(double x);
+t_wall_type			stuck_on_wall_dir(char **map, t_point pos, t_vector vec);
+
 
 #endif

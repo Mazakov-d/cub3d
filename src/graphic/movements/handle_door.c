@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_door.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dorianmazari <dorianmazari@student.42.f    +#+  +:+       +#+        */
+/*   By: mazakov <mazakov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/12 15:04:16 by dorianmazar       #+#    #+#             */
-/*   Updated: 2025/08/12 15:51:08 by dorianmazar      ###   ########.fr       */
+/*   Updated: 2025/08/12 16:05:12 by mazakov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	handle_door(t_context *ctx)
 
 	impact_toward = get_impact_door(ctx, ctx->player.p_vec);
 	if (impact_toward.dir == OPEN)
-		map[(int)floorf(impact_toward.pos.y)][(int)floorf(impact_toward.pos.x)] = 'C';
+		ctx->map[(int)floorf(impact_toward.pos.y)][(int)floorf(impact_toward.pos.x)] = 'C';
 	if (impact_toward.dir == CLOSE)
-		map[(int)floorf(impact_toward.pos.y)][(int)floorf(impact_toward.pos.x)] = 'O';
+		ctx->map[(int)floorf(impact_toward.pos.y)][(int)floorf(impact_toward.pos.x)] = 'O';
 }
