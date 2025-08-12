@@ -6,17 +6,17 @@
 /*   By: dorianmazari <dorianmazari@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 13:12:09 by mniemaz           #+#    #+#             */
-/*   Updated: 2025/08/12 14:59:45 by dorianmazar      ###   ########.fr       */
+/*   Updated: 2025/08/12 15:02:57 by dorianmazar      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB_H
 # define CUB_H
 
-# include "ray_casting.h"
 # include <errno.h>
 # include <fcntl.h>
 # include <float.h>
+# include <limits.h>
 # include <math.h>
 # include <mlx.h>
 # include <stdarg.h>
@@ -28,13 +28,14 @@
 
 # define WIN_SIZE_X 1920
 # define WIN_SIZE_Y 1080
-# define MINI_MAP_X WIN_SIZE_X * 0.1
-# define MINI_MAP_Y WIN_SIZE_Y * 0.1
+# define MINI_MAP_X (1920 * 0.2)
+# define MINI_MAP_Y (1080 * 0.2)
+# define CENTER_WIN_X 960
+# define CENTER_WIN_Y 540
 # define BUFFER_SIZE 1024
-# define COLOR_INIT_VAL 256
+# define HEXA_INIT_VAL 16777216
 # define MAP_CHARS "NSEW01 "
 # define USER_CHARS "NSEW"
-# define OUR_USER_CHAR 'P'
 # define EXIT_NEUTRAL 2
 # define W 119
 # define A 97
@@ -43,8 +44,13 @@
 # define LEFT_ARROW 65361
 # define RIGHT_ARROW 65363
 # define ESC 65307
-# define SPEED 0.05
+# define SPEED 0.08
 # define TURN_SPEED 0.05
+# define MOUSE_SPEED 0.0005
+# define PI 3.14159265358979323846
+# define PI_DIV_2 (3.14159265358979323846) * 0.5
+# define FOV_RAD 60 * (3.14159265358979323846 / 180)
+# define FOV_RAD_DIV_2 (60 * (3.14159265358979323846 / 180)) * 0.5
 
 typedef enum e_cardinal_dir
 {
@@ -55,7 +61,13 @@ typedef enum e_cardinal_dir
 	NONE
 }					t_cardinal_dir;
 
-typedef struct s_pos
+typedef struct s_vector
+{
+	double	x_i;
+	double	y_i;
+}	t_vector;
+
+typedef struct s_point
 {
 	double			x;
 	double			y;
@@ -83,7 +95,6 @@ typedef struct s_color
 	unsigned char	r;
 	unsigned char	g;
 	unsigned char	b;
-	unsigned long	hexa;
 }					t_color;
 
 typedef struct s_img
@@ -112,12 +123,9 @@ typedef struct s_mlx
 
 typedef struct s_texture_data
 {
-	t_img			north;
-	t_img			south;
-	t_img			east;
-	t_img			west;
-	t_color			*floor;
-	t_color			*ceiling;
+	t_img			walls[4];
+	unsigned long	floor_hexa;
+	unsigned long	ceiling_hexa;
 }					t_texture_data;
 
 typedef struct s_line
@@ -125,8 +133,6 @@ typedef struct s_line
 	char			*line;
 	struct s_line	*next;
 }					t_line;
-
-
 
 typedef struct s_int_pos
 {
@@ -148,6 +154,8 @@ typedef struct s_context
 	t_texture_data	texture_data;
 	t_mlx			*mlx;
 	t_player		player;
+	int				w_square_2d;
+	int				h_square_2d;
 }					t_context;
 
 /*
@@ -204,23 +212,12 @@ double				ft_double_abs(double n);
  * graphic
  * init.c
  */
-void				init_graphic(t_context *context);
-
-/**
- * ray_init.c
- */
-void				init_ray(t_context *ctx);
-
-/**
- * ray_man.c
- */
-void				ray_man(t_context *ctx, t_vector dir, double square_x,
-						double square_y);
+void				init_graphic(t_context *ctx);
 
 /**
  * free_graphic.c
  */
-int					free_graphic(t_context *context);
+int					free_graphic(t_context *ctx);
 
 /**
  * movements
@@ -231,10 +228,10 @@ void				go_left(t_player *player, char **map);
 void				go_right(t_player *player, char **map);
 void				turn_left(t_context *ctx);
 void				turn_right(t_context *ctx);
-int					key_hook_press(int keycode, t_context *context);
-int					key_release(int keycode, t_context *context);
+int					key_hook_press(int keycode, t_context *ctx);
+int					key_release(int keycode, t_context *ctx);
 int					move_player(t_context *ctx);
-
+void				mouse_move(t_context *ctx);
 /**
  * vector/ft_vector.c
  */
@@ -245,11 +242,11 @@ double				get_distance(t_point a, t_point b);
  * maths
  */
 t_point				get_intersection_pos(t_point p, t_vector dir);
-void				bresenham_line(t_context *ctx, t_point from, t_point to,
-						int square_x, int square_y, int color);
+void				bresenham_line(t_context *ctx, t_point_dir to, int unused);
 void				print_square(t_context *ctx, t_int_pos pos, int size,
 						int color);
-t_point_dir			get_pos_wall_toward(t_context *ctx, t_vector dir);
+t_point_dir			get_impact_wall_toward(t_context *ctx, t_vector dir);
+bool				is_almost_rounded(double n);
 
 /**
  * graphic_function.c
@@ -257,11 +254,18 @@ t_point_dir			get_pos_wall_toward(t_context *ctx, t_vector dir);
 void				put_pixel(t_context *ctx, int x, int y, int color);
 void				clear_image(t_context *ctx);
 void				clear_image_fast(t_context *ctx);
+int					get_pixel_color_img(t_img img, int y_wall, int length,
+						t_point_dir impact);
+void				handle_rays(t_context *ctx, void (*func)(t_context *,
+							t_point_dir, int), int nb_rays);
+void				render_window_pxls(t_context *ctx);
 
 /**
  * perspective.c
  */
 void				vertical_render(t_context *ctx);
 void				set_left_right_angles(t_context *ctx);
+void				draw_vertical_ray(t_context *ctx, t_point_dir impact,
+						int x);
 
 #endif

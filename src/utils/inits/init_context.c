@@ -6,7 +6,7 @@
 /*   By: dorianmazari <dorianmazari@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 11:23:43 by mniemaz           #+#    #+#             */
-/*   Updated: 2025/08/12 15:01:21 by dorianmazar      ###   ########.fr       */
+/*   Updated: 2025/08/12 15:03:07 by dorianmazar      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,26 +14,20 @@
 
 static int	init_texture_data(t_texture_data *tex_data)
 {
-	tex_data->north.img_name = NULL;
-	tex_data->south.img_name = NULL;
-	tex_data->east.img_name = NULL;
-	tex_data->west.img_name = NULL;
-	tex_data->north.data = NULL;
-	tex_data->south.data = NULL;
-	tex_data->east.data = NULL;
-	tex_data->west.data = NULL;
-	tex_data->north.img_ptr = NULL;
-	tex_data->south.img_ptr = NULL;
-	tex_data->east.img_ptr = NULL;
-	tex_data->west.img_ptr = NULL;
-	tex_data->floor = malloc(sizeof(t_color));
-	if (!tex_data->floor)
-		return (EXIT_FAILURE);
-	tex_data->ceiling = malloc(sizeof(t_color));
-	if (!tex_data->ceiling)
-		return (EXIT_FAILURE);
-	tex_data->floor->r = (unsigned char)COLOR_INIT_VAL;
-	tex_data->ceiling->r = (unsigned char)COLOR_INIT_VAL;
+	tex_data->walls[NO].img_name = NULL;
+	tex_data->walls[SO].img_name = NULL;
+	tex_data->walls[EA].img_name = NULL;
+	tex_data->walls[WE].img_name = NULL;
+	tex_data->walls[NO].data = NULL;
+	tex_data->walls[SO].data = NULL;
+	tex_data->walls[EA].data = NULL;
+	tex_data->walls[WE].data = NULL;
+	tex_data->walls[NO].img_ptr = NULL;
+	tex_data->walls[SO].img_ptr = NULL;
+	tex_data->walls[EA].img_ptr = NULL;
+	tex_data->walls[WE].img_ptr = NULL;
+	tex_data->floor_hexa = HEXA_INIT_VAL;
+	tex_data->ceiling_hexa = HEXA_INIT_VAL;
 	return (EXIT_SUCCESS);
 }
 

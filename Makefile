@@ -27,7 +27,7 @@ SRCS =\
 	check_flood_fill.c print_map_color.c display_2d_map.c ft_vector.c\
 	ft_int_abs.c ft_double_abs.c bresenham.c maths.c go_left.c go_right.c\
 	graphic_functions.c go_forward.c go_backward.c turn_left.c turn_right.c\
-	movements_handling.c perspective.c
+	movements_handling.c perspective.c mouse_move.c
 
 OBJS = $(addprefix $(OBJ_DIR)/, $(SRCS:.c=.o))
 
@@ -43,7 +43,7 @@ $(NAME): $(OBJS)
 libs:
 	@$(MAKE) -C $(MLX_DIR)
 
-$(OBJ_DIR)/%.o : %.c $(INC_DIR)/cub.h $(INC_DIR)/ray_casting.h Makefile | $(OBJ_DIR)
+$(OBJ_DIR)/%.o : %.c $(INC_DIR)/cub.h Makefile | $(OBJ_DIR)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 $(OBJ_DIR):
