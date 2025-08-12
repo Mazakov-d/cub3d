@@ -6,7 +6,7 @@
 /*   By: dmazari <dmazari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 10:36:31 by mniemaz           #+#    #+#             */
-/*   Updated: 2025/08/05 14:56:59 by dmazari          ###   ########.fr       */
+/*   Updated: 2025/08/07 13:08:32 by dmazari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,18 +17,14 @@ void free_context(t_context *ctx)
     if (!ctx)
         return;
 
-    if (ctx->texture_data.north.img_name)
-        free(ctx->texture_data.north.img_name);
-    if (ctx->texture_data.south.img_name)
-        free(ctx->texture_data.south.img_name);
-    if (ctx->texture_data.east.img_name)
-        free(ctx->texture_data.east.img_name);
-    if (ctx->texture_data.west.img_name)
-        free(ctx->texture_data.west.img_name);
-    if (ctx->texture_data.floor)
-        free(ctx->texture_data.floor);
-    if (ctx->texture_data.ceiling)
-        free(ctx->texture_data.ceiling);
+    if (ctx->texture_data.walls[NO].img_name)
+        free(ctx->texture_data.walls[NO].img_name);
+    if (ctx->texture_data.walls[SO].img_name)
+        free(ctx->texture_data.walls[SO].img_name);
+    if (ctx->texture_data.walls[EA].img_name)
+        free(ctx->texture_data.walls[EA].img_name);
+    if (ctx->texture_data.walls[WE].img_name)
+        free(ctx->texture_data.walls[WE].img_name);
     if (ctx->mlx)
         free(ctx->mlx);
     ft_free_tab((void **)ctx->map);
