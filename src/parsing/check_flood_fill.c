@@ -6,7 +6,7 @@
 /*   By: miloniemaz <mniemaz@student.42lyon.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 17:12:42 by mniemaz           #+#    #+#             */
-/*   Updated: 2025/07/31 11:15:48 by miloniemaz       ###   ########.fr       */
+/*   Updated: 2025/08/12 07:37:58 by miloniemaz       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static void	process_flood_fill(char **map, int row, int col)
 {
-	if (map[row][col] == '0')
+	if (map[row][col] == '0' || map[row][col] == 'C' || map[row][col] == 'O')
 		map[row][col] = 'X';
 	else if (!is_char_in_str(map[row][col], USER_CHARS))
 		return ;

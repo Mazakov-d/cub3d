@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_graphic.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmazari <dmazari@student.42.fr>            +#+  +:+       +#+        */
+/*   By: miloniemaz <mniemaz@student.42lyon.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 15:32:17 by dmazari           #+#    #+#             */
-/*   Updated: 2025/08/07 17:39:42 by dmazari          ###   ########.fr       */
+/*   Updated: 2025/08/12 06:46:20 by miloniemaz       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,8 @@ void	init_graphic(t_context *ctx)
 		free_graphic(ctx);
 	ctx->mlx->img.data = mlx_get_data_addr(ctx->mlx->img.img_ptr,
 			&ctx->mlx->img.bpp, &ctx->mlx->img.line_len, &ctx->mlx->img.endian);
-	mlx_mouse_hide(ctx->mlx->mlx_ptr, ctx->mlx->win_ptr);
-	mlx_mouse_move(ctx->mlx->mlx_ptr, ctx->mlx->win_ptr, CENTER_WIN_X, CENTER_WIN_Y);
+	mlx_mouse_hide();
+	mlx_mouse_move(ctx->mlx->win_ptr, CENTER_WIN_X, CENTER_WIN_Y);
 	mlx_hook(ctx->mlx->win_ptr, 2, 1L << 0, key_hook_press, ctx);
 	mlx_hook(ctx->mlx->win_ptr, 3, 1L << 1, key_release, ctx);
 	mlx_hook(ctx->mlx->win_ptr, 17, 0L, free_graphic, (void *)ctx);
