@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_parsing.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: miloniemaz <mniemaz@student.42lyon.fr>     +#+  +:+       +#+        */
+/*   By: mazakov <mazakov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 14:00:06 by mniemaz           #+#    #+#             */
-/*   Updated: 2025/08/12 07:22:51 by miloniemaz       ###   ########.fr       */
+/*   Updated: 2025/08/12 17:00:22 by mazakov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,6 @@ int	parse_file(t_context *ctx, char *filename)
 		return (EXIT_FAILURE);
 	if (are_doors_surrounded_by_walls(ctx->map) == false)
 		return (EXIT_FAILURE);
-
 	init_player_dir(ctx);
 	return (EXIT_SUCCESS);
 }
