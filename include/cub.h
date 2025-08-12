@@ -6,7 +6,7 @@
 /*   By: miloniemaz <mniemaz@student.42lyon.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 13:12:09 by mniemaz           #+#    #+#             */
-/*   Updated: 2025/08/12 07:18:56 by miloniemaz       ###   ########.fr       */
+/*   Updated: 2025/08/12 07:43:52 by miloniemaz       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@
 # define MAP_CHARS "NSEW01OC "
 # define USER_CHARS "NSEW"
 # define EXIT_NEUTRAL 2
+# define SPACE 32
 # define W 119
 # define A 97
 # define S 115
@@ -52,14 +53,16 @@
 # define FOV_RAD 60 * (PI / 180)
 # define FOV_RAD_DIV_2 (60 * (PI / 180)) * 0.5
 
-typedef enum e_cardinal_dir
+typedef enum e_wall_type
 {
 	NO,
 	SO,
 	EA,
 	WE,
+	CLOSE,
+	OPEN,
 	NONE
-}					t_cardinal_dir;
+}					t_wall_type;
 
 typedef struct s_vector
 {
@@ -76,7 +79,7 @@ typedef struct s_point
 typedef struct s_point_dir
 {
 	t_point			pos;
-	t_cardinal_dir	dir;
+	t_wall_type	dir;
 }					t_point_dir;
 
 typedef struct s_key_bool
@@ -122,7 +125,7 @@ typedef struct s_mlx
 
 typedef struct s_texture_data
 {
-	t_img			walls[4];
+	t_img			walls[5];
 	unsigned long	floor_hexa;
 	unsigned long	ceiling_hexa;
 }					t_texture_data;
@@ -232,6 +235,8 @@ int					key_hook_press(int keycode, t_context *ctx);
 int					key_release(int keycode, t_context *ctx);
 int					move_player(t_context *ctx);
 void				mouse_move(t_context *ctx);
+void				handle_door(t_context *ctx);
+
 /**
  * vector/ft_vector.c
  */
@@ -267,5 +272,8 @@ void				vertical_render(t_context *ctx);
 void				set_left_right_angles(t_context *ctx);
 void				draw_vertical_ray(t_context *ctx, t_point_dir impact,
 						int x);
+int					is_rounded(double x);
+t_wall_type			stuck_on_wall_dir(char **map, t_point pos, t_vector vec);
+
 
 #endif

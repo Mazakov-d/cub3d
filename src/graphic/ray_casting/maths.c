@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   maths.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mniemaz <mniemaz@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: mazakov <mazakov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 18:39:07 by mniemaz           #+#    #+#             */
-/*   Updated: 2025/08/07 18:10:20 by mniemaz          ###   ########.fr       */
+/*   Updated: 2025/08/12 16:25:09 by mazakov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,8 +105,14 @@ t_point	get_intersection_pos(t_point p, t_vector vec)
  * "stuck on a wall" means it is at the edge of a square, and the next square
  * in the direction of dir is a wall (or not allocated)
  */
-t_cardinal_dir	stuck_on_wall_dir(char **map, t_point pos, t_vector vec)
+t_wall_type	stuck_on_wall_dir(char **map, t_point pos, t_vector vec)
 {
+	if (map[(int)(pos.y)][(int)floorf(pos.x)]
+		&& map[(int)floorf(pos.y)][(int)floorf(pos.x)] == 'O')
+		return (OPEN);
+	if (map[(int)(pos.y)][(int)floorf(pos.x)]
+		&& map[(int)floorf(pos.y)][(int)floorf(pos.x)] == 'C')
+		return (CLOSE);
 	if (is_almost_rounded(pos.y) && vec.y_i < 0)
 	{
 		if ((int)floorf(pos.y) == 0 || ft_strlen(map[(int)floorf(pos.y) - 1]) <= (int)(pos.x))
@@ -121,14 +127,12 @@ t_cardinal_dir	stuck_on_wall_dir(char **map, t_point pos, t_vector vec)
 		if (map[(int)floorf(pos.y)][(int)(pos.x)] == '1')
 			return (SO);
 	}
-	
 	if (is_almost_rounded(pos.x) && vec.x_i > 0)
 	{
 		if (map[(int)(pos.y)][(int)floorf(pos.x)]
 			&& map[(int)(pos.y)][(int)floorf(pos.x)] == '1')
 			return (EA);
 	}
-
 	if (is_almost_rounded(pos.x) && vec.x_i < 0)
 	{
 		if (pos.x == 0.0f)
@@ -143,14 +147,14 @@ t_cardinal_dir	stuck_on_wall_dir(char **map, t_point pos, t_vector vec)
 t_point_dir	get_impact_wall_toward(t_context *ctx, t_vector vec)
 {
 	t_point_dir	impact;
-	impact.pos = ctx->player.pos;
 
+	impact.pos = ctx->player.pos;
 	impact.dir = stuck_on_wall_dir(ctx->map, impact.pos, vec);
-	while (impact.dir == NONE)
+	while (impact.dir == NONE || impact.dir == OPEN)
 	{
 		impact.pos = get_intersection_pos(impact.pos, vec);
 		impact.dir = stuck_on_wall_dir(ctx->map, impact.pos, vec);
-		if (impact.dir == NONE)
+		if (impact.dir == NONE || impact.dir == OPEN)
 		{
 			if (vec.x_i < 0 && is_rounded(impact.pos.x))
 				impact.pos.x -= 0.0001;

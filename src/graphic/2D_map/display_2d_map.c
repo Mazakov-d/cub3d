@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   display_2d_map.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmazari <dmazari@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mazakov <mazakov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/30 14:48:23 by mniemaz           #+#    #+#             */
-/*   Updated: 2025/08/07 13:09:10 by dmazari          ###   ########.fr       */
+/*   Updated: 2025/08/12 16:20:00 by mazakov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,10 @@ void	print_rect(t_context *ctx, int x, int y, int square_x, int square_y,
 				put_pixel(ctx, x + i, y + j, 0x444444);
 			else if (c == '0')
 				put_pixel(ctx, x + i, y + j, 0x888888);
+			else if (c == 'C')
+				put_pixel(ctx, x + i, y + j, 0x666666);
+			else if (c == 'O')
+				put_pixel(ctx, x + i, y + j, 0x777777);
 			j++;
 		}
 		i++;
