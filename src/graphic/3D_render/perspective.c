@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   perspective.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mniemaz <mniemaz@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: mazakov <mazakov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 16:34:30 by dmazari           #+#    #+#             */
-/*   Updated: 2025/08/07 18:13:00 by mniemaz          ###   ########.fr       */
+/*   Updated: 2025/08/12 17:10:00 by mazakov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,6 @@ void	draw_vertical_ray(t_context *ctx, t_point_dir impact, int x)
 		put_pixel(ctx, x, y, ctx->texture_data.ceiling_hexa);
 		y++;
 	}
-	// printf("limit: %d, wall_height: %d, sky_height: %d\n", limit, wall_height,
-		// sky_height);
 	while (y < limit)
 	{
 		put_pixel(ctx, x, y,

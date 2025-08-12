@@ -27,7 +27,7 @@ SRCS =\
 	check_flood_fill.c print_map_color.c display_2d_map.c ft_vector.c\
 	ft_int_abs.c ft_double_abs.c bresenham.c maths.c go_left.c go_right.c\
 	graphic_functions.c go_forward.c go_backward.c turn_left.c turn_right.c\
-	movements_handling.c perspective.c mouse_move.c handle_door.c check_doors.c
+	movements_handling.c perspective.c mouse_move.c handle_door.c check_doors.c\
 
 OBJS = $(addprefix $(OBJ_DIR)/, $(SRCS:.c=.o))
 
@@ -38,7 +38,7 @@ NAME=cub3D
 all: libs $(NAME)
 
 $(NAME): $(OBJS)
-	$(CC) $(OBJS) -L$(MLX_DIR) -I$(MLX_DIR) -lmlx -lm -framework OpenGL -framework AppKit -o $(NAME)
+	$(CC) $(OBJS) -L$(MLX_DIR) -lmlx_Linux -I$(MLX_DIR) -lXext -lX11 -lm -o $(NAME)
 
 libs:
 	@$(MAKE) -C $(MLX_DIR)

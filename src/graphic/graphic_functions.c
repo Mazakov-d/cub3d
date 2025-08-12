@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   graphic_functions.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmazari <dmazari@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mazakov <mazakov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 17:08:30 by dmazari           #+#    #+#             */
-/*   Updated: 2025/08/07 13:22:34 by dmazari          ###   ########.fr       */
+/*   Updated: 2025/08/12 17:40:36 by mazakov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,10 @@ int	get_pixel_color_img(t_img img, int y_wall, int length, t_point_dir impact)
 	int		y_img;
 	char	*pixel;
 
+	fract_part = 0;
 	ratio = y_wall / (double)length;
-	if (impact.dir == SO || impact.dir == NO)
-		fract_part = (double)impact.pos.x - (int)(impact.pos.x);
-	else
+	fract_part = (double)impact.pos.x - (int)(impact.pos.x);
+	if (impact.dir == WE || impact.dir == EA || fract_part == 0)
 		fract_part = (double)impact.pos.y - (int)(impact.pos.y);
 	x_img = fract_part * img.width;
 	y_img = ratio * img.height;
