@@ -6,7 +6,7 @@
 /*   By: miloniemaz <mniemaz@student.42lyon.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 13:59:15 by mniemaz           #+#    #+#             */
-/*   Updated: 2025/08/12 06:34:47 by miloniemaz       ###   ########.fr       */
+/*   Updated: 2025/08/12 08:55:48 by miloniemaz       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,12 @@ int	main(int ac, char **av)
 		return (printf_err("Usage: %s <map_file>\n", av[0]));
 	if (init_context(&ctx) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
-	if (parse_file(&ctx, av[1]) == EXIT_SUCCESS)
-		printf("Map parsed successfully.\n");
-		// init_graphic(&ctx);
+	if (parse_file(&ctx, av[1]) == EXIT_FAILURE)
+	{
+		free(ctx.mlx);
+		return (EXIT_FAILURE);
+	}
+	init_graphic(&ctx);
 	free_context(&ctx);
-	return (0);
+	return (EXIT_SUCCESS);
 }
