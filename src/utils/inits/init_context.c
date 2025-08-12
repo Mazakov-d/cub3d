@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_context.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmazari <dmazari@student.42.fr>            +#+  +:+       +#+        */
+/*   By: dorianmazari <dorianmazari@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 11:23:43 by mniemaz           #+#    #+#             */
-/*   Updated: 2025/08/05 15:52:55 by dmazari          ###   ########.fr       */
+/*   Updated: 2025/08/12 15:01:21 by dorianmazar      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,5 +57,6 @@ int	init_context(t_context *ctx)
 	ctx->mlx->keys.d_bool = false;
 	ctx->mlx->keys.left_arrow_bool = false;
 	ctx->mlx->keys.right_arrow_bool = false;
+	ctx->mlx->keys.space_bool = false;
 	return (EXIT_SUCCESS);
 }

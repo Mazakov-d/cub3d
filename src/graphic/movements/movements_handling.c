@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   movements_handling.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmazari <dmazari@student.42.fr>            +#+  +:+       +#+        */
+/*   By: dorianmazari <dorianmazari@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 14:22:49 by dmazari           #+#    #+#             */
-/*   Updated: 2025/08/05 16:50:36 by dmazari          ###   ########.fr       */
+/*   Updated: 2025/08/12 15:00:14 by dorianmazar      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ int	key_hook_press(int keycode, t_context *context)
 		context->mlx->keys.left_arrow_bool = true;
 	else if (keycode == RIGHT_ARROW)
 		context->mlx->keys.right_arrow_bool = true;
+	else if (keycode == ' ')
+		context->mlx->keys.space_bool = true;
 	return (0);
 }
 
@@ -45,6 +47,8 @@ int	key_release(int keycode, t_context *context)
 		context->mlx->keys.left_arrow_bool = false;
 	else if (keycode == RIGHT_ARROW)
 		context->mlx->keys.right_arrow_bool = false;
+	else if (keycode == ' ')
+		context->mlx->keys.space_bool = false;
 	return (0);
 }
 
