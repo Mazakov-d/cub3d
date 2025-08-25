@@ -6,7 +6,7 @@
 /*   By: dmazari <dmazari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 13:12:09 by mniemaz           #+#    #+#             */
-/*   Updated: 2025/08/25 12:02:29 by dmazari          ###   ########.fr       */
+/*   Updated: 2025/08/25 12:33:48 by dmazari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,6 +169,9 @@ int					check_flood_fill(t_context *ctx);
 t_line				*skip_spaces(t_line *line);
 bool				are_doors_surrounded_by_walls(char **map);
 bool				is_texture_data_filled(t_texture_data *tex_data);
+void				prep_to_fill_wall_types(t_texture_data **tex_data, char **wall_type, char ***to_fill);
+int					fill_wall_types(t_texture_data *tex_data, char **lines_tab);
+
 
 /*
 ** 2Dtests
@@ -273,9 +276,9 @@ void				render_window_pxls(t_context *ctx);
  */
 void				vertical_render(t_context *ctx);
 void				set_player_angles(t_context *ctx);
-void				draw_vertical_ray(t_context *ctx, t_point_dir impact,
-						int x, double curr_angle);
-int					is_rounded(double x);
+void				draw_vertical_ray(t_context *ctx, t_point_dir impact, int x,
+						double curr_angle);
+bool				is_rounded(double x);
 t_wall_type			stuck_on_wall_dir(char **map, t_point pos, t_vector vec);
 
 #endif
