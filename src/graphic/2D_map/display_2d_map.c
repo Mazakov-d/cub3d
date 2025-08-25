@@ -6,7 +6,7 @@
 /*   By: mniemaz <mniemaz@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/30 14:48:23 by mniemaz           #+#    #+#             */
-/*   Updated: 2025/08/08 17:13:43 by mniemaz          ###   ########.fr       */
+/*   Updated: 2025/08/25 11:00:42 by mniemaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,10 @@ void	print_rect(t_context *ctx, int x, int y, int square_x, int square_y,
 				put_pixel(ctx, x + i, y + j, 0x444444);
 			else if (c == '0')
 				put_pixel(ctx, x + i, y + j, 0x888888);
+			else if (c == 'C')
+				put_pixel(ctx, x + i, y + j, 0x666666);
+			else if (c == 'O')
+				put_pixel(ctx, x + i, y + j, 0x777777);
 			j++;
 		}
 		i++;

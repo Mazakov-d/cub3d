@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_parsing.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mniemaz <mniemaz@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: mazakov <mazakov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 14:00:06 by mniemaz           #+#    #+#             */
-/*   Updated: 2025/08/07 09:52:03 by mniemaz          ###   ########.fr       */
+/*   Updated: 2025/08/12 17:00:22 by mazakov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,8 @@ int	parse_file(t_context *ctx, char *filename)
 		return (return_free_line_on_err(&head_file_line));
 	free_lines_lst(head_file_line);
 	if (check_flood_fill(ctx) == EXIT_FAILURE)
+		return (EXIT_FAILURE);
+	if (are_doors_surrounded_by_walls(ctx->map) == false)
 		return (EXIT_FAILURE);
 	init_player_dir(ctx);
 	return (EXIT_SUCCESS);

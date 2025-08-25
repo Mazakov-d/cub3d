@@ -6,7 +6,7 @@
 /*   By: mniemaz <mniemaz@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 15:32:17 by dmazari           #+#    #+#             */
-/*   Updated: 2025/08/08 17:49:36 by mniemaz          ###   ########.fr       */
+/*   Updated: 2025/08/25 11:00:57 by mniemaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,8 @@ void	init_texture(t_context *ctx)
 		free_graphic(ctx);
 	if (open_image(&ctx->texture_data.walls[WE], ctx->mlx))
 		free_graphic(ctx);
-}
+	if (open_image(&ctx->texture_data.walls[CLOSE], ctx->mlx))
+		free_graphic(ctx);}
 
 void	render_window_pxls(t_context *ctx)
 {
