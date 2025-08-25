@@ -6,7 +6,7 @@
 /*   By: dmazari <dmazari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 13:12:09 by mniemaz           #+#    #+#             */
-/*   Updated: 2025/08/25 13:27:42 by dmazari          ###   ########.fr       */
+/*   Updated: 2025/08/25 13:46:04 by dmazari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@
 
 # include "mlx.h"
 
+# define SKY 0
+# define WALL 1
 # define WIN_SIZE_X 1920
 # define WIN_SIZE_Y 1080
 # define MINI_MAP_X (WIN_SIZE_X * 0.2)

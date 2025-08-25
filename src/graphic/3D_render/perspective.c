@@ -6,7 +6,7 @@
 /*   By: dmazari <dmazari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 16:34:30 by dmazari           #+#    #+#             */
-/*   Updated: 2025/08/25 13:10:47 by dmazari          ###   ########.fr       */
+/*   Updated: 2025/08/25 13:47:29 by dmazari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,33 +52,42 @@ void	set_player_angles(t_context *ctx)
 	ctx->player.left_fov_angle = forward_angle - FOV_RAD_DIV_2;
 }
 
-void	draw_vertical_ray(t_context *ctx, t_impact impact, int x,
-		double curr_angle)
+int	calculate_dimensions(t_context *ctx, t_impact impact, double curr_angle,
+		int *heights)
 {
-	int		wall_height;
-	int		y;
 	double	impact_distance;
-	int		sky_height;
 	int		limit;
 
-	y = 0;
 	impact_distance = get_distance(ctx->player.pos, impact.pos) * cos(curr_angle
 			- ctx->player.forward_angle);
 	if (impact_distance == 0.0f)
 	{
-		sky_height = 0;
-		wall_height = INT_MAX;
+		heights[SKY] = 0;
+		heights[WALL] = INT_MAX;
 		limit = WIN_SIZE_Y;
 	}
 	else
 	{
-		wall_height = WIN_SIZE_X / impact_distance;
-		sky_height = (WIN_SIZE_Y - wall_height) >> 1;
-		limit = sky_height + wall_height;
+		heights[WALL] = WIN_SIZE_X / impact_distance;
+		heights[SKY] = (WIN_SIZE_Y - heights[WALL]) >> 1;
+		limit = heights[SKY] + heights[WALL];
 		if (WIN_SIZE_Y < limit)
 			limit = WIN_SIZE_Y;
 	}
-	while (y < sky_height)
+	return (limit);
+}
+
+void	draw_vertical_ray(t_context *ctx, t_impact impact, int x,
+		double curr_angle)
+{
+	int		heights[2];
+	int		y;
+	int		limit;
+
+	y = 0;
+	limit = calculate_dimensions(ctx, impact, curr_angle,
+			heights);
+	while (y < heights[SKY])
 	{
 		put_pixel(ctx, x, y, ctx->texture_data.ceiling_hexa);
 		y++;
@@ -87,7 +96,7 @@ void	draw_vertical_ray(t_context *ctx, t_impact impact, int x,
 	{
 		put_pixel(ctx, x, y,
 			get_pixel_color_img(ctx->texture_data.walls[impact.wall_type], y
-				- sky_height, wall_height, impact));
+				- heights[SKY], heights[WALL], impact));
 		y++;
 	}
 	while (y < WIN_SIZE_Y)
