@@ -6,13 +6,14 @@
 /*   By: mniemaz <mniemaz@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 13:12:09 by mniemaz           #+#    #+#             */
-/*   Updated: 2025/08/25 13:30:49 by mniemaz          ###   ########.fr       */
+/*   Updated: 2025/08/25 13:31:55 by mniemaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB_H
 # define CUB_H
 
+# include "mlx.h"
 # include <errno.h>
 # include <fcntl.h>
 # include <limits.h>
@@ -23,8 +24,6 @@
 # include <stdlib.h>
 # include <string.h>
 # include <unistd.h>
-
-# include "mlx.h"
 
 # define WIN_SIZE_X 1920
 # define WIN_SIZE_Y 1080
@@ -176,18 +175,17 @@ int					check_flood_fill(t_context *ctx);
 t_line				*skip_spaces(t_line *line);
 bool				are_doors_surrounded_by_walls(char **map);
 bool				is_texture_data_filled(t_texture_data *tex_data);
-void				prep_to_fill_wall_types(t_texture_data **tex_data, char **wall_type, char ***to_fill);
+void				prep_to_fill_wall_types(t_texture_data **tex_data,
+						char **wall_type, char ***to_fill);
 int					fill_wall_types(t_texture_data *tex_data, char **lines_tab);
 
 /**
  * check_wall_types
  */
-t_wall_type	check_south_wall(t_point pos, char **map);
-t_wall_type	check_north_wall(t_point pos, char **map);
-t_wall_type	check_east_wall(t_point pos, char **map);
-t_wall_type	check_west_wall(t_point pos, char **map);
-
-
+t_wall_type			check_south_wall(t_point pos, char **map);
+t_wall_type			check_north_wall(t_point pos, char **map);
+t_wall_type			check_east_wall(t_point pos, char **map);
+t_wall_type			check_west_wall(t_point pos, char **map);
 
 /*
 ** 2Dtests
