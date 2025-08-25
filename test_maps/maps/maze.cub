@@ -3,7 +3,7 @@ SO test_maps/textures/south_wall.xpm
 EA test_maps/textures/east_wall.xpm
 WE test_maps/textures/west_wall.xpm
 EA test_maps/textures/east_wall.xpm
-DOOR test_maps/textures/door.xpm
+DO test_maps/textures/door.xpm
 
 F 100,100,100
 C 200,200,255

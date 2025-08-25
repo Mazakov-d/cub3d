@@ -6,7 +6,7 @@
 /*   By: dmazari <dmazari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 16:34:30 by dmazari           #+#    #+#             */
-/*   Updated: 2025/08/25 13:47:29 by dmazari          ###   ########.fr       */
+/*   Updated: 2025/08/25 13:49:50 by dmazari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,19 +22,20 @@ double	get_player_forward_angle(t_context *ctx)
 		if (ctx->player.p_vec.y_i > 0.0f)
 			angle = atan(ctx->player.p_vec.y_i / ctx->player.p_vec.x_i);
 		else if (ctx->player.p_vec.y_i < 0.0f)
-			angle = atan(ctx->player.p_vec.y_i / ctx->player.p_vec.x_i) + 2
-				* PI;
+			angle = atan(ctx->player.p_vec.y_i / ctx->player.p_vec.x_i)
+				+ ctx->const_datas.pi_times_2;
 	}
 	else if (ctx->player.p_vec.x_i > 0.0f && ctx->player.p_vec.y_i < 0.0f)
-		angle = atan(ctx->player.p_vec.y_i / ctx->player.p_vec.x_i) + 2 * PI;
+		angle = atan(ctx->player.p_vec.y_i / ctx->player.p_vec.x_i)
+			+ ctx->const_datas.pi_times_2;
 	else if (ctx->player.p_vec.x_i < 0.0f)
 		angle = atan(ctx->player.p_vec.y_i / ctx->player.p_vec.x_i) + PI;
 	else if (ctx->player.p_vec.x_i == 0.0f)
 	{
 		if (ctx->player.p_vec.y_i < 0.0f)
-			angle = -PI_DIV_2;
+			angle = -ctx->const_datas.pi_div_2;
 		else
-			angle = PI_DIV_2;
+			angle = ctx->const_datas.pi_div_2;
 	}
 	return (angle);
 }
@@ -44,12 +45,12 @@ double	get_player_forward_angle(t_context *ctx)
  */
 void	set_player_angles(t_context *ctx)
 {
-	double	forward_angle;
+	double	forw_angle;
 
-	forward_angle = get_player_forward_angle(ctx);
-	ctx->player.forward_angle = forward_angle;
-	ctx->player.right_fov_angle = forward_angle + FOV_RAD_DIV_2;
-	ctx->player.left_fov_angle = forward_angle - FOV_RAD_DIV_2;
+	forw_angle = get_player_forward_angle(ctx);
+	ctx->player.forward_angle = forw_angle;
+	ctx->player.right_fov_angle = forw_angle + ctx->const_datas.fov_rad_div_2;
+	ctx->player.left_fov_angle = forw_angle - ctx->const_datas.fov_rad_div_2;
 }
 
 int	calculate_dimensions(t_context *ctx, t_impact impact, double curr_angle,

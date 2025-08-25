@@ -6,16 +6,16 @@
 /*   By: dmazari <dmazari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 13:12:09 by mniemaz           #+#    #+#             */
-/*   Updated: 2025/08/25 13:46:04 by dmazari          ###   ########.fr       */
+/*   Updated: 2025/08/25 16:59:42 by dmazari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB_H
 # define CUB_H
 
+# include "mlx.h"
 # include <errno.h>
 # include <fcntl.h>
-# include <float.h>
 # include <limits.h>
 # include <math.h>
 # include <stdarg.h>
@@ -25,16 +25,10 @@
 # include <string.h>
 # include <unistd.h>
 
-# include "mlx.h"
-
 # define SKY 0
 # define WALL 1
 # define WIN_SIZE_X 1920
 # define WIN_SIZE_Y 1080
-# define MINI_MAP_X (WIN_SIZE_X * 0.2)
-# define MINI_MAP_Y (WIN_SIZE_Y * 0.2)
-# define CENTER_WIN_X (WIN_SIZE_X / 2)
-# define CENTER_WIN_Y (WIN_SIZE_Y / 2)
 # define BUFFER_SIZE 1024
 # define HEXA_INIT_VAL 16777216
 # define MAP_CHARS "NSEW01OC "
@@ -52,9 +46,7 @@
 # define TURN_SPEED 0.05
 # define MOUSE_SPEED 0.0005
 # define PI 3.14159265358979323846
-# define PI_DIV_2 (PI) * 0.5
-# define FOV_RAD 60 * (PI / 180)
-# define FOV_RAD_DIV_2 (60 * (PI / 180)) * 0.5
+# define FOV_DEG 60
 
 typedef enum e_wall_type
 {
@@ -66,6 +58,18 @@ typedef enum e_wall_type
 	OPEN,
 	NONE
 }					t_wall_type;
+
+typedef struct const_datas
+{
+	double			mini_map_x;
+	double			mini_map_y;
+	double			center_win_x;
+	double			center_win_y;
+	double			pi_div_2;
+	double			pi_times_2;
+	double			fov_rad;
+	double			fov_rad_div_2;
+}					t_const_datas;
 
 typedef struct s_vector
 {
@@ -162,6 +166,7 @@ typedef struct s_context
 	t_player		player;
 	int				w_square_2d;
 	int				h_square_2d;
+	t_const_datas	const_datas;
 }					t_context;
 
 /*
@@ -172,18 +177,17 @@ int					check_flood_fill(t_context *ctx);
 t_line				*skip_spaces(t_line *line);
 bool				are_doors_surrounded_by_walls(char **map);
 bool				is_texture_data_filled(t_texture_data *tex_data);
-void				prep_to_fill_wall_types(t_texture_data **tex_data, char **wall_type, char ***to_fill);
+void				prep_to_fill_wall_types(t_texture_data **tex_data,
+						char **wall_type, char ***to_fill);
 int					fill_wall_types(t_texture_data *tex_data, char **lines_tab);
 
 /**
  * check_wall_types
  */
-t_wall_type	check_south_wall(t_point pos, char **map);
-t_wall_type	check_north_wall(t_point pos, char **map);
-t_wall_type	check_east_wall(t_point pos, char **map);
-t_wall_type	check_west_wall(t_point pos, char **map);
-
-
+t_wall_type			check_south_wall(t_point pos, char **map);
+t_wall_type			check_north_wall(t_point pos, char **map);
+t_wall_type			check_east_wall(t_point pos, char **map);
+t_wall_type			check_west_wall(t_point pos, char **map);
 
 /*
 ** 2Dtests

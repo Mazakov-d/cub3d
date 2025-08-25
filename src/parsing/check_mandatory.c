@@ -1,16 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fill_wall_types_mandatory.c                        :+:      :+:    :+:   */
+/*   check_mandatory.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dmazari <dmazari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/25 12:04:35 by dmazari           #+#    #+#             */
-/*   Updated: 2025/08/25 12:25:26 by dmazari          ###   ########.fr       */
+/*   Updated: 2025/08/25 16:57:04 by dmazari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
+
+bool	is_texture_data_filled(t_texture_data *tex_data)
+{
+	return (tex_data->walls[NO].img_name && tex_data->walls[SO].img_name
+		&& tex_data->walls[EA].img_name && tex_data->walls[WE].img_name
+		&& tex_data->floor_hexa != HEXA_INIT_VAL
+		&& tex_data->ceiling_hexa != HEXA_INIT_VAL);
+}
 
 void	prep_to_fill_wall_types(t_texture_data **tex_data, char **wall_type,
 		char ***to_fill)

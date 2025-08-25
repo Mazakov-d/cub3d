@@ -6,7 +6,7 @@
 /*   By: mniemaz <mniemaz@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 15:32:17 by dmazari           #+#    #+#             */
-/*   Updated: 2025/08/25 12:03:00 by mniemaz          ###   ########.fr       */
+/*   Updated: 2025/08/25 13:14:15 by mniemaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ void	init_graphic(t_context *ctx)
 			&ctx->mlx->img.bpp, &ctx->mlx->img.line_len, &ctx->mlx->img.endian);
 	mlx_mouse_hide(ctx->mlx->mlx_ptr, ctx->mlx->win_ptr);
 	mlx_mouse_move(ctx->mlx->mlx_ptr, ctx->mlx->win_ptr,
-		CENTER_WIN_X, CENTER_WIN_Y);
+		ctx->const_datas.center_win_x, ctx->const_datas.center_win_y);
 	mlx_hook(ctx->mlx->win_ptr, 2, 1L << 0, key_hook_press, ctx);
 	mlx_hook(ctx->mlx->win_ptr, 3, 1L << 1, key_release, ctx);
 	mlx_hook(ctx->mlx->win_ptr, 17, 0L, free_graphic, (void *)ctx);

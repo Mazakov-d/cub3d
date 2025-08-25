@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   maths.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmazari <dmazari@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mniemaz <mniemaz@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 18:39:07 by mniemaz           #+#    #+#             */
-/*   Updated: 2025/08/25 13:23:44 by dmazari          ###   ########.fr       */
+/*   Updated: 2025/08/25 13:31:05 by mniemaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ double	get_t(t_point pos, t_vector vec)
 	double	t;
 	double	tmp;
 
-	t = DBL_MAX;
+	t = __DBL_MAX__;
 	if (vec.x_i > 0)
 	{
 		tmp = (1 - pos.x) / vec.x_i;

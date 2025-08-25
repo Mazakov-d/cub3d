@@ -1,16 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fill_wall_types_bonus.c                            :+:      :+:    :+:   */
+/*   check_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dmazari <dmazari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/25 12:04:18 by dmazari           #+#    #+#             */
-/*   Updated: 2025/08/25 12:32:32 by dmazari          ###   ########.fr       */
+/*   Updated: 2025/08/25 17:01:52 by dmazari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
+
+void	init_texture(t_context *ctx)
+{
+	if (open_image(&ctx->texture_data.walls[NO], ctx->mlx))
+		free_graphic(ctx);
+	if (open_image(&ctx->texture_data.walls[SO], ctx->mlx))
+		free_graphic(ctx);
+	if (open_image(&ctx->texture_data.walls[EA], ctx->mlx))
+		free_graphic(ctx);
+	if (open_image(&ctx->texture_data.walls[WE], ctx->mlx))
+		free_graphic(ctx);
+	if (open_image(&ctx->texture_data.walls[CLOSE], ctx->mlx))
+		free_graphic(ctx);
+}
+
+bool	is_texture_data_filled(t_texture_data *tex_data)
+{
+	return (tex_data->walls[NO].img_name && tex_data->walls[SO].img_name
+		&& tex_data->walls[EA].img_name && tex_data->walls[WE].img_name
+		&& tex_data->floor_hexa != HEXA_INIT_VAL
+		&& tex_data->ceiling_hexa != HEXA_INIT_VAL);
+}
 
 void	prep_to_fill_wall_types(t_texture_data **tex_data, char **wall_type,
 		char ***to_fill)
