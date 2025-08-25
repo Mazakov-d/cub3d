@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_parsing.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mazakov <mazakov@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mniemaz <mniemaz@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 14:00:06 by mniemaz           #+#    #+#             */
-/*   Updated: 2025/08/12 17:00:22 by mazakov          ###   ########.fr       */
+/*   Updated: 2025/08/25 11:22:52 by mniemaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,17 +47,17 @@ static int	return_free_line_on_err(t_line ***head_file_line)
 	return (EXIT_FAILURE);
 }
 
-static void	init_player_dir(t_context *ctx)
+static void	init_player_dir(t_context *c)
 {
-	if (ctx->map[(int)(ctx->player.pos.y)][(int)(ctx->player.pos.x)] == 'E')
-		init_vector(&ctx->player.p_vec, 1, 0);
-	else if (ctx->map[(int)(ctx->player.pos.y)][(int)(ctx->player.pos.x)] == 'W')
-		init_vector(&ctx->player.p_vec, -1, 0);
-	else if (ctx->map[(int)(ctx->player.pos.y)][(int)(ctx->player.pos.x)] == 'N')
-		init_vector(&ctx->player.p_vec, 0, -1);
-	else if (ctx->map[(int)(ctx->player.pos.y)][(int)(ctx->player.pos.x)] == 'S')
-		init_vector(&ctx->player.p_vec, 0, 1);
-	ctx->map[(int)(ctx->player.pos.y)][(int)(ctx->player.pos.x)] = '0';
+	if (c->map[(int)(c->player.pos.y)][(int)(c->player.pos.x)] == 'E')
+		init_vector(&c->player.p_vec, 1, 0);
+	else if (c->map[(int)(c->player.pos.y)][(int)(c->player.pos.x)] == 'W')
+		init_vector(&c->player.p_vec, -1, 0);
+	else if (c->map[(int)(c->player.pos.y)][(int)(c->player.pos.x)] == 'N')
+		init_vector(&c->player.p_vec, 0, -1);
+	else if (c->map[(int)(c->player.pos.y)][(int)(c->player.pos.x)] == 'S')
+		init_vector(&c->player.p_vec, 0, 1);
+	c->map[(int)(c->player.pos.y)][(int)(c->player.pos.x)] = '0';
 }
 
 int	parse_file(t_context *ctx, char *filename)

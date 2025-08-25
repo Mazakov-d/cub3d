@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_context.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: miloniemaz <mniemaz@student.42lyon.fr>     +#+  +:+       +#+        */
+/*   By: mniemaz <mniemaz@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 11:23:43 by mniemaz           #+#    #+#             */
-/*   Updated: 2025/08/12 08:56:39 by miloniemaz       ###   ########.fr       */
+/*   Updated: 2025/08/25 11:12:48 by mniemaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,11 @@ static void	init_texture_data(t_texture_data *tex_data)
 	tex_data->ceiling_hexa = HEXA_INIT_VAL;
 }
 
-int init_mlx_data(t_context *ctx)
+int	init_mlx_data(t_context *ctx)
 {
 	ctx->mlx = malloc(sizeof(t_mlx));
 	if (!ctx->mlx)
-		return (printf_err("init_context: Failed to initialize texture data\n"));
+		return (printf_err("Failed to initialize texture data\n"));
 	ctx->mlx->img.img_ptr = NULL;
 	ctx->mlx->img.data = NULL;
 	ctx->mlx->keys.w_bool = false;
@@ -51,8 +51,8 @@ int init_mlx_data(t_context *ctx)
 
 int	init_context(t_context *ctx)
 {
-    ctx->map = NULL;
-    init_texture_data(&ctx->texture_data);
+	ctx->map = NULL;
+	init_texture_data(&ctx->texture_data);
 	if (init_mlx_data(ctx) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);

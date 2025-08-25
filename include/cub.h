@@ -6,7 +6,7 @@
 /*   By: dmazari <dmazari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 13:12:09 by mniemaz           #+#    #+#             */
-/*   Updated: 2025/08/25 11:53:42 by dmazari          ###   ########.fr       */
+/*   Updated: 2025/08/25 12:02:29 by dmazari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,9 +66,9 @@ typedef enum e_wall_type
 
 typedef struct s_vector
 {
-	double	x_i;
-	double	y_i;
-}	t_vector;
+	double			x_i;
+	double			y_i;
+}					t_vector;
 
 typedef struct s_point
 {
@@ -79,7 +79,7 @@ typedef struct s_point
 typedef struct s_point_dir
 {
 	t_point			pos;
-	t_wall_type	dir;
+	t_wall_type		dir;
 }					t_point_dir;
 
 typedef struct s_key_bool
@@ -168,6 +168,7 @@ int					parse_file(t_context *ctx, char *filename);
 int					check_flood_fill(t_context *ctx);
 t_line				*skip_spaces(t_line *line);
 bool				are_doors_surrounded_by_walls(char **map);
+bool				is_texture_data_filled(t_texture_data *tex_data);
 
 /*
 ** 2Dtests
@@ -248,7 +249,8 @@ double				get_distance(t_point a, t_point b);
  * maths
  */
 t_point				get_intersection_pos(t_point p, t_vector dir);
-void				bresenham_line(t_context *ctx, t_point_dir to, int unused, double unused_2);
+void				bresenham_line(t_context *ctx, t_point_dir to, int unused,
+						double unused_2);
 void				print_square(t_context *ctx, t_int_pos pos, int size,
 						int color);
 t_point_dir			get_impact_wall_toward(t_context *ctx, t_vector dir);
@@ -273,8 +275,7 @@ void				vertical_render(t_context *ctx);
 void				set_player_angles(t_context *ctx);
 void				draw_vertical_ray(t_context *ctx, t_point_dir impact,
 						int x, double curr_angle);
-bool					is_rounded(double x);
+int					is_rounded(double x);
 t_wall_type			stuck_on_wall_dir(char **map, t_point pos, t_vector vec);
-
 
 #endif

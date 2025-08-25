@@ -6,7 +6,7 @@
 /*   By: dmazari <dmazari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 14:10:42 by mniemaz           #+#    #+#             */
-/*   Updated: 2025/08/25 12:01:40 by dmazari          ###   ########.fr       */
+/*   Updated: 2025/08/25 12:02:06 by dmazari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,35 +43,32 @@ static int	fill_color(unsigned long *hexa, char *id, char *str_colors)
 	return (EXIT_SUCCESS);
 }
 
-static bool	is_texture_data_filled(t_texture_data *tex_data)
+void	prep_to_fill_wall_types(t_texture_data **tex_data, char **wall_type,
+		char ***to_fill)
 {
-	return (tex_data->walls[NO].img_name && tex_data->walls[SO].img_name
-		&& tex_data->walls[EA].img_name && tex_data->walls[WE].img_name
-		&& tex_data->walls[CLOSE].img_name
-		&& tex_data->floor_hexa != HEXA_INIT_VAL
-		&& tex_data->ceiling_hexa != HEXA_INIT_VAL);
+	wall_type[NO] = "NO";
+	wall_type[SO] = "SO";
+	wall_type[EA] = "EA";
+	wall_type[WE] = "WE";
+	wall_type[CLOSE] = "DOOR";
+	to_fill[NO] = &((*tex_data)->walls[NO].img_name);
+	to_fill[SO] = &((*tex_data)->walls[SO].img_name);
+	to_fill[EA] = &((*tex_data)->walls[EA].img_name);
+	to_fill[WE] = &((*tex_data)->walls[WE].img_name);
+	to_fill[CLOSE] = &((*tex_data)->walls[CLOSE].img_name);
 }
 
 /**
  * @returns EXIT_SUCCESS if a direction was filled, EXIT_FAILURE on error,
  * EXIT_NEUTRAL if nothing happened.
  */
-static int	fill_directions(t_texture_data *tex_data, char **lines_tab)
+static int	fill_wall_types(t_texture_data *tex_data, char **lines_tab)
 {
 	char	*wall_type[5];
 	char	**to_fill[5];
 	int		i;
 
-	wall_type[NO] = "NO";
-	wall_type[SO] = "SO";
-	wall_type[EA] = "EA";
-	wall_type[WE] = "WE";
-	wall_type[CLOSE] = "DOOR";
-	to_fill[NO] = &tex_data->walls[NO].img_name;
-	to_fill[SO] = &tex_data->walls[SO].img_name;
-	to_fill[EA] = &tex_data->walls[EA].img_name;
-	to_fill[WE] = &tex_data->walls[WE].img_name;
-	to_fill[CLOSE] = &tex_data->walls[CLOSE].img_name;
+	prep_to_fill_wall_types(&tex_data, wall_type, to_fill);
 	i = -1;
 	while (++i < 5)
 	{
@@ -84,7 +81,6 @@ static int	fill_directions(t_texture_data *tex_data, char **lines_tab)
 			return (printf_err("fill_wall_type: %s\n", strerror(errno)));
 		return (EXIT_SUCCESS);
 	}
-	
 	return (EXIT_NEUTRAL);
 }
 
@@ -100,7 +96,7 @@ static int	process_line_fill_texture_data(t_texture_data *tex_data,
 		return (EXIT_SUCCESS);
 	if (ft_tablen((void **)lines_tab) > 2)
 		return (printf_err("Too many args: '%s'\n", str_line));
-	fill_dirs_ret = fill_directions(tex_data, lines_tab);
+	fill_dirs_ret = fill_wall_types(tex_data, lines_tab);
 	if (fill_dirs_ret == EXIT_FAILURE || fill_dirs_ret == EXIT_SUCCESS)
 		return (fill_dirs_ret);
 	if (ft_strncmp(lines_tab[0], "F", 2) == 0)

@@ -6,7 +6,7 @@
 /*   By: mniemaz <mniemaz@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 18:08:30 by mniemaz           #+#    #+#             */
-/*   Updated: 2025/07/28 18:10:36 by mniemaz          ###   ########.fr       */
+/*   Updated: 2025/08/25 11:11:27 by mniemaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,19 +17,19 @@
  */
 char	*rm_nl(char *str)
 {
-    int	i;
+	int	i;
 
-    if (!str)
-        return (NULL);
-    i = 0;
-    while (str[i])
-    {
-        if (str[i] == '\n')
-        {
-            str[i] = '\0';
-            break ;
-        }
-        i++;
-    }
-    return (str);
+	if (!str)
+		return (NULL);
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == '\n')
+		{
+			str[i] = '\0';
+			break ;
+		}
+		i++;
+	}
+	return (str);
 }
