@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_graphic.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmazari <dmazari@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mniemaz <mniemaz@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 15:32:17 by dmazari           #+#    #+#             */
-/*   Updated: 2025/08/07 17:39:42 by dmazari          ###   ########.fr       */
+/*   Updated: 2025/08/25 11:00:57 by mniemaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,12 @@ void	init_texture(t_context *ctx)
 		free_graphic(ctx);
 	if (open_image(&ctx->texture_data.walls[WE], ctx->mlx))
 		free_graphic(ctx);
-}
+	if (open_image(&ctx->texture_data.walls[CLOSE], ctx->mlx))
+		free_graphic(ctx);}
 
 void	render_window_pxls(t_context *ctx)
 {
-	set_left_right_angles(ctx);
+	set_player_angles(ctx);
 	handle_rays(ctx, draw_vertical_ray, WIN_SIZE_X);
 	display_2d_map(ctx);
 }

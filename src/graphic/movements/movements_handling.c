@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   movements_handling.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmazari <dmazari@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mazakov <mazakov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 14:22:49 by dmazari           #+#    #+#             */
-/*   Updated: 2025/08/07 17:49:03 by dmazari          ###   ########.fr       */
+/*   Updated: 2025/08/12 16:18:31 by mazakov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ int	key_hook_press(int keycode, t_context *ctx)
 		ctx->mlx->keys.left_arrow_bool = true;
 	else if (keycode == RIGHT_ARROW)
 		ctx->mlx->keys.right_arrow_bool = true;
+	if (keycode == SPACE)
+		handle_door(ctx);
 	return (0);
 }
 

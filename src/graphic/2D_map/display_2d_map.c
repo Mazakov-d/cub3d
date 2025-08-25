@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   display_2d_map.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmazari <dmazari@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mniemaz <mniemaz@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/30 14:48:23 by mniemaz           #+#    #+#             */
-/*   Updated: 2025/08/07 13:09:10 by dmazari          ###   ########.fr       */
+/*   Updated: 2025/08/25 11:00:42 by mniemaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,17 +28,22 @@ void	print_rect(t_context *ctx, int x, int y, int square_x, int square_y,
 				put_pixel(ctx, x + i, y + j, 0x444444);
 			else if (c == '0')
 				put_pixel(ctx, x + i, y + j, 0x888888);
+			else if (c == 'C')
+				put_pixel(ctx, x + i, y + j, 0x666666);
+			else if (c == 'O')
+				put_pixel(ctx, x + i, y + j, 0x777777);
 			j++;
 		}
 		i++;
 	}
 }
+
 /**
  * @param this function is used twice, once to draw the rays and once to
  * draw the 3D (vertical lines).
  */
-void	handle_rays(t_context *ctx, void (*func)(t_context *, t_point_dir, int),
-		int nb_rays)
+void	handle_rays(t_context *ctx, void (*func)(t_context *, t_point_dir, int,
+			double curr_angle), int nb_rays)
 {
 	double		step;
 	t_vector	ray;
@@ -46,17 +51,17 @@ void	handle_rays(t_context *ctx, void (*func)(t_context *, t_point_dir, int),
 	t_point_dir	impact;
 
 	step = (ctx->player.right_fov_angle - ctx->player.left_fov_angle) / (nb_rays
-			- 1);
+			- (nb_rays != 1));
 	curr_angle = ctx->player.right_fov_angle;
 	while (--nb_rays > -1)
 	{
 		init_vector(&ray, cos(curr_angle), sin(curr_angle));
 		impact = get_impact_wall_toward(ctx, ray);
-		func(ctx, impact, nb_rays);
-		curr_angle -= step;
+		func(ctx, impact, nb_rays, curr_angle);
+		curr_angle = curr_angle - step;
 	}
 }
-
+	
 void	draw_2d_map(t_context *ctx)
 {
 	int	row;
@@ -67,8 +72,8 @@ void	draw_2d_map(t_context *ctx)
 	{
 		col = -1;
 		while (ctx->map[row][++col])
-			print_rect(ctx, ctx->w_square_2d * col + 10, ctx->h_square_2d * row + 10,
-				ctx->w_square_2d, ctx->h_square_2d, ctx->map[row][col]);
+			print_rect(ctx, ctx->w_square_2d * col + 10, ctx->h_square_2d * row
+				+ 10, ctx->w_square_2d, ctx->h_square_2d, ctx->map[row][col]);
 	}
 }
 

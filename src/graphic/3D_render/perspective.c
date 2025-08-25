@@ -6,13 +6,55 @@
 /*   By: mniemaz <mniemaz@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 16:34:30 by dmazari           #+#    #+#             */
-/*   Updated: 2025/08/07 11:45:26 by mniemaz          ###   ########.fr       */
+/*   Updated: 2025/08/25 11:00:48 by mniemaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
-void	draw_vertical_ray(t_context *ctx, t_point_dir impact, int x)
+double	get_player_angle(t_context *ctx)
+{
+	double	angle;
+
+	angle = 0;
+	if (ctx->player.p_vec.x_i > 0.0f)
+	{
+		if (ctx->player.p_vec.y_i > 0.0f)
+			angle = atan(ctx->player.p_vec.y_i / ctx->player.p_vec.x_i);
+		else if (ctx->player.p_vec.y_i < 0.0f)
+			angle = atan(ctx->player.p_vec.y_i / ctx->player.p_vec.x_i) + 2
+				* PI;
+	}
+	else if (ctx->player.p_vec.x_i > 0.0f && ctx->player.p_vec.y_i < 0.0f)
+		angle = atan(ctx->player.p_vec.y_i / ctx->player.p_vec.x_i) + 2 * PI;
+	else if (ctx->player.p_vec.x_i < 0.0f)
+		angle = atan(ctx->player.p_vec.y_i / ctx->player.p_vec.x_i) + PI;
+	else if (ctx->player.p_vec.x_i == 0.0f)
+	{
+		if (ctx->player.p_vec.y_i < 0.0f)
+			angle = -PI_DIV_2;
+		else
+			angle = PI_DIV_2;
+	}
+	return (angle);
+}
+
+/**
+ * Sets the left and right angles of the player's FOV based on the
+ * player's vector direction
+ */
+void	set_player_angles(t_context *ctx)
+{
+	double	angle;
+
+	angle = get_player_angle(ctx);
+	ctx->player.forward_angle = angle;
+	ctx->player.right_fov_angle = angle + FOV_RAD_DIV_2;
+	ctx->player.left_fov_angle = angle - FOV_RAD_DIV_2;
+}
+
+void	draw_vertical_ray(t_context *ctx, t_point_dir impact, int x,
+		double curr_angle)
 {
 	int		wall_height;
 	int		y;
@@ -21,7 +63,8 @@ void	draw_vertical_ray(t_context *ctx, t_point_dir impact, int x)
 	int		limit;
 
 	y = 0;
-	impact_distance = get_distance(ctx->player.pos, impact.pos);
+	impact_distance = get_distance(ctx->player.pos, impact.pos) * cos(curr_angle
+			- ctx->player.forward_angle);
 	if (impact_distance == 0.0f)
 	{
 		sky_height = 0;
@@ -41,8 +84,6 @@ void	draw_vertical_ray(t_context *ctx, t_point_dir impact, int x)
 		put_pixel(ctx, x, y, ctx->texture_data.ceiling_hexa);
 		y++;
 	}
-	// printf("limit: %d, wall_height: %d, sky_height: %d\n", limit, wall_height,
-		// sky_height);
 	while (y < limit)
 	{
 		put_pixel(ctx, x, y,
@@ -55,28 +96,4 @@ void	draw_vertical_ray(t_context *ctx, t_point_dir impact, int x)
 		put_pixel(ctx, x, y, ctx->texture_data.floor_hexa);
 		y++;
 	}
-}
-
-/**
- * Sets the left and right angles of the player's FOV based on the
- * player's vector direction
- */
-void	set_left_right_angles(t_context *ctx)
-{
-	double angle;
-
-	angle = 0;
-	if (ctx->player.p_vec.x_i > 0.0f)
-		angle = atan(ctx->player.p_vec.y_i / ctx->player.p_vec.x_i);
-	else if (ctx->player.p_vec.x_i < 0.0f)
-		angle = atan(ctx->player.p_vec.y_i / ctx->player.p_vec.x_i) + PI;
-	else if (ctx->player.p_vec.x_i == 0.0f)
-	{
-		if (ctx->player.p_vec.y_i < 0.0f)
-			angle = -PI * 0.5;
-		else
-			angle = PI * 0.5;
-	}
-	ctx->player.right_fov_angle = angle + FOV_RAD * 0.5;
-	ctx->player.left_fov_angle = angle - FOV_RAD * 0.5;
 }
