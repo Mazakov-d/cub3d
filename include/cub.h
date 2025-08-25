@@ -6,7 +6,7 @@
 /*   By: dmazari <dmazari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 13:12:09 by mniemaz           #+#    #+#             */
-/*   Updated: 2025/08/25 12:34:16 by dmazari          ###   ########.fr       */
+/*   Updated: 2025/08/25 13:27:42 by dmazari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,14 @@
 # include <float.h>
 # include <limits.h>
 # include <math.h>
-# include <mlx.h>
 # include <stdarg.h>
 # include <stdbool.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <string.h>
 # include <unistd.h>
+
+# include "mlx.h"
 
 # define WIN_SIZE_X 1920
 # define WIN_SIZE_Y 1080
@@ -171,6 +172,15 @@ bool				are_doors_surrounded_by_walls(char **map);
 bool				is_texture_data_filled(t_texture_data *tex_data);
 void				prep_to_fill_wall_types(t_texture_data **tex_data, char **wall_type, char ***to_fill);
 int					fill_wall_types(t_texture_data *tex_data, char **lines_tab);
+
+/**
+ * check_wall_types
+ */
+t_wall_type	check_south_wall(t_point pos, char **map);
+t_wall_type	check_north_wall(t_point pos, char **map);
+t_wall_type	check_east_wall(t_point pos, char **map);
+t_wall_type	check_west_wall(t_point pos, char **map);
+
 
 
 /*

@@ -6,7 +6,7 @@
 /*   By: dmazari <dmazari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 18:39:07 by mniemaz           #+#    #+#             */
-/*   Updated: 2025/08/25 12:34:22 by dmazari          ###   ########.fr       */
+/*   Updated: 2025/08/25 13:23:44 by dmazari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,53 +80,19 @@ t_wall_type	stuck_on_wall_dir(char **map, t_point pos, t_vector vec)
 {
 	if (is_almost_rounded(pos.y) && vec.y_i < 0)
 	{
-		if ((int)floorf(pos.y) == 0 || ft_strlen(map[(int)floorf(pos.y)
-					- 1]) <= (int)(pos.x))
-			return (NO);
-		if (map[(int)floorf(pos.y) - 1][(int)(pos.x)] == '1')
-			return (NO);
-		if (map[(int)floorf(pos.y) - 1][(int)(pos.x)] == 'C')
-			return (CLOSE);
-		if (map[(int)floorf(pos.y) - 1][(int)(pos.x)] == 'O')
-			return (OPEN);
+		return (check_north_wall(pos, map));
 	}
 	if (is_almost_rounded(pos.y) && vec.y_i > 0)
 	{
-		if (!map[(int)floorf(pos.y) + 1] || ft_strlen(map[(int)floorf(pos.y)
-					+ 1]) <= (int)(pos.x))
-			return (SO);
-		if (map[(int)floorf(pos.y)][(int)(pos.x)] == '1')
-			return (SO);
-		if (map[(int)floorf(pos.y)][(int)(pos.x)] == 'C')
-			return (CLOSE);
-		if (map[(int)floorf(pos.y)][(int)(pos.x)] == 'O')
-			return (OPEN);
+		return (check_south_wall(pos, map));
 	}
 	if (is_almost_rounded(pos.x) && vec.x_i > 0)
 	{
-		if (map[(int)(pos.y)][(int)floorf(pos.x)]
-			&& map[(int)(pos.y)][(int)floorf(pos.x)] == '1')
-			return (EA);
-		if (map[(int)(pos.y)][(int)floorf(pos.x)]
-			&& map[(int)(pos.y)][(int)floorf(pos.x)] == 'C')
-			return (CLOSE);
-		if (map[(int)(pos.y)][(int)floorf(pos.x)]
-			&& map[(int)(pos.y)][(int)floorf(pos.x)] == 'O')
-			return (OPEN);
+		return (check_east_wall(pos, map));
 	}
 	if (is_almost_rounded(pos.x) && vec.x_i < 0)
 	{
-		if (pos.x == 0.0f)
-			return (WE);
-		if (map[(int)(pos.y)][(int)floorf(pos.x) - 1]
-			&& map[(int)(pos.y)][(int)floorf(pos.x) - 1] == '1')
-			return (WE);
-		if (map[(int)(pos.y)][(int)floorf(pos.x) - 1]
-			&& map[(int)(pos.y)][(int)floorf(pos.x) - 1] == 'C')
-			return (CLOSE);
-		if (map[(int)(pos.y)][(int)floorf(pos.x) - 1]
-			&& map[(int)(pos.y)][(int)floorf(pos.x) - 1] == 'O')
-			return (OPEN);
+		return (check_west_wall(pos, map));
 	}
 	return (NONE);
 }

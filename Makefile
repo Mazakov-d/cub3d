@@ -30,7 +30,7 @@ SRCS =\
 	graphic_functions.c go_forward.c go_backward.c turn_left.c turn_right.c\
 	movements_handling.c perspective.c mouse_move.c handle_door.c\
 	check_doors.c is_texture_data_filled.c ft_min.c is_almost_rounded.c\
-	is_rounded.c
+	is_rounded.c check_wall_types.c
 
 MANDATORY = fill_wall_types_mandatory.c
 
