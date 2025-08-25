@@ -3,16 +3,38 @@
 /*                                                        :::      ::::::::   */
 /*   handle_door.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mniemaz <mniemaz@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: dmazari <dmazari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/12 15:04:16 by dorianmazar       #+#    #+#             */
-/*   Updated: 2025/08/25 12:20:26 by mniemaz          ###   ########.fr       */
+/*   Updated: 2025/08/25 12:59:06 by dmazari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
-void	change_char_door(char **map, t_point pos, t_vector vec)
+void	change_char_door_x_dir(char **map, t_point pos, t_vector vec)
+{
+	if (is_almost_rounded(pos.x) && vec.x_i > 0)
+	{
+		if (map[(int)(pos.y)][(int)floorf(pos.x)]
+			&& map[(int)(pos.y)][(int)floorf(pos.x)] == 'C')
+			map[(int)(pos.y)][(int)floorf(pos.x)] = 'O';
+		else if (map[(int)(pos.y)][(int)floorf(pos.x)]
+			&& map[(int)(pos.y)][(int)floorf(pos.x)] == 'O')
+			map[(int)(pos.y)][(int)floorf(pos.x)] = 'C';
+	}
+	if (is_almost_rounded(pos.x) && vec.x_i < 0)
+	{
+		if (map[(int)(pos.y)][(int)floorf(pos.x) - 1]
+			&& map[(int)(pos.y)][(int)floorf(pos.x) - 1] == 'C')
+			map[(int)(pos.y)][(int)floorf(pos.x) - 1] = 'O';
+		else if (map[(int)(pos.y)][(int)floorf(pos.x) - 1]
+			&& map[(int)(pos.y)][(int)floorf(pos.x) - 1] == 'O')
+			map[(int)(pos.y)][(int)floorf(pos.x) - 1] = 'C';
+	}
+}
+
+void	change_char_door_y_dir(char **map, t_point pos, t_vector vec)
 {
 	if (is_almost_rounded(pos.y) && vec.y_i < 0)
 	{
@@ -33,24 +55,6 @@ void	change_char_door(char **map, t_point pos, t_vector vec)
 			map[(int)floorf(pos.y)][(int)(pos.x)] = 'O';
 		else if (map[(int)floorf(pos.y)][(int)(pos.x)] == 'O')
 			map[(int)floorf(pos.y)][(int)(pos.x)] = 'C';
-	}
-	if (is_almost_rounded(pos.x) && vec.x_i > 0)
-	{
-		if (map[(int)(pos.y)][(int)floorf(pos.x)]
-			&& map[(int)(pos.y)][(int)floorf(pos.x)] == 'C')
-			map[(int)(pos.y)][(int)floorf(pos.x)] = 'O';
-		else if (map[(int)(pos.y)][(int)floorf(pos.x)]
-			&& map[(int)(pos.y)][(int)floorf(pos.x)] == 'O')
-			map[(int)(pos.y)][(int)floorf(pos.x)] = 'C';
-	}
-	if (is_almost_rounded(pos.x) && vec.x_i < 0)
-	{
-		if (map[(int)(pos.y)][(int)floorf(pos.x) - 1]
-			&& map[(int)(pos.y)][(int)floorf(pos.x) - 1] == 'C')
-			map[(int)(pos.y)][(int)floorf(pos.x) - 1] = 'O';
-		else if (map[(int)(pos.y)][(int)floorf(pos.x) - 1]
-			&& map[(int)(pos.y)][(int)floorf(pos.x) - 1] == 'O')
-			map[(int)(pos.y)][(int)floorf(pos.x) - 1] = 'C';
 	}
 }
 
@@ -85,7 +89,13 @@ void	handle_door(t_context *ctx)
 
 	impact_toward = get_impact_door(ctx, ctx->player.p_vec);
 	if (impact_toward.wall_type == OPEN)
-		change_char_door(ctx->map, impact_toward.pos, ctx->player.p_vec);
+	{
+		change_char_door_y_dir(ctx->map, impact_toward.pos, ctx->player.p_vec);
+		change_char_door_x_dir(ctx->map, impact_toward.pos, ctx->player.p_vec);
+	}
 	if (impact_toward.wall_type == CLOSE)
-		change_char_door(ctx->map, impact_toward.pos, ctx->player.p_vec);
+	{
+		change_char_door_y_dir(ctx->map, impact_toward.pos, ctx->player.p_vec);
+		change_char_door_x_dir(ctx->map, impact_toward.pos, ctx->player.p_vec);
+	}
 }

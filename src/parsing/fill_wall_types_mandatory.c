@@ -1,0 +1,52 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   fill_wall_types_mandatory.c                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dmazari <dmazari@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/08/25 12:04:35 by dmazari           #+#    #+#             */
+/*   Updated: 2025/08/25 12:25:26 by dmazari          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "cub.h"
+
+void	prep_to_fill_wall_types(t_texture_data **tex_data, char **wall_type,
+		char ***to_fill)
+{
+	wall_type[NO] = "NO";
+	wall_type[SO] = "SO";
+	wall_type[EA] = "EA";
+	wall_type[WE] = "WE";
+	to_fill[NO] = &((*tex_data)->walls[NO].img_name);
+	to_fill[SO] = &((*tex_data)->walls[SO].img_name);
+	to_fill[EA] = &((*tex_data)->walls[EA].img_name);
+	to_fill[WE] = &((*tex_data)->walls[WE].img_name);
+}
+
+/**
+ * @returns EXIT_SUCCESS if a direction was filled, EXIT_FAILURE on error,
+ * EXIT_NEUTRAL if nothing happened.
+ */
+int	fill_wall_types(t_texture_data *tex_data, char **lines_tab)
+{
+	char	*wall_type[4];
+	char	**to_fill[4];
+	int		i;
+
+	prep_to_fill_wall_types(&tex_data, wall_type, to_fill);
+	i = -1;
+	while (++i < 4)
+	{
+		if (ft_strncmp(lines_tab[0], wall_type[i], 3) != 0)
+			continue ;
+		if (!lines_tab[1])
+			return (printf_err("No texture for: %s\n", wall_type[i]));
+		*to_fill[i] = ft_strdup(lines_tab[1]);
+		if (!*to_fill[i])
+			return (printf_err("fill_wall_type: %s\n", strerror(errno)));
+		return (EXIT_SUCCESS);
+	}
+	return (EXIT_NEUTRAL);
+}

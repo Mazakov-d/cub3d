@@ -30,18 +30,29 @@ SRCS =\
 	graphic_functions.c go_forward.c go_backward.c turn_left.c turn_right.c\
 	movements_handling.c perspective.c mouse_move.c handle_door.c\
 	check_doors.c is_texture_data_filled.c ft_min.c is_almost_rounded.c\
-	is_rounded.c
+	is_rounded.c check_wall_types.c
 
-OBJS = $(addprefix $(OBJ_DIR)/, $(SRCS:.c=.o))
+MANDATORY = fill_wall_types_mandatory.c
+
+BONUS = fill_wall_types_bonus.c
+
+OBJS = $(addprefix $(OBJ_DIR)/, $(SRCS:.c=.o)) $(addprefix $(OBJ_DIR)/, $(MANDATORY:.c=.o))
+
+OBJS_BONUS = $(addprefix $(OBJ_DIR)/, $(SRCS:.c=.o)) $(addprefix $(OBJ_DIR)/, $(BONUS:.c=.o))
 
 NAME=cub3D
 
-.PHONY : all libs clean fclean re debug
+.PHONY : all libs clean fclean re bonus
 
 all: libs $(NAME)
 
 $(NAME): $(OBJS)
 	$(CC) $(OBJS) -L$(MLX_DIR) -lmlx_Linux -I$(MLX_DIR) -lXext -lX11 -lm -o $(NAME)
+
+bonus: libs $(NAME)_bonus
+
+$(NAME)_bonus: $(OBJS_BONUS)
+	$(CC) $(OBJS_BONUS) -L$(MLX_DIR) -lmlx_Linux -I$(MLX_DIR) -lXext -lX11 -lm -o $(NAME)_bonus
 
 libs:
 	@$(MAKE) -C $(MLX_DIR)
@@ -59,11 +70,6 @@ clean:
 fclean: 
 	$(MAKE) -C $(MLX_DIR) clean
 	rm -rf $(OBJ_DIR) $(NAME)
-
-debug:
-	@echo "SRCS: $(SRCS)"
-	@echo "OBJS: $(OBJS)"
-	@echo "OBJ_DIR: $(OBJ_DIR)"
-	@echo "NAME: $(NAME)"
+	rm -rf $(NAME)_bonus
 
 re : fclean all
