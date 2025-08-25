@@ -6,11 +6,24 @@
 /*   By: dmazari <dmazari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/25 12:04:35 by dmazari           #+#    #+#             */
-/*   Updated: 2025/08/25 16:57:04 by dmazari          ###   ########.fr       */
+/*   Updated: 2025/08/25 18:03:12 by dmazari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
+
+
+void	init_texture(t_context *ctx)
+{
+	if (open_image(&ctx->texture_data.walls[NO], ctx->mlx))
+		free_graphic(ctx);
+	if (open_image(&ctx->texture_data.walls[SO], ctx->mlx))
+		free_graphic(ctx);
+	if (open_image(&ctx->texture_data.walls[EA], ctx->mlx))
+		free_graphic(ctx);
+	if (open_image(&ctx->texture_data.walls[WE], ctx->mlx))
+		free_graphic(ctx);
+}
 
 bool	is_texture_data_filled(t_texture_data *tex_data)
 {
@@ -57,4 +70,26 @@ int	fill_wall_types(t_texture_data *tex_data, char **lines_tab)
 		return (EXIT_SUCCESS);
 	}
 	return (EXIT_NEUTRAL);
+}
+
+int	free_graphic(t_context *ctx)
+{
+	int	i;
+
+	i = 0;
+	while (i < 4)
+	{
+		mlx_destroy_image(ctx->mlx->mlx_ptr,
+			ctx->texture_data.walls[i].img_ptr);
+		i++;
+	}
+	if (ctx->mlx->img.img_ptr)
+		mlx_destroy_image(ctx->mlx->mlx_ptr, ctx->mlx->img.img_ptr);
+	if (ctx->mlx->win_ptr)
+		mlx_destroy_window(ctx->mlx->mlx_ptr, ctx->mlx->win_ptr);
+	mlx_destroy_display(ctx->mlx->mlx_ptr);
+	free(ctx->mlx->mlx_ptr);
+	free_context(ctx);
+	exit(0);
+	return (0);
 }

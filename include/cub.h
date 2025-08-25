@@ -6,7 +6,7 @@
 /*   By: dmazari <dmazari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 13:12:09 by mniemaz           #+#    #+#             */
-/*   Updated: 2025/08/25 16:59:42 by dmazari          ###   ########.fr       */
+/*   Updated: 2025/08/25 18:01:12 by dmazari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -225,6 +225,8 @@ int					fill_map(t_context *ctx, t_line *end_texture_data_line);
 size_t				ft_tablen(void **tab);
 char				**ft_strsdup(char **src);
 void				print_map_color(char **map, int row, int col);
+void				init_texture(t_context *ctx);
+int					open_image(t_img *img, t_mlx *mlx);
 
 /**
  * utils/ft_int_abs.c

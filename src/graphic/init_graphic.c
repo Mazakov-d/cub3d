@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_graphic.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mniemaz <mniemaz@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: dmazari <dmazari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 15:32:17 by dmazari           #+#    #+#             */
-/*   Updated: 2025/08/25 13:14:15 by mniemaz          ###   ########.fr       */
+/*   Updated: 2025/08/25 18:01:36 by dmazari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,19 +33,6 @@ int	open_image(t_img *img, t_mlx *mlx)
 	return (EXIT_SUCCESS);
 }
 
-void	init_texture(t_context *ctx)
-{
-	if (open_image(&ctx->texture_data.walls[NO], ctx->mlx))
-		free_graphic(ctx);
-	if (open_image(&ctx->texture_data.walls[SO], ctx->mlx))
-		free_graphic(ctx);
-	if (open_image(&ctx->texture_data.walls[EA], ctx->mlx))
-		free_graphic(ctx);
-	if (open_image(&ctx->texture_data.walls[WE], ctx->mlx))
-		free_graphic(ctx);
-	if (open_image(&ctx->texture_data.walls[CLOSE], ctx->mlx))
-		free_graphic(ctx);
-}
 
 void	render_window_pxls(t_context *ctx)
 {

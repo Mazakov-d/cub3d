@@ -6,7 +6,7 @@
 /*   By: dmazari <dmazari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/25 12:04:18 by dmazari           #+#    #+#             */
-/*   Updated: 2025/08/25 17:01:52 by dmazari          ###   ########.fr       */
+/*   Updated: 2025/08/25 18:02:58 by dmazari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,4 +73,26 @@ int	fill_wall_types(t_texture_data *tex_data, char **lines_tab)
 		return (EXIT_SUCCESS);
 	}
 	return (EXIT_NEUTRAL);
+}
+
+int	free_graphic(t_context *ctx)
+{
+	int	i;
+
+	i = 0;
+	while (i < 5)
+	{
+		mlx_destroy_image(ctx->mlx->mlx_ptr,
+			ctx->texture_data.walls[i].img_ptr);
+		i++;
+	}
+	if (ctx->mlx->img.img_ptr)
+		mlx_destroy_image(ctx->mlx->mlx_ptr, ctx->mlx->img.img_ptr);
+	if (ctx->mlx->win_ptr)
+		mlx_destroy_window(ctx->mlx->mlx_ptr, ctx->mlx->win_ptr);
+	mlx_destroy_display(ctx->mlx->mlx_ptr);
+	free(ctx->mlx->mlx_ptr);
+	free_context(ctx);
+	exit(0);
+	return (0);
 }
