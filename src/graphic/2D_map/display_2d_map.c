@@ -6,23 +6,22 @@
 /*   By: mniemaz <mniemaz@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/30 14:48:23 by mniemaz           #+#    #+#             */
-/*   Updated: 2025/08/25 11:00:42 by mniemaz          ###   ########.fr       */
+/*   Updated: 2025/08/25 12:24:00 by mniemaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
-void	print_rect(t_context *ctx, int x, int y, int square_x, int square_y,
-		char c)
+void	print_rect(t_context *ctx, int x, int y, char c)
 {
 	int	i;
 	int	j;
 
 	i = 0;
-	while (i < square_x)
+	while (i < ctx->w_square_2d)
 	{
 		j = 0;
-		while (j < square_y)
+		while (j < ctx->h_square_2d)
 		{
 			if (c == '1')
 				put_pixel(ctx, x + i, y + j, 0x444444);
@@ -42,13 +41,13 @@ void	print_rect(t_context *ctx, int x, int y, int square_x, int square_y,
  * @param this function is used twice, once to draw the rays and once to
  * draw the 3D (vertical lines).
  */
-void	handle_rays(t_context *ctx, void (*func)(t_context *, t_point_dir, int,
+void	handle_rays(t_context *ctx, void (*func)(t_context *, t_impact, int,
 			double curr_angle), int nb_rays)
 {
 	double		step;
 	t_vector	ray;
 	double		curr_angle;
-	t_point_dir	impact;
+	t_impact	impact;
 
 	step = (ctx->player.right_fov_angle - ctx->player.left_fov_angle) / (nb_rays
 			- (nb_rays != 1));
@@ -61,7 +60,7 @@ void	handle_rays(t_context *ctx, void (*func)(t_context *, t_point_dir, int,
 		curr_angle = curr_angle - step;
 	}
 }
-	
+
 void	draw_2d_map(t_context *ctx)
 {
 	int	row;
@@ -73,7 +72,7 @@ void	draw_2d_map(t_context *ctx)
 		col = -1;
 		while (ctx->map[row][++col])
 			print_rect(ctx, ctx->w_square_2d * col + 10, ctx->h_square_2d * row
-				+ 10, ctx->w_square_2d, ctx->h_square_2d, ctx->map[row][col]);
+				+ 10, ctx->map[row][col]);
 	}
 }
 

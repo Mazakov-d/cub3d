@@ -6,13 +6,13 @@
 /*   By: mniemaz <mniemaz@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 17:08:30 by dmazari           #+#    #+#             */
-/*   Updated: 2025/08/25 11:00:53 by mniemaz          ###   ########.fr       */
+/*   Updated: 2025/08/25 12:18:44 by mniemaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
-int	get_pixel_color_img(t_img img, int y_wall, int length, t_point_dir impact)
+int	get_pixel_color_img(t_img img, int y_wall, int length, t_impact impact)
 {
 	double	fract_part;
 	double	ratio;
@@ -23,11 +23,10 @@ int	get_pixel_color_img(t_img img, int y_wall, int length, t_point_dir impact)
 	fract_part = 0;
 	ratio = y_wall / (double)length;
 	fract_part = (double)impact.pos.x - (int)(impact.pos.x);
-	if (impact.dir == WE || impact.dir == EA || fract_part == 0)
+	if (impact.wall_type == WE || impact.wall_type == EA || fract_part == 0)
 		fract_part = (double)impact.pos.y - (int)(impact.pos.y);
 	x_img = fract_part * img.width;
 	y_img = ratio * img.height;
-
 	pixel = img.data + (y_img * img.line_len + x_img * (img.bpp >> 3));
 	return (*(int *)pixel);
 }

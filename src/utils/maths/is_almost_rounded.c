@@ -1,24 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   turn_right.c                                       :+:      :+:    :+:   */
+/*   is_almost_rounded.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mniemaz <mniemaz@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/05 13:35:19 by dmazari           #+#    #+#             */
-/*   Updated: 2025/08/25 12:20:47 by mniemaz          ###   ########.fr       */
+/*   Created: 2025/08/25 12:04:22 by mniemaz           #+#    #+#             */
+/*   Updated: 2025/08/25 12:24:10 by mniemaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub.h"
+#include <stdbool.h>
 
-void	turn_right(t_context *ctx)
+bool	is_almost_rounded(double n)
 {
-	double	old_x;
+	double	fract_part;
 
-	old_x = ctx->player.p_vec.x_i;
-	ctx->player.p_vec.x_i = ctx->player.p_vec.x_i * cos(TURN_SPEED)
-		- ctx->player.p_vec.y_i * sin(TURN_SPEED);
-	ctx->player.p_vec.y_i = old_x * sin(TURN_SPEED)
-		+ ctx->player.p_vec.y_i * cos(TURN_SPEED);
+	fract_part = (double)n - (int)n;
+	return (fract_part < 0.0001 || fract_part > 0.9999);
 }

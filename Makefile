@@ -9,9 +9,10 @@ CFLAGS=-Wall -Wextra -Werror -g3 -I$(INC_DIR) -I$(MLX_DIR)
 vpath %.c $(SRC_DIR) $(SRC_DIR)/parsing $(SRC_DIR)/utils\
 		$(SRC_DIR)/graphic $(SRC_DIR)/utils/frees\
 		$(SRC_DIR)/utils/str $(SRC_DIR)/utils/inits\
+		$(SRC_DIR)/utils/maths\
 		$(SRC_DIR)/graphic/ray_casting $(SRC_DIR)/graphic/2D_map\
 		$(SRC_DIR)/utils/vector $(SRC_DIR)/graphic/movements\
-		$(SRC_DIR)/graphic/3D_render
+		$(SRC_DIR)/graphic/3D_render 
 vpath %.h $(INC_DIR)
 vpath %.o $(OBJ_DIR)
 
@@ -28,7 +29,8 @@ SRCS =\
 	ft_int_abs.c ft_double_abs.c bresenham.c maths.c go_left.c go_right.c\
 	graphic_functions.c go_forward.c go_backward.c turn_left.c turn_right.c\
 	movements_handling.c perspective.c mouse_move.c handle_door.c\
-	check_doors.c is_texture_data_filled.c\
+	check_doors.c is_texture_data_filled.c ft_min.c is_almost_rounded.c\
+	is_rounded.c
 
 MANDATORY = fill_wall_types_mandatory.c
 
