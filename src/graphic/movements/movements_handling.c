@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   movements_handling.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mazakov <mazakov@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mniemaz <mniemaz@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 14:22:49 by dmazari           #+#    #+#             */
-/*   Updated: 2025/08/12 16:18:31 by mazakov          ###   ########.fr       */
+/*   Updated: 2025/08/25 12:17:19 by mniemaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	key_release(int keycode, t_context *ctx)
 	return (0);
 }
 
-int move_player(t_context *ctx)
+int	move_player(t_context *ctx)
 {
 	if (ctx->mlx->keys.w_bool)
 		go_forward(&ctx->player, ctx->map);
@@ -66,6 +66,7 @@ int move_player(t_context *ctx)
 		turn_right(ctx);
 	render_window_pxls(ctx);
 	mouse_move(ctx);
-	mlx_put_image_to_window(ctx->mlx->mlx_ptr, ctx->mlx->win_ptr, ctx->mlx->img.img_ptr, 0, 0);
+	mlx_put_image_to_window(ctx->mlx->mlx_ptr, ctx->mlx->win_ptr,
+		ctx->mlx->img.img_ptr, 0, 0);
 	return (0);
 }

@@ -1,24 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   turn_right.c                                       :+:      :+:    :+:   */
+/*   ft_min.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mniemaz <mniemaz@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/05 13:35:19 by dmazari           #+#    #+#             */
-/*   Updated: 2025/08/25 12:20:47 by mniemaz          ###   ########.fr       */
+/*   Created: 2025/08/25 12:05:03 by mniemaz           #+#    #+#             */
+/*   Updated: 2025/08/25 12:05:06 by mniemaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub.h"
-
-void	turn_right(t_context *ctx)
+double	ft_min(double a, double b)
 {
-	double	old_x;
-
-	old_x = ctx->player.p_vec.x_i;
-	ctx->player.p_vec.x_i = ctx->player.p_vec.x_i * cos(TURN_SPEED)
-		- ctx->player.p_vec.y_i * sin(TURN_SPEED);
-	ctx->player.p_vec.y_i = old_x * sin(TURN_SPEED)
-		+ ctx->player.p_vec.y_i * cos(TURN_SPEED);
+	if (a < b)
+		return (a);
+	return (b);
 }

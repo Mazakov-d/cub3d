@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   turn_left.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmazari <dmazari@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mniemaz <mniemaz@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 13:34:53 by dmazari           #+#    #+#             */
-/*   Updated: 2025/08/05 13:35:33 by dmazari          ###   ########.fr       */
+/*   Updated: 2025/08/25 12:20:50 by mniemaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
-void turn_left(t_context *ctx)
+void	turn_left(t_context *ctx)
 {
 	double	old_x;
 

@@ -6,34 +6,11 @@
 /*   By: mniemaz <mniemaz@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 18:39:07 by mniemaz           #+#    #+#             */
-/*   Updated: 2025/08/25 11:05:48 by mniemaz          ###   ########.fr       */
+/*   Updated: 2025/08/25 12:16:53 by mniemaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
-
-/**
- * modf takes a double and returns the fractional part of it
- */
-bool	is_rounded(double x)
-{
-	return ((double)x - (int)x == 0.0);
-}
-
-bool	is_almost_rounded(double n)
-{
-	double	fract_part;
-
-	fract_part = (double)n - (int)n;
-	return (fract_part < 0.0001 || fract_part > 0.9999);
-}
-
-double	ft_min(double a, double b)
-{
-	if (a < b)
-		return (a);
-	return (b);
-}
 
 /**
  * t is the minimum number of times pos has to travel v to get to an edge of a
@@ -104,7 +81,7 @@ t_wall_type	stuck_on_wall_dir(char **map, t_point pos, t_vector vec)
 	if (is_almost_rounded(pos.y) && vec.y_i < 0)
 	{
 		if ((int)floorf(pos.y) == 0 || ft_strlen(map[(int)floorf(pos.y)
-				- 1]) <= (int)(pos.x))
+					- 1]) <= (int)(pos.x))
 			return (NO);
 		if (map[(int)floorf(pos.y) - 1][(int)(pos.x)] == '1')
 			return (NO);
@@ -116,7 +93,7 @@ t_wall_type	stuck_on_wall_dir(char **map, t_point pos, t_vector vec)
 	if (is_almost_rounded(pos.y) && vec.y_i > 0)
 	{
 		if (!map[(int)floorf(pos.y) + 1] || ft_strlen(map[(int)floorf(pos.y)
-				+ 1]) <= (int)(pos.x))
+					+ 1]) <= (int)(pos.x))
 			return (SO);
 		if (map[(int)floorf(pos.y)][(int)(pos.x)] == '1')
 			return (SO);
@@ -154,17 +131,17 @@ t_wall_type	stuck_on_wall_dir(char **map, t_point pos, t_vector vec)
 	return (NONE);
 }
 
-t_point_dir	get_impact_wall_toward(t_context *ctx, t_vector vec)
+t_impact	get_impact_wall_toward(t_context *ctx, t_vector vec)
 {
-	t_point_dir	impact;
+	t_impact	impact;
 
 	impact.pos = ctx->player.pos;
-	impact.dir = stuck_on_wall_dir(ctx->map, impact.pos, vec);
-	while (impact.dir == NONE || impact.dir == OPEN)
+	impact.wall_type = stuck_on_wall_dir(ctx->map, impact.pos, vec);
+	while (impact.wall_type == NONE || impact.wall_type == OPEN)
 	{
 		impact.pos = get_intersection_pos(impact.pos, vec);
-		impact.dir = stuck_on_wall_dir(ctx->map, impact.pos, vec);
-		if (impact.dir == NONE || impact.dir == OPEN)
+		impact.wall_type = stuck_on_wall_dir(ctx->map, impact.pos, vec);
+		if (impact.wall_type == NONE || impact.wall_type == OPEN)
 		{
 			if (vec.x_i < 0 && is_rounded(impact.pos.x))
 				impact.pos.x -= 0.0001;
@@ -176,6 +153,5 @@ t_point_dir	get_impact_wall_toward(t_context *ctx, t_vector vec)
 				impact.pos.y += 0.0001;
 		}
 	}
-
 	return (impact);
 }

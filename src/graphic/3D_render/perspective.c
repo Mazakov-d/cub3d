@@ -6,13 +6,13 @@
 /*   By: mniemaz <mniemaz@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 16:34:30 by dmazari           #+#    #+#             */
-/*   Updated: 2025/08/25 11:00:48 by mniemaz          ###   ########.fr       */
+/*   Updated: 2025/08/25 12:27:17 by mniemaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
-double	get_player_angle(t_context *ctx)
+double	get_player_forward_angle(t_context *ctx)
 {
 	double	angle;
 
@@ -40,20 +40,19 @@ double	get_player_angle(t_context *ctx)
 }
 
 /**
- * Sets the left and right angles of the player's FOV based on the
- * player's vector direction
+ * Sets toward, left and right angles
  */
 void	set_player_angles(t_context *ctx)
 {
-	double	angle;
+	double	forward_angle;
 
-	angle = get_player_angle(ctx);
-	ctx->player.forward_angle = angle;
-	ctx->player.right_fov_angle = angle + FOV_RAD_DIV_2;
-	ctx->player.left_fov_angle = angle - FOV_RAD_DIV_2;
+	forward_angle = get_player_forward_angle(ctx);
+	ctx->player.forward_angle = forward_angle;
+	ctx->player.right_fov_angle = forward_angle + FOV_RAD_DIV_2;
+	ctx->player.left_fov_angle = forward_angle - FOV_RAD_DIV_2;
 }
 
-void	draw_vertical_ray(t_context *ctx, t_point_dir impact, int x,
+void	draw_vertical_ray(t_context *ctx, t_impact impact, int x,
 		double curr_angle)
 {
 	int		wall_height;
@@ -87,7 +86,7 @@ void	draw_vertical_ray(t_context *ctx, t_point_dir impact, int x,
 	while (y < limit)
 	{
 		put_pixel(ctx, x, y,
-			get_pixel_color_img(ctx->texture_data.walls[impact.dir], y
+			get_pixel_color_img(ctx->texture_data.walls[impact.wall_type], y
 				- sky_height, wall_height, impact));
 		y++;
 	}
