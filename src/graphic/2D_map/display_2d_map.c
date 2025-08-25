@@ -6,7 +6,7 @@
 /*   By: mniemaz <mniemaz@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/30 14:48:23 by mniemaz           #+#    #+#             */
-/*   Updated: 2025/08/25 12:24:00 by mniemaz          ###   ########.fr       */
+/*   Updated: 2025/08/25 13:15:18 by mniemaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,8 +90,8 @@ void	set_squares_2d_sizes(t_context *ctx)
 		largest_line = 1;
 	if (i == 0)
 		i = 1;
-	ctx->w_square_2d = MINI_MAP_X / largest_line;
-	ctx->h_square_2d = MINI_MAP_Y / i;
+	ctx->w_square_2d = ctx->const_datas.mini_map_x / largest_line;
+	ctx->h_square_2d = ctx->const_datas.mini_map_y / i;
 }
 
 void	display_2d_map(t_context *ctx)

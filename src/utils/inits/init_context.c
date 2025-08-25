@@ -6,11 +6,23 @@
 /*   By: mniemaz <mniemaz@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 11:23:43 by mniemaz           #+#    #+#             */
-/*   Updated: 2025/08/25 11:12:48 by mniemaz          ###   ########.fr       */
+/*   Updated: 2025/08/25 13:29:19 by mniemaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
+
+static void	init_const_datas(t_context *ctx)
+{
+	ctx->const_datas.fov_rad = FOV_DEG * (PI / 180);
+	ctx->const_datas.fov_rad_div_2 = ctx->const_datas.fov_rad * 0.5;
+	ctx->const_datas.pi_div_2 = PI * 0.5;
+	ctx->const_datas.pi_times_2 = PI * 2;
+	ctx->const_datas.center_win_x = WIN_SIZE_X * 0.5;
+	ctx->const_datas.center_win_y = WIN_SIZE_Y * 0.5;
+	ctx->const_datas.mini_map_x = WIN_SIZE_X * 0.2;
+	ctx->const_datas.mini_map_y = WIN_SIZE_Y * 0.2;
+}
 
 static void	init_texture_data(t_texture_data *tex_data)
 {
@@ -55,5 +67,6 @@ int	init_context(t_context *ctx)
 	init_texture_data(&ctx->texture_data);
 	if (init_mlx_data(ctx) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
+	init_const_datas(ctx);
 	return (EXIT_SUCCESS);
 }
