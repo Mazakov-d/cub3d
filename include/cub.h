@@ -6,7 +6,7 @@
 /*   By: mniemaz <mniemaz@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 13:12:09 by mniemaz           #+#    #+#             */
-/*   Updated: 2025/08/25 11:00:35 by mniemaz          ###   ########.fr       */
+/*   Updated: 2025/08/25 11:05:48 by mniemaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -273,7 +273,7 @@ void				vertical_render(t_context *ctx);
 void				set_player_angles(t_context *ctx);
 void				draw_vertical_ray(t_context *ctx, t_point_dir impact,
 						int x, double curr_angle);
-int					is_rounded(double x);
+bool				is_rounded(double x);
 t_wall_type			stuck_on_wall_dir(char **map, t_point pos, t_vector vec);
 
 

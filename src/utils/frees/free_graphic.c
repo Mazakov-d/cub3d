@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   free_graphic.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mazakov <mazakov@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mniemaz <mniemaz@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 16:11:35 by dmazari           #+#    #+#             */
-/*   Updated: 2025/08/12 18:16:08 by mazakov          ###   ########.fr       */
+/*   Updated: 2025/08/25 11:13:14 by mniemaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
-void free_strs(char **strs)
+void	free_strs(char **strs)
 {
 	int	i;
 
@@ -33,7 +33,8 @@ int	free_graphic(t_context *ctx)
 	i = 0;
 	while (i < 5)
 	{
-		mlx_destroy_image(ctx->mlx->mlx_ptr, ctx->texture_data.walls[i].img_ptr);
+		mlx_destroy_image(ctx->mlx->mlx_ptr,
+			ctx->texture_data.walls[i].img_ptr);
 		i++;
 	}
 	if (ctx->mlx->img.img_ptr)

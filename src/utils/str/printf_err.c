@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   printf_err.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: miloniemaz <mniemaz@student.42lyon.fr>     +#+  +:+       +#+        */
+/*   By: mniemaz <mniemaz@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 10:00:00 by mniemaz           #+#    #+#             */
-/*   Updated: 2025/08/01 05:00:32 by miloniemaz       ###   ########.fr       */
+/*   Updated: 2025/08/25 11:16:06 by mniemaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,13 +45,16 @@ static int	num_len(int num)
 	return (len);
 }
 
-static int	copy_num(char *buf, int pos, int max, int num)
+static int	handle_int(char *buf, int pos, const char **fmt, va_list *args)
 {
-	int	len;
+	int	num;
 	int	i;
+	int	len;
 
+	*fmt += 2;
+	num = va_arg(*args, int);
 	len = num_len(num);
-	if (len >= max - pos)
+	if (len >= 1023 - pos)
 		return (pos);
 	if (num < 0)
 	{
@@ -65,16 +68,6 @@ static int	copy_num(char *buf, int pos, int max, int num)
 		buf[(pos++) + (len--) - (i++) - 1] = '0' + (num % 10);
 		num /= 10;
 	}
-	return (pos);
-}
-
-static int	handle_int(char *buf, int pos, const char **fmt, va_list *args)
-{
-	int	num;
-
-	*fmt += 2;
-	num = va_arg(*args, int);
-	pos = copy_num(buf, pos, 1023, num);
 	return (pos);
 }
 
