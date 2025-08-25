@@ -6,7 +6,7 @@
 /*   By: mniemaz <mniemaz@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 16:34:30 by dmazari           #+#    #+#             */
-/*   Updated: 2025/08/08 17:13:33 by mniemaz          ###   ########.fr       */
+/*   Updated: 2025/08/08 17:52:15 by mniemaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,12 @@ double	get_player_angle(t_context *ctx)
  * Sets the left and right angles of the player's FOV based on the
  * player's vector direction
  */
-void	set_left_right_angles(t_context *ctx)
+void	set_player_angles(t_context *ctx)
 {
 	double	angle;
 
 	angle = get_player_angle(ctx);
+	ctx->player.forward_angle = angle;
 	ctx->player.right_fov_angle = angle + FOV_RAD_DIV_2;
 	ctx->player.left_fov_angle = angle - FOV_RAD_DIV_2;
 }
@@ -63,7 +64,7 @@ void	draw_vertical_ray(t_context *ctx, t_point_dir impact, int x,
 
 	y = 0;
 	impact_distance = get_distance(ctx->player.pos, impact.pos) * cos(curr_angle
-			- get_player_angle(ctx));
+			- ctx->player.forward_angle);
 	if (impact_distance == 0.0f)
 	{
 		sky_height = 0;

@@ -6,7 +6,7 @@
 /*   By: mniemaz <mniemaz@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 13:12:09 by mniemaz           #+#    #+#             */
-/*   Updated: 2025/08/08 16:01:46 by mniemaz          ###   ########.fr       */
+/*   Updated: 2025/08/08 17:49:53 by mniemaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,6 +145,7 @@ typedef struct s_player
 	t_vector		p_vec;
 	double			left_fov_angle;
 	double			right_fov_angle;
+	double			forward_angle;
 }					t_player;
 
 typedef struct s_context
@@ -263,7 +264,7 @@ void				render_window_pxls(t_context *ctx);
  * perspective.c
  */
 void				vertical_render(t_context *ctx);
-void				set_left_right_angles(t_context *ctx);
+void				set_player_angles(t_context *ctx);
 void				draw_vertical_ray(t_context *ctx, t_point_dir impact,
 						int x, double curr_angle);
 
