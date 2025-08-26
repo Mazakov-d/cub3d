@@ -26,11 +26,12 @@ SRCS =\
 	ft_is_str_spaces.c free_context.c free_lines_lst.c init_context.c\
 	fill_map.c fill_texture_data.c fill_file_content.c ft_strsdup.c\
 	check_flood_fill.c print_map_color.c display_2d_map.c ft_vector.c\
-	ft_int_abs.c ft_double_abs.c bresenham.c maths.c go_left.c go_right.c\
+	ft_int_abs.c ft_double_abs.c bresenham.c get_impact_wall_toward.c\
+	go_left.c go_right.c\
 	graphic_functions.c go_forward.c go_backward.c turn_left.c turn_right.c\
 	movements_handling.c perspective.c mouse_move.c handle_door.c\
 	check_doors.c ft_min.c is_almost_rounded.c\
-	is_rounded.c check_wall_types.c
+	is_rounded.c get_wall_types.c
 
 MANDATORY = check_mandatory.c
 

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   maths.c                                            :+:      :+:    :+:   */
+/*   get_impact_wall_toward.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mniemaz <mniemaz@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 18:39:07 by mniemaz           #+#    #+#             */
-/*   Updated: 2025/08/25 13:31:05 by mniemaz          ###   ########.fr       */
+/*   Updated: 2025/08/26 10:59:46 by mniemaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
  * square (1,1)
  * @returns the least t because it means it is the closest to an edge
  */
-double	get_t(t_point pos, t_vector vec)
+static double	get_t(t_point pos, t_vector vec)
 {
 	double	t;
 	double	tmp;
@@ -79,21 +79,13 @@ t_point	get_intersection_pos(t_point p, t_vector vec)
 t_wall_type	stuck_on_wall_dir(char **map, t_point pos, t_vector vec)
 {
 	if (is_almost_rounded(pos.y) && vec.y_i < 0)
-	{
-		return (check_north_wall(pos, map));
-	}
-	if (is_almost_rounded(pos.y) && vec.y_i > 0)
-	{
-		return (check_south_wall(pos, map));
-	}
-	if (is_almost_rounded(pos.x) && vec.x_i > 0)
-	{
-		return (check_east_wall(pos, map));
-	}
-	if (is_almost_rounded(pos.x) && vec.x_i < 0)
-	{
-		return (check_west_wall(pos, map));
-	}
+		return (get_north_wall_type(pos, map));
+	else if (is_almost_rounded(pos.y) && vec.y_i > 0)
+		return (get_south_wall_type(pos, map));
+	else if (is_almost_rounded(pos.x) && vec.x_i > 0)
+		return (get_east_wall_type(pos, map));
+	else if (is_almost_rounded(pos.x) && vec.x_i < 0)
+		return (get_west_wall_type(pos, map));
 	return (NONE);
 }
 
