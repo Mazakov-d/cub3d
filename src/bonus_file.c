@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_bonus.c                                      :+:      :+:    :+:   */
+/*   bonus_file.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dmazari <dmazari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/25 12:04:18 by dmazari           #+#    #+#             */
-/*   Updated: 2025/08/26 11:09:18 by dmazari          ###   ########.fr       */
+/*   Updated: 2025/08/26 11:17:23 by dmazari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ bool	is_texture_data_filled(t_texture_data *tex_data)
 {
 	return (tex_data->walls[NO].img_name && tex_data->walls[SO].img_name
 		&& tex_data->walls[EA].img_name && tex_data->walls[WE].img_name
+		&& tex_data->walls[CLOSE].img_name
 		&& tex_data->floor_hexa != HEXA_INIT_VAL
 		&& tex_data->ceiling_hexa != HEXA_INIT_VAL);
 }
