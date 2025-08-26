@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_wall_types.c                                 :+:      :+:    :+:   */
+/*   get_wall_types.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dmazari <dmazari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,7 +12,7 @@
 
 #include "cub.h"
 
-t_wall_type	check_south_wall(t_point pos, char **map)
+t_wall_type	get_south_wall_type(t_point pos, char **map)
 {
 	if (!map[(int)floorf(pos.y) + 1] || ft_strlen(map[(int)floorf(pos.y)
 				+ 1]) <= (int)(pos.x))
@@ -26,7 +26,7 @@ t_wall_type	check_south_wall(t_point pos, char **map)
 	return (NONE);
 }
 
-t_wall_type	check_east_wall(t_point pos, char **map)
+t_wall_type	get_east_wall_type(t_point pos, char **map)
 {
 	if (map[(int)(pos.y)][(int)floorf(pos.x)]
 		&& map[(int)(pos.y)][(int)floorf(pos.x)] == '1')
@@ -40,7 +40,7 @@ t_wall_type	check_east_wall(t_point pos, char **map)
 	return (NONE);
 }
 
-t_wall_type	check_west_wall(t_point pos, char **map)
+t_wall_type	get_west_wall_type(t_point pos, char **map)
 {
 	if (pos.x == 0.0f)
 		return (WE);
@@ -56,7 +56,7 @@ t_wall_type	check_west_wall(t_point pos, char **map)
 	return (NONE);
 }
 
-t_wall_type	check_north_wall(t_point pos, char **map)
+t_wall_type	get_north_wall_type(t_point pos, char **map)
 {
 	if ((int)floorf(pos.y) == 0 || ft_strlen(map[(int)floorf(pos.y)
 				- 1]) <= (int)(pos.x))

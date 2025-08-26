@@ -1,14 +1,15 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_mandatory.c                                  :+:      :+:    :+:   */
+/*   mandatory_file.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dmazari <dmazari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/25 12:04:35 by dmazari           #+#    #+#             */
-/*   Updated: 2025/08/26 11:14:09 by dmazari          ###   ########.fr       */
+/*   Updated: 2025/08/26 11:15:51 by dmazari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include "cub.h"
 
@@ -94,6 +95,6 @@ int	free_graphic(t_context *ctx)
 	mlx_destroy_display(ctx->mlx->mlx_ptr);
 	free(ctx->mlx->mlx_ptr);
 	free_context(ctx);
-	exit(0);
+	exit(EXIT_SUCCESS);
 	return (0);
 }
