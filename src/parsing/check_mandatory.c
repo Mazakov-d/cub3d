@@ -6,12 +6,11 @@
 /*   By: mniemaz <mniemaz@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/25 12:04:35 by dmazari           #+#    #+#             */
-/*   Updated: 2025/08/26 10:46:42 by mniemaz          ###   ########.fr       */
+/*   Updated: 2025/08/26 11:00:41 by mniemaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
-
 
 void	init_texture(t_context *ctx)
 {
@@ -86,7 +85,11 @@ int	free_graphic(t_context *ctx)
 	if (ctx->mlx->img.img_ptr)
 		mlx_destroy_image(ctx->mlx->mlx_ptr, ctx->mlx->img.img_ptr);
 	if (ctx->mlx->win_ptr)
+	{
+		mlx_clear_window(ctx->mlx->mlx_ptr, ctx->mlx->win_ptr);
+		mlx_mouse_show(ctx->mlx->mlx_ptr, ctx->mlx->win_ptr);
 		mlx_destroy_window(ctx->mlx->mlx_ptr, ctx->mlx->win_ptr);
+	}
 	mlx_destroy_display(ctx->mlx->mlx_ptr);
 	free(ctx->mlx->mlx_ptr);
 	free_context(ctx);

@@ -6,7 +6,7 @@
 /*   By: dmazari <dmazari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 15:32:17 by dmazari           #+#    #+#             */
-/*   Updated: 2025/08/25 18:01:36 by dmazari          ###   ########.fr       */
+/*   Updated: 2025/08/26 10:52:33 by dmazari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ int	open_image(t_img *img, t_mlx *mlx)
 	img->img_name = NULL;
 	return (EXIT_SUCCESS);
 }
-
 
 void	render_window_pxls(t_context *ctx)
 {
