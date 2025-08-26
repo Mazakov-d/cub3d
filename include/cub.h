@@ -6,7 +6,7 @@
 /*   By: mniemaz <mniemaz@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 13:12:09 by mniemaz           #+#    #+#             */
-/*   Updated: 2025/08/26 14:02:52 by mniemaz          ###   ########.fr       */
+/*   Updated: 2025/08/26 14:46:21 by mniemaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,6 @@
 #  define NB_TEXTURES 4
 #  define MAP_CHARS "NSEW01 "
 # endif
-
 
 typedef enum e_wall_type
 {
