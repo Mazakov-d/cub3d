@@ -2,9 +2,12 @@ SRC_DIR=src
 INC_DIR=include
 OBJ_DIR=.obj
 MLX_DIR=minilibx-linux
+BONUS_FILE=.bonus_flag
 
 CC=cc
 CFLAGS=-Wall -Wextra -Werror -g3 -I$(INC_DIR) -I$(MLX_DIR)
+
+MAKEFLAGS += --no-print-directory
 
 vpath %.c $(SRC_DIR) $(SRC_DIR)/parsing $(SRC_DIR)/utils\
 		$(SRC_DIR)/graphic $(SRC_DIR)/utils/frees\
@@ -26,40 +29,41 @@ SRCS =\
 	ft_is_str_spaces.c free_context.c free_lines_lst.c init_context.c\
 	fill_map.c fill_texture_data.c fill_file_content.c ft_strsdup.c\
 	check_flood_fill.c print_map_color.c display_2d_map.c ft_vector.c\
-	ft_int_abs.c ft_double_abs.c bresenham.c get_impact_wall_toward.c\
-	go_left.c go_right.c\
+	ft_int_abs.c ft_double_abs.c bresenham_line.c get_impact_wall_toward.c\
+	go_left.c go_right.c is_texture_data_filled.c\
 	graphic_functions.c go_forward.c go_backward.c turn_left.c turn_right.c\
 	movements_handling.c perspective.c mouse_move.c handle_door.c\
 	check_doors.c ft_min.c is_almost_rounded.c\
 	is_rounded.c get_wall_types.c
 
-MANDATORY = mandatory_file.c
+BONUS = 0
 
-BONUS = bonus_file.c
-
-OBJS = $(addprefix $(OBJ_DIR)/, $(SRCS:.c=.o)) $(addprefix $(OBJ_DIR)/, $(MANDATORY:.c=.o))
-
-OBJS_BONUS = $(addprefix $(OBJ_DIR)/, $(SRCS:.c=.o)) $(addprefix $(OBJ_DIR)/, $(BONUS:.c=.o))
+OBJS = $(addprefix $(OBJ_DIR)/, $(SRCS:.c=.o))
 
 NAME=cub3D
 
 .PHONY : all libs clean fclean re bonus
 
-all: libs $(NAME)
-
-$(NAME): $(OBJS)
-	$(CC) $(OBJS) -L$(MLX_DIR) -lmlx_Linux -I$(MLX_DIR) -lXext -lX11 -lm -o $(NAME)
-
-bonus: libs $(NAME)_bonus
-
-$(NAME)_bonus: $(OBJS_BONUS)
-	$(CC) $(OBJS_BONUS) -L$(MLX_DIR) -lmlx_Linux -I$(MLX_DIR) -lXext -lX11 -lm -o $(NAME)_bonus
+all: libs check_bonus $(NAME)
+	@echo $(NAME) ready !
 
 libs:
 	@$(MAKE) -C $(MLX_DIR)
 
+$(NAME): $(OBJS)
+	$(CC) $(OBJS) -L$(MLX_DIR) -lmlx_Linux -I$(MLX_DIR) -lXext -lX11 -lm -o $(NAME) -D BONUS=$(BONUS)
+
+check_bonus:
+	@if [ -f $(BONUS_FILE) ] && [ "`cat $(BONUS_FILE)`" != "$(BONUS)" ]; then \
+		$(MAKE) clean_cub; \
+	fi
+	@echo $(BONUS) > $(BONUS_FILE)
+
+bonus:
+	@$(MAKE) BONUS=1 all
+
 $(OBJ_DIR)/%.o : %.c $(INC_DIR)/cub.h Makefile | $(OBJ_DIR)
-	$(CC) $(CFLAGS) -c $< -o $@
+	$(CC) $(CFLAGS) -c $< -o $@ -D BONUS=$(BONUS)
 
 $(OBJ_DIR):
 	mkdir -p $(OBJ_DIR)
@@ -71,6 +75,9 @@ clean:
 fclean: 
 	$(MAKE) -C $(MLX_DIR) clean
 	rm -rf $(OBJ_DIR) $(NAME)
-	rm -rf $(NAME)_bonus
+
+clean_cub:
+	@rm -rf $(OBJ_DIR) $(NAME)
+	@echo "Cleaned cub3d (not mlx)"
 
 re : fclean all
