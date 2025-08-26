@@ -6,7 +6,7 @@
 /*   By: mniemaz <mniemaz@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 13:12:09 by mniemaz           #+#    #+#             */
-/*   Updated: 2025/08/26 10:59:20 by mniemaz          ###   ########.fr       */
+/*   Updated: 2025/08/26 11:05:23 by mniemaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -190,9 +190,11 @@ t_wall_type			get_east_wall_type(t_point pos, char **map);
 t_wall_type			get_west_wall_type(t_point pos, char **map);
 
 /*
-** 2Dtests
+** 2D_map
 */
 void				display_2d_map(t_context *ctx);
+void				bresenham_line(t_context *ctx, t_impact to, int unused,
+						double unused_2);
 
 /*
 ** utils/str
@@ -267,11 +269,9 @@ void				init_vector(t_vector *v, double x, double y);
 double				get_distance(t_point a, t_point b);
 
 /**
- * todo
+ * ray_casting
  */
 t_point				get_intersection_pos(t_point p, t_vector dir);
-void				bresenham_line(t_context *ctx, t_impact to, int unused,
-						double unused_2);
 t_impact			get_impact_wall_toward(t_context *ctx, t_vector dir);
 
 /**

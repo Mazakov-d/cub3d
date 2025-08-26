@@ -33,9 +33,9 @@ SRCS =\
 	check_doors.c ft_min.c is_almost_rounded.c\
 	is_rounded.c get_wall_types.c
 
-MANDATORY = check_mandatory.c
+MANDATORY = mandatory_file.c
 
-BONUS = check_bonus.c
+BONUS = bonus_file.c
 
 OBJS = $(addprefix $(OBJ_DIR)/, $(SRCS:.c=.o)) $(addprefix $(OBJ_DIR)/, $(MANDATORY:.c=.o))
 

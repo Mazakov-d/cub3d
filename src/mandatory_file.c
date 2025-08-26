@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_mandatory.c                                  :+:      :+:    :+:   */
+/*   mandatory_file.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mniemaz <mniemaz@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/25 12:04:35 by dmazari           #+#    #+#             */
-/*   Updated: 2025/08/26 11:00:41 by mniemaz          ###   ########.fr       */
+/*   Updated: 2025/08/26 11:07:07 by mniemaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,6 @@ int	free_graphic(t_context *ctx)
 	mlx_destroy_display(ctx->mlx->mlx_ptr);
 	free(ctx->mlx->mlx_ptr);
 	free_context(ctx);
-	exit(0);
+	exit(EXIT_SUCCESS);
 	return (0);
 }
