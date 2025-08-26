@@ -6,7 +6,7 @@
 /*   By: dmazari <dmazari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/25 12:04:18 by dmazari           #+#    #+#             */
-/*   Updated: 2025/08/26 10:49:36 by dmazari          ###   ########.fr       */
+/*   Updated: 2025/08/26 11:09:18 by dmazari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,8 +82,9 @@ int	free_graphic(t_context *ctx)
 	i = 0;
 	while (i < 5)
 	{
-		mlx_destroy_image(ctx->mlx->mlx_ptr,
-			ctx->texture_data.walls[i].img_ptr);
+		if (ctx->texture_data.walls[i].img_ptr)
+			mlx_destroy_image(ctx->mlx->mlx_ptr,
+				ctx->texture_data.walls[i].img_ptr);
 		i++;
 	}
 	if (ctx->mlx->img.img_ptr)

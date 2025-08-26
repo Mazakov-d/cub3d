@@ -2,6 +2,7 @@
 minilibx-linux
 .obj
 cub3D
+cub3D_bonus
 .vscode
 malloc_protection_checker
 *.txt
