@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_context.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmazari <dmazari@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mniemaz <mniemaz@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 10:36:31 by mniemaz           #+#    #+#             */
-/*   Updated: 2025/08/26 11:11:49 by dmazari          ###   ########.fr       */
+/*   Updated: 2025/08/28 13:00:10 by mniemaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	free_context(t_context *ctx)
 		free(ctx->texture_data.walls[EA].img_name);
 	if (ctx->texture_data.walls[WE].img_name)
 		free(ctx->texture_data.walls[WE].img_name);
-	if (ctx->texture_data.walls[CLOSE].img_name)
+	if (BONUS && ctx->texture_data.walls[CLOSE].img_name)
 		free(ctx->texture_data.walls[CLOSE].img_name);
 	if (ctx->mlx)
 		free(ctx->mlx);
