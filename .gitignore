@@ -1,5 +1,3 @@
-*.mk
-minilibx-linux
 .obj
 cub3D
 .bonus_flag

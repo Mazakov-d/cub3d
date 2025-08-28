@@ -6,7 +6,7 @@
 /*   By: mniemaz <mniemaz@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 15:32:17 by dmazari           #+#    #+#             */
-/*   Updated: 2025/08/26 13:47:37 by mniemaz          ###   ########.fr       */
+/*   Updated: 2025/08/28 13:05:51 by mniemaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,11 +50,8 @@ static void	init_texture(t_context *ctx)
 		free_graphic(ctx);
 	if (open_image(&ctx->texture_data.walls[WE], ctx->mlx))
 		free_graphic(ctx);
-	if (BONUS)
-	{
-		if (open_image(&ctx->texture_data.walls[CLOSE], ctx->mlx))
-			free_graphic(ctx);
-	}
+	if (BONUS && open_image(&ctx->texture_data.walls[CLOSE], ctx->mlx))
+		free_graphic(ctx);
 }
 
 void	init_graphic(t_context *ctx)
@@ -73,7 +70,7 @@ void	init_graphic(t_context *ctx)
 		free_graphic(ctx);
 	ctx->mlx->img.data = mlx_get_data_addr(ctx->mlx->img.img_ptr,
 			&ctx->mlx->img.bpp, &ctx->mlx->img.line_len, &ctx->mlx->img.endian);
-	// mlx_mouse_hide(ctx->mlx->mlx_ptr, ctx->mlx->win_ptr);
+	mlx_mouse_hide(ctx->mlx->mlx_ptr, ctx->mlx->win_ptr);
 	mlx_mouse_move(ctx->mlx->mlx_ptr, ctx->mlx->win_ptr,
 		ctx->const_datas.center_win_x, ctx->const_datas.center_win_y);
 	mlx_hook(ctx->mlx->win_ptr, 2, 1L << 0, key_hook_press, ctx);

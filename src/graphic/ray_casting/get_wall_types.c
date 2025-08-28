@@ -19,6 +19,8 @@ t_wall_type	get_south_wall_type(t_point pos, char **map)
 		return (SO);
 	if (map[(int)floorf(pos.y)][(int)(pos.x)] == '1')
 		return (SO);
+	if (!BONUS)
+		return (NONE);
 	if (map[(int)floorf(pos.y)][(int)(pos.x)] == 'C')
 		return (CLOSE);
 	if (map[(int)floorf(pos.y)][(int)(pos.x)] == 'O')
@@ -31,6 +33,8 @@ t_wall_type	get_east_wall_type(t_point pos, char **map)
 	if (map[(int)(pos.y)][(int)floorf(pos.x)]
 		&& map[(int)(pos.y)][(int)floorf(pos.x)] == '1')
 		return (EA);
+	if (!BONUS)
+		return (NONE);
 	if (map[(int)(pos.y)][(int)floorf(pos.x)]
 		&& map[(int)(pos.y)][(int)floorf(pos.x)] == 'C')
 		return (CLOSE);
@@ -47,6 +51,8 @@ t_wall_type	get_west_wall_type(t_point pos, char **map)
 	if (map[(int)(pos.y)][(int)floorf(pos.x) - 1]
 		&& map[(int)(pos.y)][(int)floorf(pos.x) - 1] == '1')
 		return (WE);
+	if (!BONUS)
+		return (NONE);
 	if (map[(int)(pos.y)][(int)floorf(pos.x) - 1]
 		&& map[(int)(pos.y)][(int)floorf(pos.x) - 1] == 'C')
 		return (CLOSE);
@@ -63,6 +69,8 @@ t_wall_type	get_north_wall_type(t_point pos, char **map)
 		return (NO);
 	if (map[(int)floorf(pos.y) - 1][(int)(pos.x)] == '1')
 		return (NO);
+	if (!BONUS)
+		return (NONE);
 	if (map[(int)floorf(pos.y) - 1][(int)(pos.x)] == 'C')
 		return (CLOSE);
 	if (map[(int)floorf(pos.y) - 1][(int)(pos.x)] == 'O')

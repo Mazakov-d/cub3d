@@ -6,7 +6,7 @@
 /*   By: mniemaz <mniemaz@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 13:12:09 by mniemaz           #+#    #+#             */
-/*   Updated: 2025/08/26 14:02:52 by mniemaz          ###   ########.fr       */
+/*   Updated: 2025/08/28 12:53:03 by mniemaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,6 @@
 #  define NB_TEXTURES 4
 #  define MAP_CHARS "NSEW01 "
 # endif
-
 
 typedef enum e_wall_type
 {
@@ -143,7 +142,7 @@ typedef struct s_mlx
 
 typedef struct s_texture_data
 {
-	t_img			walls[5];
+	t_img			walls[NB_TEXTURES];
 	unsigned long	floor_hexa;
 	unsigned long	ceiling_hexa;
 }					t_texture_data;
