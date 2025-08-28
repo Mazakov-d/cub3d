@@ -8,3 +8,4 @@ malloc_protection_checker
 *.txt
 a.out
 *callgrind*
+.bonus_flag
