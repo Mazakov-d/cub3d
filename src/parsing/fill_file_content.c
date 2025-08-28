@@ -6,7 +6,7 @@
 /*   By: mniemaz <mniemaz@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 14:09:25 by mniemaz           #+#    #+#             */
-/*   Updated: 2025/07/29 19:38:43 by mniemaz          ###   ########.fr       */
+/*   Updated: 2025/08/28 19:32:35 by mniemaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,12 @@ static void	line_add_back(t_line ***head_file_line, t_line *new_line)
 	last->next = new_line;
 }
 
+static int	return_free_on_err(t_line ***head_file_line)
+{
+	free_lines_lst(*head_file_line);
+	return (printf_err("fill_file_content1: %s\n", strerror(errno)));
+}
+
 /**
  * @brief Reads the file line by line and fills the linked list with each line.
  * @returns EXIT_SUCCESS on success, EXIT_FAILURE on error.
@@ -44,18 +50,21 @@ int	fill_file_content(t_line ***head_file_line, int fd)
 		return (printf_err("fill_file_content: %s\n", strerror(errno)));
 	**head_file_line = NULL;
 	str = get_next_line(fd);
+	if (errno != 0)
+		return (return_free_on_err(head_file_line));
 	while (str)
 	{
 		new_line = malloc(sizeof(t_line));
 		if (!new_line)
 		{
-			ft_free_tab((void **)*head_file_line);
 			free(str);
-			return (printf_err("fill_file_content: %s\n", strerror(errno)));
+			return (return_free_on_err(head_file_line));
 		}
 		new_line->line = rm_nl(str);
 		line_add_back(head_file_line, new_line);
 		str = get_next_line(fd);
+		if (errno != 0)
+			return (return_free_on_err(head_file_line));
 	}
 	return (EXIT_SUCCESS);
 }

@@ -6,7 +6,7 @@
 /*   By: mniemaz <mniemaz@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 10:47:36 by mniemaz           #+#    #+#             */
-/*   Updated: 2025/08/25 11:13:47 by mniemaz          ###   ########.fr       */
+/*   Updated: 2025/08/28 19:15:55 by mniemaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	free_lines_lst(t_line **head)
 	t_line	*prev;
 	t_line	*curr;
 
-	if (!head || !*head)
+	if (!head)
 		return ;
 	curr = *head;
 	while (curr)

@@ -6,7 +6,7 @@
 /*   By: mniemaz <mniemaz@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 14:12:36 by mniemaz           #+#    #+#             */
-/*   Updated: 2025/08/25 11:22:11 by mniemaz          ###   ########.fr       */
+/*   Updated: 2025/08/28 18:42:27 by mniemaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ static int	check_and_count_map_rows(t_line *line, int *nb_map_rows)
 	bool	user_found;
 
 	user_found = false;
-	*nb_map_rows = 0;
 	nb_empty_lines = 0;
 	curr_line = line;
 	while (curr_line)
@@ -59,6 +58,8 @@ static int	check_and_count_map_rows(t_line *line, int *nb_map_rows)
 			*nb_map_rows += nb_empty_lines + 1;
 			nb_empty_lines = 0;
 		}
+		if (ft_strlen(curr_line->line) > MAX_MAP_SIZE)
+			return (printf_err("Map too big !\n"));
 		curr_line = curr_line->next;
 	}
 	if (!user_found)
@@ -102,8 +103,11 @@ int	fill_map(t_context *ctx, t_line *map_start_line)
 {
 	int	nb_map_rows;
 
+	nb_map_rows = 0;
 	if (check_and_count_map_rows(map_start_line, &nb_map_rows) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
+	if (nb_map_rows > MAX_MAP_SIZE)
+		return (printf_err("Map too big !\n"));
 	ctx->map = get_filled_map(nb_map_rows, map_start_line);
 	if (!ctx->map)
 		return (EXIT_FAILURE);

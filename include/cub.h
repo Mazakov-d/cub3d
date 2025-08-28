@@ -6,7 +6,7 @@
 /*   By: mniemaz <mniemaz@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 13:12:09 by mniemaz           #+#    #+#             */
-/*   Updated: 2025/08/28 12:53:03 by mniemaz          ###   ########.fr       */
+/*   Updated: 2025/08/28 17:45:38 by mniemaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@
 
 # define SKY 0
 # define WALL 1
+# define MAX_MAP_SIZE 100
 # define WIN_SIZE_X 1920
 # define WIN_SIZE_Y 1080
 # define BUFFER_SIZE 1024

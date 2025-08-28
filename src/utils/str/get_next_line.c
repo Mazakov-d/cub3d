@@ -6,7 +6,7 @@
 /*   By: mniemaz <mniemaz@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 17:06:28 by mniemaz           #+#    #+#             */
-/*   Updated: 2025/07/28 15:08:38 by mniemaz          ###   ########.fr       */
+/*   Updated: 2025/08/28 19:15:51 by mniemaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,11 @@ char	*extract_line(char *buffer)
 		return (NULL);
 	nl_idx = ft_strchr_idx((const char *)buffer, '\n');
 	line = ft_strndup(buffer, nl_idx + (nl_idx >= 0));
+	if (!line)
+	{
+		buffer[0] = '\0';
+		return (NULL);
+	}
 	return (line);
 }
 
@@ -51,7 +56,6 @@ char	*read_file(char *str, char *buffer, int fd)
 	ssize_t	bytes_read;
 	char	*new_str;
 
-	bytes_read = -1;
 	while (ft_strchr_idx(buffer, '\n') == -1)
 	{
 		bytes_read = read(fd, buffer, BUFFER_SIZE);
@@ -66,6 +70,11 @@ char	*read_file(char *str, char *buffer, int fd)
 		buffer[bytes_read] = '\0';
 		new_str = ft_strjoin(str, buffer);
 		free(str);
+		if (!new_str)
+		{
+			buffer[0] = '\0';
+			return (NULL);
+		}
 		str = new_str;
 	}
 	return (str);

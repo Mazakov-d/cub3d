@@ -5,7 +5,7 @@ MLX_DIR=minilibx-linux
 BONUS_FLAG=.bonus_flag
 
 CC=cc
-CFLAGS=-Wall -Wextra -Werror -I$(INC_DIR) -I$(MLX_DIR)
+CFLAGS=-Wall -Wextra -Werror -g3 -I$(INC_DIR) -I$(MLX_DIR)
 
 MAKEFLAGS += --no-print-directory
 
@@ -53,7 +53,7 @@ libs:
 $(NAME): $(OBJS)
 	$(CC) $(OBJS) -L$(MLX_DIR) -lmlx_Linux -I$(MLX_DIR) -lXext -lX11 -lm -o $(NAME) -D BONUS=$(BONUS)
 
-check_bonus:
+check_bonus: 
 	@if [ -f $(BONUS_FLAG) ] && [ "`cat $(BONUS_FLAG)`" != "$(BONUS)" ]; then \
 		$(MAKE) clean_cub; \
 	fi
