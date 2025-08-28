@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_graphic.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmazari <dmazari@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mniemaz <mniemaz@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 15:32:17 by dmazari           #+#    #+#             */
-/*   Updated: 2025/08/26 11:14:27 by dmazari          ###   ########.fr       */
+/*   Updated: 2025/08/26 14:51:45 by mniemaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,20 @@ void	render_window_pxls(t_context *ctx)
 	set_player_angles(ctx);
 	handle_rays(ctx, draw_vertical_ray, WIN_SIZE_X);
 	display_2d_map(ctx);
+}
+
+static void	init_texture(t_context *ctx)
+{
+	if (open_image(&ctx->texture_data.walls[NO], ctx->mlx))
+		free_graphic(ctx);
+	if (open_image(&ctx->texture_data.walls[SO], ctx->mlx))
+		free_graphic(ctx);
+	if (open_image(&ctx->texture_data.walls[EA], ctx->mlx))
+		free_graphic(ctx);
+	if (open_image(&ctx->texture_data.walls[WE], ctx->mlx))
+		free_graphic(ctx);
+	if (BONUS && open_image(&ctx->texture_data.walls[CLOSE], ctx->mlx))
+		free_graphic(ctx);
 }
 
 void	init_graphic(t_context *ctx)

@@ -3,25 +3,37 @@
 /*                                                        :::      ::::::::   */
 /*   free_graphic.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmazari <dmazari@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mniemaz <mniemaz@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 16:11:35 by dmazari           #+#    #+#             */
-/*   Updated: 2025/08/25 18:03:22 by dmazari          ###   ########.fr       */
+/*   Updated: 2025/08/26 14:21:32 by mniemaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
-void	free_strs(char **strs)
+int	free_graphic(t_context *ctx)
 {
 	int	i;
 
 	i = 0;
-	while (strs && strs[i])
+	while (i < NB_TEXTURES)
 	{
-		if (strs[i])
-			free(strs[i]);
+		if (ctx->texture_data.walls[i].img_ptr)
+			mlx_destroy_image(ctx->mlx->mlx_ptr,
+				ctx->texture_data.walls[i].img_ptr);
 		i++;
 	}
-	free(strs);
+	if (ctx->mlx->img.img_ptr)
+		mlx_destroy_image(ctx->mlx->mlx_ptr, ctx->mlx->img.img_ptr);
+	if (ctx->mlx->win_ptr)
+	{
+		mlx_clear_window(ctx->mlx->mlx_ptr, ctx->mlx->win_ptr);
+		mlx_destroy_window(ctx->mlx->mlx_ptr, ctx->mlx->win_ptr);
+	}
+	mlx_destroy_display(ctx->mlx->mlx_ptr);
+	free(ctx->mlx->mlx_ptr);
+	free_context(ctx);
+	exit(EXIT_SUCCESS);
+	return (0);
 }

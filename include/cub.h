@@ -6,7 +6,7 @@
 /*   By: mniemaz <mniemaz@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 13:12:09 by mniemaz           #+#    #+#             */
-/*   Updated: 2025/08/26 11:05:23 by mniemaz          ###   ########.fr       */
+/*   Updated: 2025/08/26 14:46:21 by mniemaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@
 # define WIN_SIZE_Y 1080
 # define BUFFER_SIZE 1024
 # define HEXA_INIT_VAL 16777216
-# define MAP_CHARS "NSEW01OC "
 # define USER_CHARS "NSEW"
 # define EXIT_NEUTRAL 2
 # define SPACE 32
@@ -47,6 +46,17 @@
 # define MOUSE_SPEED 0.0005
 # define PI 3.14159265358979323846
 # define FOV_DEG 60
+# ifndef BONUS
+#  define BONUS 0
+# endif
+
+# if BONUS
+#  define NB_TEXTURES 5
+#  define MAP_CHARS "NSEW01OC "
+# else
+#  define NB_TEXTURES 4
+#  define MAP_CHARS "NSEW01 "
+# endif
 
 typedef enum e_wall_type
 {
@@ -177,9 +187,6 @@ int					check_flood_fill(t_context *ctx);
 t_line				*skip_spaces(t_line *line);
 bool				are_doors_surrounded_by_walls(char **map);
 bool				is_texture_data_filled(t_texture_data *tex_data);
-void				prep_to_fill_wall_types(t_texture_data **tex_data,
-						char **wall_type, char ***to_fill);
-int					fill_wall_types(t_texture_data *tex_data, char **lines_tab);
 
 /**
  * get_wall_types
@@ -227,7 +234,6 @@ int					fill_map(t_context *ctx, t_line *end_texture_data_line);
 size_t				ft_tablen(void **tab);
 char				**ft_strsdup(char **src);
 void				print_map_color(char **map, int row, int col);
-void				init_texture(t_context *ctx);
 int					open_image(t_img *img, t_mlx *mlx);
 
 /**

@@ -1,31 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   is_texture_data_filled.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mniemaz <mniemaz@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/28 13:59:15 by mniemaz           #+#    #+#             */
-/*   Updated: 2025/08/26 11:24:00 by mniemaz          ###   ########.fr       */
+/*   Created: 2025/08/26 13:34:36 by mniemaz           #+#    #+#             */
+/*   Updated: 2025/08/26 14:42:28 by mniemaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
-int	main(int ac, char **av)
+bool	is_texture_data_filled(t_texture_data *tex_data)
 {
-	t_context	ctx;
-
-	if (ac != 2)
-		return (printf_err("Usage: %s <map_file>\n", av[0]));
-	if (init_context(&ctx) == EXIT_FAILURE)
-		return (EXIT_FAILURE);
-	if (parse_file(&ctx, av[1]) == EXIT_FAILURE)
-	{
-		free_context(&ctx);
-		return (EXIT_FAILURE);
-	}
-	init_graphic(&ctx);
-	free_context(&ctx);
-	return (EXIT_SUCCESS);
+	if (BONUS && !tex_data->walls[CLOSE].img_name)
+		return (false);
+	return (tex_data->walls[NO].img_name && tex_data->walls[SO].img_name
+		&& tex_data->walls[EA].img_name && tex_data->walls[WE].img_name
+		&& tex_data->floor_hexa != HEXA_INIT_VAL
+		&& tex_data->ceiling_hexa != HEXA_INIT_VAL);
 }

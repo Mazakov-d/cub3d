@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fill_texture_data.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmazari <dmazari@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mniemaz <mniemaz@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 14:10:42 by mniemaz           #+#    #+#             */
-/*   Updated: 2025/08/25 12:05:16 by dmazari          ###   ########.fr       */
+/*   Updated: 2025/08/26 14:04:52 by mniemaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,52 @@ static int	fill_color(unsigned long *hexa, char *id, char *str_colors)
 		return (printf_err("Invalid color: '%s'\n", str_colors));
 	*hexa = (c.r << 16) | (c.g << 8) | c.b;
 	return (EXIT_SUCCESS);
+}
+
+static void	prep_to_fill_wall_types(t_texture_data **tex_data, char **wall_type,
+		char ***to_fill)
+{
+	wall_type[NO] = "NO";
+	wall_type[SO] = "SO";
+	wall_type[EA] = "EA";
+	wall_type[WE] = "WE";
+	to_fill[NO] = &((*tex_data)->walls[NO].img_name);
+	to_fill[SO] = &((*tex_data)->walls[SO].img_name);
+	to_fill[EA] = &((*tex_data)->walls[EA].img_name);
+	to_fill[WE] = &((*tex_data)->walls[WE].img_name);
+	if (BONUS)
+	{
+		wall_type[CLOSE] = "DO";
+		to_fill[CLOSE] = &((*tex_data)->walls[CLOSE].img_name);
+	}
+}
+
+/**
+ * @returns EXIT_SUCCESS if a direction was filled, EXIT_FAILURE on error,
+ * EXIT_NEUTRAL if nothing happened.
+ */
+static int	fill_wall_types(t_texture_data *tex_data, char **lines_tab)
+{
+	char	*wall_type[NB_TEXTURES];
+	char	**to_fill[NB_TEXTURES];
+	int		i;
+
+	prep_to_fill_wall_types(&tex_data, wall_type, to_fill);
+	i = -1;
+	while (++i < NB_TEXTURES)
+	{
+		if (ft_strncmp(lines_tab[0], wall_type[i], 3) != 0)
+			continue ;
+		if (*to_fill[i])
+			return (printf_err("Double texure: %s\n", wall_type[i]));
+		if (!lines_tab[1])
+			return (printf_err("No texture for: %s\n", wall_type[i]));
+		*to_fill[i] = ft_strdup(lines_tab[1]);
+		if (!*to_fill[i])
+			return (printf_err("fill_wall_type: %s\n", strerror(errno)));
+		return (EXIT_SUCCESS);
+	}
+	return (EXIT_NEUTRAL);
 }
 
 /**
