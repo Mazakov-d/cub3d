@@ -2,7 +2,7 @@ SRC_DIR=src
 INC_DIR=include
 OBJ_DIR=.obj
 MLX_DIR=minilibx-linux
-BONUS_FILE=.bonus_flag
+BONUS_FLAG=.bonus_flag
 
 CC=cc
 CFLAGS=-Wall -Wextra -Werror -I$(INC_DIR) -I$(MLX_DIR)
@@ -54,10 +54,10 @@ $(NAME): $(OBJS)
 	$(CC) $(OBJS) -L$(MLX_DIR) -lmlx_Linux -I$(MLX_DIR) -lXext -lX11 -lm -o $(NAME) -D BONUS=$(BONUS)
 
 check_bonus:
-	@if [ -f $(BONUS_FILE) ] && [ "`cat $(BONUS_FILE)`" != "$(BONUS)" ]; then \
+	@if [ -f $(BONUS_FLAG) ] && [ "`cat $(BONUS_FLAG)`" != "$(BONUS)" ]; then \
 		$(MAKE) clean_cub; \
 	fi
-	@echo $(BONUS) > $(BONUS_FILE)
+	@echo $(BONUS) > $(BONUS_FLAG)
 
 bonus:
 	@$(MAKE) BONUS=1 all
@@ -70,11 +70,11 @@ $(OBJ_DIR):
 
 clean:
 	$(MAKE) -C $(MLX_DIR) clean
-	rm -rf $(OBJ_DIR)
+	rm -rf $(OBJ_DIR) $(BONUS_FLAG)
 
 fclean: 
 	$(MAKE) -C $(MLX_DIR) clean
-	rm -rf $(OBJ_DIR) $(NAME)
+	rm -rf $(OBJ_DIR) $(NAME) $(BONUS_FLAG)
 
 clean_cub:
 	@rm -rf $(OBJ_DIR) $(NAME)
