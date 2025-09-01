@@ -5,7 +5,7 @@ MLX_DIR=minilibx-linux
 BONUS_FLAG=.bonus_flag
 
 CC=cc
-CFLAGS=-Wall -Wextra -Werror -g3 -I$(INC_DIR) -I$(MLX_DIR)
+CFLAGS=-Wall -Wextra -Werror -I$(INC_DIR) -I$(MLX_DIR)
 
 MAKEFLAGS += --no-print-directory
 

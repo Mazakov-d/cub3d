@@ -6,7 +6,7 @@
 /*   By: mniemaz <mniemaz@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 14:09:25 by mniemaz           #+#    #+#             */
-/*   Updated: 2025/08/28 19:32:35 by mniemaz          ###   ########.fr       */
+/*   Updated: 2025/09/01 10:43:18 by mniemaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static void	line_add_back(t_line ***head_file_line, t_line *new_line)
 static int	return_free_on_err(t_line ***head_file_line)
 {
 	free_lines_lst(*head_file_line);
-	return (printf_err("fill_file_content1: %s\n", strerror(errno)));
+	return (printf_err("fill_file_content: %s\n", strerror(errno)));
 }
 
 /**
