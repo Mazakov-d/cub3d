@@ -6,6 +6,7 @@ Cub3D is a simple 3D game engine based on raycasting technique, inspired by clas
  - Texture mapping
  - Mini-map
  - Player movement and rotation
+ - Doors interaction
  - Configurable via map files
 # How to run
  - Clone the project
@@ -30,6 +31,7 @@ Cub3D is a simple 3D game engine based on raycasting technique, inspired by clas
  - D: Strafe right
  - Left Arrow: Rotate left
  - Right Arrow: Rotate right
+ - SPACE: Open/Close doors
  - ESC: Exit the game
 # DEMO
 https://github.com/user-attachments/assets/e5709884-6e15-442a-8bd3-48bd9f3f5054
