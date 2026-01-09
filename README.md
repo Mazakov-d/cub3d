@@ -1,6 +1,6 @@
 This project has been created as part of the 42 curriculum by [mniemaz (POLEC4T)](https://github.com/POLEC4T) and [dmazari](https://github.com/mazakov-d)
 # Cub3D
-Cub3D is a simple 3D game engine based on raycasting technique, inspired by classic games like Wolfenstein 3D. It allows players to navigate through a 2D map rendered in a 3D perspective.
+A 3D game built from scratch in C using raycasting techniques, inspired by the classic game Wolfenstein 3D.
 # Features
  - Raycasting
  - Texture mapping
